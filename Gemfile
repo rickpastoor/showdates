@@ -12,6 +12,7 @@ gem 'sinatra-flash'
 gem 'dotenv', '~> 2.0.2'
 gem 'bugsnag'
 gem 'erubis'
+gem 'digest-whirlpool'
 
 group :test do
   gem 'cucumber'

@@ -1,0 +1,19 @@
+<div class="center light-text log-in">
+
+<h1>Hello. Welcome to Showdates.</h1>
+
+<div class="btns-outer"><a href="/login/facebook" class="btn-login btn-facebook">Log in with Facebook</a><a href="/login/twitter" class="btn-login btn-twitter">Log in with Twitter</a></div>
+
+<p>Old school? Log in using your credentials below.</p>
+
+{errors}
+
+<form action="/login" method="post">
+
+<input type="text" name="username" placeholder="E-mailaddress or username" /><br />
+<input type="password" name="password" placeholder="Password" /><br />
+<input type="submit" value="Log In" class="btn" /> <a href="/account/resetpassword">Forgot your password?</a>
+
+</form>
+
+</div>

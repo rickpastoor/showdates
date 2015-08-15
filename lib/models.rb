@@ -1,6 +1,10 @@
 require 'sequel'
+require 'digest/whirlpool'
 
 class SDUser < Sequel::Model(:users)
+  def check_password(password)
+    self.password == Digest::Whirlpool.hexdigest(password + ENV['PASSWORD_SALT'])
+  end
 end
 
 class SDEpisode < Sequel::Model(:episodes)

@@ -23,7 +23,7 @@ run Rack::URLMap.new({
   '/' => ShowdatesApp,
   #'/account' => AccountController,
   #'/couch' => CouchController,
-  #'/login' => LoginController,
+  '/login' => LoginController,
   #'/logout' => LogoutController,
   #'/profile' => ProfileController,
   #'/signup' => SignupController,
