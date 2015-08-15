@@ -32,9 +32,47 @@
 </head>
 
 <body>
-  {header}
+  <% if request.fullpath != '/login' %>
+  <header>
+    <div class="container">
+    <ul class="main-menu">
+      <li><a href="couch" class="menu-button{couchSelected}">{firstButtonTitle}</a></li>
+      <li><a href="shows" class="menu-button{showsSelected}">Shows</a></li>
+    </ul>
 
-	{notice}
+    <ul class="user-menu">
+      <li><input type="text" name="search" class="placeholder menu-search" autocomplete="off" data-placeholder="Search Shows" /></li>
+      <li class="search-menu-item">
+        <a href="shows/search"><img src="img/icon-search.png" /></a>
+      </li>
+
+      <% if is_user? %>
+      <li class="avatar-menu-item">
+
+        <a href="javascript:;" id="avatar-item">
+            <div class="arrow-down"></div>
+            <img src="static/BUser/%user_id%/avatar?{lastAvatarUpdate}" class="avatar" alt="%name%" />
+        </a>
+
+        <div id="account-menu">
+          <ul>
+            {profileLink}
+            <li><a href="settings">Settings</a></li>
+            <li><a href="account/logout">Log Out</a></li>
+          </ul>
+        </div>
+      </li>
+      <% else %>
+        <li><a href="login" class="menu-button">Log in</a></li>
+      <% end %>
+    </ul>
+    <div class="clear"></div>
+  </div>
+  </header>
+  <div class="push"></div>
+  <% end %>
+
+	<!-- flash: {notice} -->
 
 	<div id="main" role="main">
 	    <div class="container">
