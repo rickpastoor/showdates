@@ -1,0 +1,86 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns# {namespace}:
+    http://ogp.me/ns/apps/{namespace}#">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title><%= title %></title>
+	<meta name="description" content="<%= description %>">
+	<meta name="keywords" content="television shows, new tv episodes, shows, episodes, favorite television series, tv show tracker">
+	<meta name="author" content="Rick Pastoor">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+
+  <meta property="fb:app_id" content="{fb_appid}" />
+  <meta property="og:type" content="{og_type}" />
+  <meta property="og:title" content="{og_title}" />
+  <meta property="og:image" content="{og_image}" />
+  <meta property="og:description" content="{og_desc}" />
+  <meta property="og:url" content="%base%{og_url}">
+
+  <meta name="apple-itunes-app" content="app-id=741292763">
+
+	<link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon-precomposed" href="/img/touch-icon-iphone-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/touch-icon-ipad-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/touch-icon-iphone4-precomposed.png" />
+
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  {header}
+
+	{notice}
+
+	<div id="main" role="main">
+	    <div class="container">
+        <%== yield %>
+	    </div>
+	</div>
+
+    <footer role="contentinfo">
+    	<div class="container">
+			<p class="left">&copy; 2015 Showdates by <a href="http://rickpastoor.nl/" target="blank">Rick Pastoor</a> &middot; Data by <a href="http://www.thetvdb.com" target="blank">TheTVDB</a> <span class="collapse">&middot; Tracking {numShows} shows and {numEpisodes} episodes</span><br />
+			<a href="http://blog.showdates.me" target="blank">Blog</a> &middot; <a href="http://twitter.com/shwdts" target="blank">Twitter</a> &middot; <a href="https://www.facebook.com/pages/Showdates/310379149011574" target="blank">Facebook</a> &middot; <a href="about/terms">Terms of Service</a> &middot; <a href="about/privacy">Privacy Policy</a>
+		</div>
+    </footer>
+<!--
+    <script src="js/frontend.js?r%rev%"></script>
+    <script src="js/search.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			{handlers}
+		});
+	</script>-->
+
+	<script>
+		var _gaq=[['_setAccount','UA-27760127-1'],['_trackPageview'],['_trackPageLoadTime']];
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g,s)}(document,'script'));
+	</script>
+
+	<script>
+	if (document.documentElement.clientWidth >= 550)
+	{
+		(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/i2esdiJ48OUDvdy4KGT0Q.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()
+
+		UserVoice = window.UserVoice || [];
+		UserVoice.push(['showTab', 'classic_widget', {
+		  mode: 'feedback',
+		  primary_color: '#cc6d00',
+		  link_color: '#007dbf',
+		  forum_id: 203248,
+		  tab_label: 'Feedback',
+		  tab_color: '#cc6d00',
+		  tab_position: 'middle-left',
+		  tab_inverted: false
+		}]);
+	}
+	</script>
+</body>
+</html>

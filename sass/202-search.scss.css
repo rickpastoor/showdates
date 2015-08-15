@@ -1,0 +1,21 @@
+.mod-search {
+	max-width: 400px;
+}
+
+.search-form {
+	max-width: 100%;
+	padding-right: 13px;
+}
+
+.search-form input[type="text"] {
+	width: 100%;
+	font-size: 14px;
+	border: 1px solid #c0c0c0;
+	padding: 6px;
+	outline: 0;
+	border-radius: 3px;
+}
+
+.mod-search .box {
+	margin-right: 0;
+}

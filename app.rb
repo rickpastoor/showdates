@@ -32,18 +32,22 @@ class ShowdatesApp < Sinatra::Base
     # If @title is assigned, add it to the page's title.
     def title
       if @title
-        "#{@title} / Menifesto"
+        "#{@title} / Showdates"
       else
-        "Menifesto"
+        "Showdates"
+      end
+    end
+
+    def description
+      if @description
+        @description
+      else
+        "Showdates helps you keep track of your favorite television shows. Record which episodes you have seen and always know when the next one will air."
       end
     end
 
     def is_user?
       @user != nil
-    end
-
-    def is_confirmed?
-    	@user.confirmed == true
     end
   end
 

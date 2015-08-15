@@ -1,0 +1,196 @@
+/* Login buttons */
+.btns-outer {
+    padding: 4px;
+    box-shadow: inset 0px 3px 7px 0 #ddd;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    display: inline-block;
+    height: 41px;
+    margin: 10px 0;
+}
+
+div.btns-outer-fancybox {
+	margin: 5px;
+}
+
+.btn-login {
+    float: left;
+    width: 300px;
+    font-size: 22px;
+    padding: 6px 10px;
+    color: #fff !important;
+    text-decoration: none;
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.8);
+    font-weight: bold;   
+    text-align: center;
+}
+
+.btn-login:hover {
+	text-decoration: none;
+	color: #e4e8e8 !important;
+}
+
+.btn-login:active {
+    margin-top: 2px;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.btn-facebook {
+    border-radius: 5px 0px 0px 5px;
+    background: #3B5998;
+    background-image: -o-linear-gradient(bottom, #3B5998 50%, #3e5ea3 100%);
+	background-image: -moz-linear-gradient(bottom, #3B5998 50%, #3e5ea3 100%);
+	background-image: -webkit-linear-gradient(bottom, #3B5998 50%, #3e5ea3 50%);
+	background-image: -ms-linear-gradient(bottom, #3B5998 50%, #3e5ea3 100%);
+	background-image: linear-gradient(bottom, #3B5998 50%, #3e5ea3 100%);
+    box-shadow: 0px 2px 0px 0px #2b4274;
+}
+
+a.btn-facebook-fancybox {
+	border-radius: 5px;
+	max-width: 370px;
+}
+
+@media all and (min-width: 650px) {
+	a.btn-facebook-fancybox {
+		height: 27px;
+		font-size: 20px;
+		vertical-align: middle;
+		line-height: 1.4;
+	}
+}
+
+.btns-outer-profile {
+	height: 50px !important;
+	margin: 0;
+}
+
+@media all and (min-width: 650px) {
+	.btns-outer-profile {
+		height: 32px !important;
+		margin: 0;
+	}
+}
+
+a.btn-facebook-profile {
+	border-radius: 5px;
+	max-width: 330px;
+	font-size: 15px;
+}
+
+@media all and (max-width:550px) {
+	.fb-content .btns-outer {
+		height: 48px;
+	}
+	
+	.fb-content a.btn-facebook-fancybox {
+		border-radius: 5px;
+		width: 200px;
+		font-size: 14px;
+	}
+}
+
+.btn-twitter {
+    border-radius: 0px 5px 5px 0px;
+    background: #32C1F0;
+    background-image: -o-linear-gradient(bottom, #32C1F0 50%, #31c3fa 100%);
+	background-image: -moz-linear-gradient(bottom, #32C1F0 50%, #31c3fa 100%);
+	background-image: -webkit-linear-gradient(bottom, #32C1F0 50%, #31c3fa 50%);
+	background-image: -ms-linear-gradient(bottom, #32C1F0 50%, #31c3fa 100%);
+	background-image: linear-gradient(bottom, #32C1F0 50%, #31c3fa 100%);
+    box-shadow: 0px 2px 0px #29a2ca;
+}
+
+@media all and (max-width: 690px) {
+	.btns-outer {
+		height: 81px;
+	}
+	
+	.btn-login {
+		clear: both;
+		display: block;
+		width: 240px;
+	}
+	
+	.btn-facebook:active {
+		padding-bottom: 4px;
+	}
+	
+	.btn-facebook {
+		border-radius: 5px 5px 0px 0px;
+	}
+	
+	.btn-twitter {
+		border-radius: 0px 0px 5px 5px;
+	}
+}
+
+/* Login buttons displayed on the front page */
+.btns-home-outer {
+	float: right;
+    padding: 4px;
+    box-shadow: inset 0px 3px 7px 0 #ddd;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    display: inline-block;
+    margin: 10px 10px 0 0;
+    width: 321px;
+    height: 81px;
+}
+
+.btns-home-outer .btn-login {
+	clear: both;
+	display: block;
+    width: 300px;
+    font-size: 22px;
+    padding: 6px 10px;
+    color: #fff !important;
+    text-decoration: none;
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.8);
+    font-weight: bold;   
+    text-align: center;
+}
+
+@media all and (max-width: 390px) {
+	.btns-home-outer {
+		width: 260px;
+		float: none;
+	}
+	
+	.btns-home-outer .btn-login {
+		width: 240px;
+	}
+}
+
+.btns-home-outer .btn-login:active {
+    margin-top: 2px;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.btns-home-outer .btn-facebook {
+    border-radius: 5px 5px 0px 0px;
+    background: #3B5998;
+    background-image: -o-linear-gradient(bottom, #3B5998 50%, #3e5ea3 100%);
+	background-image: -moz-linear-gradient(bottom, #3B5998 50%, #3e5ea3 100%);
+	background-image: -webkit-linear-gradient(bottom, #3B5998 50%, #3e5ea3 50%);
+	background-image: -ms-linear-gradient(bottom, #3B5998 50%, #3e5ea3 100%);
+	background-image: linear-gradient(bottom, #3B5998 50%, #3e5ea3 100%);
+    box-shadow: 0px 2px 0px 0px #2b4274;
+}
+
+.btns-home-outer .btn-twitter {
+    border-radius: 0px 0px 5px 5px;
+    background: #32C1F0;
+    background-image: -o-linear-gradient(bottom, #32C1F0 50%, #31c3fa 100%);
+	background-image: -moz-linear-gradient(bottom, #32C1F0 50%, #31c3fa 100%);
+	background-image: -webkit-linear-gradient(bottom, #32C1F0 50%, #31c3fa 50%);
+	background-image: -ms-linear-gradient(bottom, #32C1F0 50%, #31c3fa 100%);
+	background-image: linear-gradient(bottom, #32C1F0 50%, #31c3fa 100%);
+    box-shadow: 0px 2px 0px #29a2ca;
+}
+
+.btns-home-outer .btn-facebook:active {
+	padding-bottom: 4px;	
+}

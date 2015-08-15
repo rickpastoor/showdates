@@ -1,0 +1,351 @@
+/* Common */
+.imageborder {
+	background-color: #fff;
+	padding: 1px;
+	border: 1px solid #ccc;
+}
+
+.box {
+	background-color: #f1f2f2;
+	margin: 10px 0 0 0;
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+}
+
+@media all and (min-width: 550px) {
+	.box {
+		margin: 10px 9px 0 1px;
+	}
+}
+
+.box h4 {
+	padding: 7px;
+	margin: 0;
+	background-color: #fff;
+	font-size: 14px;
+}
+
+.box h4 span {
+	font-weight: normal;
+	font-size: 12px;
+	color: #aaa;
+}
+
+.box.last-item {
+	margin-right: -1px;
+}
+
+.boxList li {
+	padding: 7px;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #ccc;
+	min-height: 55px;
+}
+
+.boxList li:last-child {
+	border-bottom: none;
+}
+
+.box .show-genres {
+	line-height: 1.2;
+	font-size: 10px;
+	color: #454545;
+}
+
+.label {
+	float: right;
+	font-size: 10px;
+	margin-left: 3px;
+	padding: 3px;
+	color: #fff;
+	border-radius: 2px;
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	text-shadow: none;
+	font-weight: bold;
+	position: relative;
+}
+
+.label.date {
+	background-color: #7fb22d;
+}
+
+.label.newseries {
+	background-color: #fba408;
+}
+
+.label.season {
+	background-color: #4982ee;
+}
+
+.label.following {
+	background-color: #fba408;
+}
+
+.label.ended {
+	background-color: #62615b;
+}
+
+.label.continuing {
+	background-color: #7fb22d;
+}
+
+/* @group Horizontal options bar */
+.mod-bar {
+	margin: 10px 1px 0 1px;
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+	background-color: #fff;
+	font-size: 14px;
+}
+
+.mod-bar ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.mod-bar ul li {
+	display: inline-block;
+	border-right: 1px solid #f2f3f3;
+}
+
+.mod-bar ul li:last-child {
+	border-right: none;
+}
+
+.mod-bar ul li a {
+	color: #535353;
+	padding: 10px 12px;
+	display: inline-block;
+}
+
+.mod-bar ul li a.active, .mod-bar ul li a:hover {
+	color: #0086de;
+	text-decoration: none;
+}
+
+.bar-genres {
+	display: none;
+}
+
+.bar-status ul, .bar-charselector ul {
+	border-top: 1px solid #f2f3f3;
+}
+
+.bar-charselector ul li a {
+	padding: 10px 8px;
+	text-transform: capitalize;
+}
+/* @end */
+
+.genre-dropdown {
+	margin: 0;
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+	background-color: #fff;
+	font-size: 14px;
+	display: inline-block;
+	list-style: none;
+	padding: 3px 0;
+	position: absolute;
+	right: 0;
+	z-index: 500;
+	width: 200px;
+	display: none;
+}
+
+.genre-dropdown li {
+	margin: 0;
+}
+
+.genre-dropdown li a {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 12px;
+}
+
+.genre-dropdown li a.active, .genre-dropdown li a:hover {
+	color: #0086de;
+	text-decoration: none;
+}
+
+#genreSelector {
+	width: 100%;
+	margin: 15px 0 5px 0;
+}
+
+@media all and (min-width: 810px) {
+	#genreSelector {
+		display: none;
+	}
+	
+	.mod-bar {
+		display: block;
+	}
+	
+	.bar-genres {
+		display: block;
+	}
+	
+	.bar-status ul {
+		border-top: none;
+	}
+	
+	.bar-inline {
+		display: inline-block;
+	}
+}
+
+/* Most popular images list */
+.mostPopularContainer {
+	overflow: hidden;
+	margin: -20px 0 8px 1px;
+}
+
+.mostPopular {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	height: 191px;
+	width: 800px;
+}
+
+.mostPopular li {
+	display: inline;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+.mostPopular li a {
+	width: 133px;
+	height: 191px;
+	display: inline-block;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+/* Showlist common */
+.showList {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	width: 100%;
+}
+
+.showList li {
+	clear: both;
+	position: relative;
+}
+
+.showList li:hover {
+	background-color: #f4f6f6;
+}
+
+.showList li img {
+	float: left;
+	margin: 0 5px 5px 0;
+	width: 35px;
+	height: 51px;
+	position: relative;
+}
+
+.showList .episode {
+	font-size: 10px;
+}
+
+.showList .show {
+	font-weight: bold;
+	position: relative;
+}
+
+.showList .following {
+	font-size: 10px;
+	color: #5c5c5c;
+}
+
+/* Follow button */
+.btn-follow-tiny, .btn-follow-tiny:visited {
+	position: absolute;
+	bottom: 6px;
+	right: 7px;
+	padding: 3px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 10px;
+	background: #3e3c3f;
+	background-image: linear-gradient(bottom, rgb(0,0,0) 49%, rgb(38,38,38) 50%);
+	background-image: -o-linear-gradient(bottom, rgb(0,0,0) 49%, rgb(38,38,38) 50%);
+	background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 49%, rgb(38,38,38) 50%);
+	background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 49%, rgb(38,38,38) 50%);
+	background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 49%, rgb(38,38,38) 50%);
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.49, rgb(0,0,0)),
+		color-stop(0.5, rgb(38,38,38))
+	);
+
+	border-radius: 2px;
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	text-shadow: none;	
+}
+
+@media all and (min-width: 550px) {
+	.btn-follow-tiny, .btn-follow-tiny:visited {
+		display: none;
+	}
+}
+
+.btn-follow-tiny:hover {
+	color: #fff;
+	text-decoration: none;
+	
+	background-image: linear-gradient(bottom, rgb(0,0,0) 48%, rgb(31,31,31) 50%);
+	background-image: -o-linear-gradient(bottom, rgb(0,0,0) 48%, rgb(31,31,31) 50%);
+	background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 48%, rgb(31,31,31) 50%);
+	background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 48%, rgb(31,31,31) 50%);
+	background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 48%, rgb(31,31,31) 50%);
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.48, rgb(0,0,0)),
+		color-stop(0.5, rgb(31,31,31))
+	);
+}
+
+.shows-list {
+	list-style: none;
+	padding: 6px 11px;
+	margin: 15px 0 0 0;
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+	background-color: #fff;
+}
+
+.shows-list li {
+	padding: 4px 0 11px 0;
+}
+
+@media all and (min-width: 550px) {
+	.shows-list li {
+		width: 420px;
+	}
+}
