@@ -1,0 +1,16 @@
+# Rakefile
+require 'dotenv/tasks'
+
+namespace :db do
+  desc "Run migrations"
+  task :migrate => :dotenv do
+    require "sequel"
+    Sequel.extension :migration
+
+    socket = ENV["DATABASE_SOCKET"]
+    db = Sequel.connect(ENV["DATABASE_URL"], :socket => socket)
+
+    puts "Migrating to latest"
+    Sequel::Migrator.run(db, "db/migrations")
+  end
+end
