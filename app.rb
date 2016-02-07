@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sinatra/flash'
 
 require_relative 'lib/setup'
 require_relative 'lib/models'
@@ -13,6 +14,8 @@ class ShowdatesApp < Sinatra::Base
   set :sessions, :domain => ENV['COOKIE_DOMAIN']
 
   set :erb, :escape_html => true
+
+  register Sinatra::Flash
 
   configure :development do
     register Sinatra::Reloader
