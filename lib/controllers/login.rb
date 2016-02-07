@@ -15,10 +15,14 @@ class LoginController < ShowdatesApp
       redirect '/login'
     end
 
-    if user.check_password(params[:password])
-      session[:user_id] = user.id
+    if !user.check_password(params[:password])
+      flash[:error] = "We couldn't find a user with these credentials!"
 
-      redirect '/couch'
+      redirect '/login'
     end
+
+    session[:user_id] = user.id
+
+    redirect '/couch'
   end
 end
