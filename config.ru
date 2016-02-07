@@ -21,7 +21,7 @@ Dir.glob('./lib/controllers/*.rb').each { |file| require file }
 
 run Rack::URLMap.new({
   '/' => ShowdatesApp,
-  #'/account' => AccountController,
+  '/account' => AccountController,
   #'/couch' => CouchController,
   '/login' => LoginController,
   #'/logout' => LogoutController,
