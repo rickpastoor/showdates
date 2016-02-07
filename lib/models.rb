@@ -3,7 +3,7 @@ require 'digest/whirlpool'
 
 class SDUser < Sequel::Model(:users)
   def check_password(password)
-    self.password == Digest::Whirlpool.hexdigest(password + ENV['PASSWORD_SALT'])
+    self.password == `php php/whirlpool.php #{Shellwords.escape(password + ENV['PASSWORD_SALT'])}`
   end
 end
 
