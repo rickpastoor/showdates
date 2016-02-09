@@ -13,6 +13,9 @@ gem 'dotenv', '~> 2.0.2'
 gem 'bugsnag'
 gem 'erubis'
 gem 'digest-whirlpool'
+gem 'httparty'
+gem 'rubyzip'
+gem 'nokogiri'
 
 group :test do
   gem 'cucumber'
