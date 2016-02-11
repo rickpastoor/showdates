@@ -1,5 +1,4 @@
 require 'sequel'
-require 'digest/whirlpool'
 
 class SDUser < Sequel::Model(:users)
   def check_password(password)
