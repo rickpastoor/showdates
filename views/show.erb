@@ -1,0 +1,73 @@
+<div style="background-image: url(static/BShow/{id}/banner);" class="show-imageheading">
+	<div class="show-imageheading-text">
+		<div class="show-imageheading-text-inner">
+			<h1 class="show-heading"><%= @show.title %></h1>
+
+			{followButton}
+
+			<p class="genres">{genres}</p>
+		</div>
+
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div class="show-description-outer{hasNetworkIcon}">
+	{networkIcon}
+
+	<div>
+		<%= @show.description %>
+	</div>
+</div>
+
+<div class="rightcolumn">
+
+	<div class="infobox">
+		<p><%= @show.seasons.length %> seasons with <%= @show.episodes.length %> episodes listed.</p>
+		<p>First Aired: <%= @show.firstaired %></p>
+		<p>Status: <%= @show.status %></p>
+	</div>
+
+  <% if @user %>
+  <div class="infobox">
+<p>You have seen %episodeStatus%.</p>
+</div>
+<div class="infobox infobox-special">
+<p><a href="show/markall/id:%id%">I've watched all aired episodes</a></p>
+</div>
+  <% end %>
+
+  <ul class="followers">
+    <% @show.followers.each do |follower| %>
+      <li><a href="%profile%"><img src="static/BUser/<%= follower.id %>/avatar" class="tt" title="<%= follower.firstname %><%= follower.lastname %>" /></a></li>
+    <% end %>
+  </ul>
+<div class="clear"></div>
+
+<h4>Related Shows</h4>
+<div class="infobox">
+<ul class="show-suggestions">
+  <li>
+  <a href="%url%"><img src="static/BShow/%show_id%/poster/size:35x0" class="imageborder" /></a>
+  <p><a href="%url%"><strong>%title%</strong></a><br />
+  <span class="following">%followers%</span></p>
+  <div class="clear"></div>
+  </li>
+</ul>
+</div>
+</div>
+
+<div class="leftcolumn">
+	<ul class="list-episodes">
+    <% @show.seasons.each do |season| %>
+    <li class="season%specials%"><%= season.formatted_title %> <a id="season-<%= season.id %>" href="show/%unwatched%season/id:%season_id%" class="button-link button-season-tick season-%watched%" data-seasonpartialwatched="%partial%"><img src="img/%watched%.png"></a></li>
+    <ul>
+        <% season.episodes.each do |episode| %>
+          <li><p><a href="{episode_url}"><%= episode.title %></a></p>{watched}{binsearch}<span class="date{dateClass}"><%= episode.firstaired %></span></li>
+        <% end %>
+    </ul>
+    <% end %>
+	</ul>
+</div>
+
+<div class="clear"></div>

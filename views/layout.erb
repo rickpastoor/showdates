@@ -36,8 +36,8 @@
   <header>
     <div class="container">
     <ul class="main-menu">
-      <li><a href="couch" class="menu-button{couchSelected}">{firstButtonTitle}</a></li>
-      <li><a href="shows" class="menu-button{showsSelected}">Shows</a></li>
+      <li><a href="/couch" class="menu-button{couchSelected}">{firstButtonTitle}</a></li>
+      <li><a href="/shows" class="menu-button{showsSelected}">Shows</a></li>
     </ul>
 
     <ul class="user-menu">
@@ -57,13 +57,13 @@
         <div id="account-menu">
           <ul>
             {profileLink}
-            <li><a href="settings">Settings</a></li>
-            <li><a href="account/logout">Log Out</a></li>
+            <li><a href="/settings">Settings</a></li>
+            <li><a href="/account/logout">Log Out</a></li>
           </ul>
         </div>
       </li>
       <% else %>
-        <li><a href="login" class="menu-button">Log in</a></li>
+        <li><a href="/login" class="menu-button">Log in</a></li>
       <% end %>
     </ul>
     <div class="clear"></div>
