@@ -2,9 +2,11 @@ require 'bundler/setup'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/flash'
+require 'tzinfo'
 
 require_relative 'lib/setup'
 require_relative 'lib/models'
+require_relative 'lib/couchbuilder'
 
 class ShowdatesApp < Sinatra::Base
   enable :sessions
