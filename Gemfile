@@ -15,10 +15,3 @@ gem 'erubis'
 gem 'httparty'
 gem 'rubyzip'
 gem 'nokogiri'
-
-group :test do
-  gem 'cucumber'
-  gem 'rspec-expectations'
-  gem 'rspec-mocks'
-  gem 'launchy'
-end
