@@ -9,8 +9,17 @@ class SDUser < Sequel::Model(:users)
 
   def to_local_time(time)
     tz = TZInfo::Timezone.get(self.timezone)
-    puts tz.inspect
     tz.utc_to_local(time)
+  end
+
+  def providerurl_for_episode(episode)
+    replacements = {
+      "{show}" => episode.show.title,
+      "{episodeCode}" => episode.episode_code,
+      "{episodeCodeFull}" => episode.episode_code_full
+    }
+
+    self.providerurl.gsub(/{show}|{episodeCode}|{episodeCodeFull}/) { |m| replacements.fetch(m,m)}
   end
 end
 
@@ -18,6 +27,14 @@ class SDEpisode < Sequel::Model(:episodes)
   many_to_one :show, { :class => :SDShow }
   many_to_one :season, { :class => :SDSeason }
   one_to_many :watchers, { :class => :SDUserEpisode }
+
+  def episode_code
+    sprintf('S%02dE%02d', self.season.title, self.order);
+  end
+
+  def episode_code_full
+    sprintf('season %d episode %d', self.season.title, self.order);
+  end
 end
 
 class SDUserEpisode < Sequel::Model(:user_episode)

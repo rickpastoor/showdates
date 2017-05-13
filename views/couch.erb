@@ -5,7 +5,26 @@
 <p>This list shows the next episode for every show you follow and haven't watched yet.</p>
 
 <ul class="list-couch">
-<%== @couch.inspect %>
+
+<% if @couch[:aired].count > 0 %>
+<li>Watchlist</li>
+<ul id="section-watchlist">
+
+  <% @couch[:aired].each do |show_id, ep| %>
+    <li id="episode-<%= ep[:episode].id %>" class="show-<%= ep[:episode].show.id %>" data-timestamp="{timestamp}">
+    	<p><span class="date date-past"><%= ep[:episode].firstaired.strftime("%d %b %Y") %></span>
+    	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
+    	<a href="{show_url}"><%= ep[:episode].show.title %></a> &ndash; <a href="{episode_url}"><%= ep[:episode].title %></a></p>
+    	<a href="/episode/watched/<%= ep[:episode].id %>" class="button-link link-episode episode-tick episode-shownext" data-episodeid="<%= ep[:episode].id %>"><img src="img/unwatched.png" /></a>
+
+      <% if @user.providerurl %>
+        <a href="<%= @user.providerurl_for_episode(ep[:episode]) %>" class="button-link link-episode button-binsearch" target="blank"><img src="img/link.png" /></a>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% end %>
+
 </ul>
 
 <!--<p class="couch-buttons-footer"><a class="btn btn-white" href="webcal://%frontendUrl%/feed/ical/user:%user_id%/key:%key%" title="Add Showdates to your calendar">iCal Feed</a></p>-->
