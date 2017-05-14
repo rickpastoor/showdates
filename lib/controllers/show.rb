@@ -1,5 +1,5 @@
 class ShowController < ShowdatesApp
-  get '/:id/:slug' do
+  get '/:id' do
     @show = SDShow[params[:id]]
 
     erb :'show'
