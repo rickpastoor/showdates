@@ -1,5 +1,7 @@
 require 'sequel'
 
+Sequel::Model.plugin :timestamps, :update_on_create => true, :create => :created, :update => :edited
+
 class SDUser < Sequel::Model(:users)
   many_to_many :following, { :class => :SDShow, :join_table => :user_show, :left_key => :user_id, :right_key => :show_id }
 
