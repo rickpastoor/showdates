@@ -25,6 +25,18 @@
   </ul>
 <% end %>
 
+<% if @couch[:tobeaired].count > 0 %>
+  <li>To Be Aired</li>
+  <ul id="section-tba">
+    <% @couch[:tobeaired].each do |show_id, ep| %>
+      <li id="episode-<%= ep[:episode].id %>" class="show-<%= ep[:episode].show.id %>" data-timestamp="{timestamp}">
+      	<p><span class="date"><%= ep[:episode].firstaired.strftime("%d %b %Y") %></span>
+      	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
+      	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="{episode_url}"><%= ep[:episode].title %></a></p>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 </ul>
 
 <!--<p class="couch-buttons-footer"><a class="btn btn-white" href="webcal://%frontendUrl%/feed/ical/user:%user_id%/key:%key%" title="Add Showdates to your calendar">iCal Feed</a></p>-->

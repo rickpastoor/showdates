@@ -44,6 +44,7 @@
   </ul>
 <div class="clear"></div>
 
+<!--
 <h4>Related Shows</h4>
 <div class="infobox">
 <ul class="show-suggestions">
@@ -55,18 +56,42 @@
   </li>
 </ul>
 </div>
+-->
 </div>
 
 <div class="leftcolumn">
 	<ul class="list-episodes">
-    <% @show.seasons.each do |season| %>
-    <li class="season%specials%"><%= season.formatted_title %> <a id="season-<%= season.id %>" href="show/%unwatched%season/id:%season_id%" class="button-link button-season-tick season-%watched%" data-seasonpartialwatched="%partial%"><img src="img/%watched%.png"></a></li>
-    <ul>
-        <% season.episodes.each do |episode| %>
-          <li><p><a href="{episode_url}"><%= episode.title %></a></p>{watched}{binsearch}<span class="date{dateClass}"><%= episode.firstaired %></span></li>
-        <% end %>
-    </ul>
-    <% end %>
+		<%= @episodes_dataset.inspect %>
+
+		<%
+			current_season = nil
+		 	@episodes_dataset.each do |episode| %>
+			<% if episode[:season_id] != current_season
+				if current_season != nil %>
+					</ul>
+				<% end
+				current_season = episode[:season_id] %>
+
+				<li class="season%specials%"><%= episode.season.formatted_title %> <a id="season-<%= episode.season.id %>" href="show/%unwatched%season/id:<%= episode.season.id %>" class="button-link button-season-tick season-%watched%" data-seasonpartialwatched="%partial%"><img src="img/%watched%.png"></a></li>
+		    <ul>
+			<% end %>
+
+			<li>
+				<p><a href="/episode/<%= episode.id %>"><%= episode[:episode_title] %></a></p>
+
+				<% if episode[:watched] %>
+					<a href="/episode/unwatched/<%= episode.id %>" class="button-link link-episode episode-tick episode-watched" data-episodeid="<%= episode.id %>"><img src="img/watched.png" /></a>
+				<% else %>
+					<a href="/episode/watched/<%= episode.id %>" class="button-link link-episode episode-tick episode-unwatched" data-episodeid="<%= episode.id %>"><img src="img/unwatched.png" /></a>
+				<% end %>
+
+				<% if @user.providerurl %>
+					<a href="<%= @user.providerurl_for_episode(episode) %>" class="button-link link-episode button-binsearch" target="blank"><img src="img/link.png" /></a>
+				<% end %>
+
+				<span class="date{dateClass}"><%= episode.firstaired %></span>
+			</li>
+		<% end %>
 	</ul>
 </div>
 
