@@ -36,8 +36,8 @@
   <header>
     <div class="container">
     <ul class="main-menu">
-      <li><a href="/couch" class="menu-button{couchSelected}">{firstButtonTitle}</a></li>
-      <li><a href="/shows" class="menu-button{showsSelected}">Shows</a></li>
+      <li><a href="/couch" class="menu-button<% if request.fullpath.match(/^\/couch/) %> menu-button-selected<% end %>"><% if @user %>Couch<% else %>Home<% end %></a></li>
+      <li><a href="/shows" class="menu-button<% if request.fullpath.match(/^\/shows/) %> menu-button-selected<% end %>">Shows</a></li>
     </ul>
 
     <ul class="user-menu">
