@@ -25,6 +25,7 @@ run Rack::URLMap.new({
   '/couch' => CouchController,
   '/login' => LoginController,
   '/show' => ShowController,
+  '/episode' => EpisodeController,
   #'/profile' => ProfileController,
   #'/signup' => SignupController,
 #  '/sidekiq' => Sidekiq::Web
