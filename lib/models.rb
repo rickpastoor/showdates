@@ -87,3 +87,8 @@ class SDShow < Sequel::Model(:shows)
     "/uploads/shows/#{self.id}-poster.jpg"
   end
 end
+
+class SDUserShow < Sequel::Model(:user_show)
+  many_to_one :user, { :class => :SDUser }
+  many_to_one :show, { :class => :SDShow }
+end

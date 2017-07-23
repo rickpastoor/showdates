@@ -13,4 +13,26 @@ class ShowController < ShowdatesApp
 
     erb :'show'
   end
+
+  get '/:id/follow' do
+    show = SDShow[params[:id]]
+
+    userShow = SDUserShow.find(:user => @user, :show => show)
+    if !userShow
+      SDUserShow.create(
+        :user => @user,
+        :show => show
+      )
+    end
+
+    redirect request.referrer
+  end
+
+  get '/:id/unfollow' do
+    show = SDShow[params[:id]]
+
+    @user.remove_following(show)
+
+    redirect request.referrer
+  end
 end
