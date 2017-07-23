@@ -1,0 +1,109 @@
+<h1>Settings</h1>
+
+<form action="/settings" method="post" enctype="multipart/form-data">
+
+<input type="submit" name="submit" value="Save Settings" class="btn btn-settings-top" />
+
+<div class="tabs-box">
+<ul class="tabs">
+	<li><a href="settings#account" class="active" id="link-account">Account</a></li>
+	<li><a href="settings#avatar" id="link-avatar">Avatar</a></li>
+	<li><a href="settings#email" id="link-email">E-mail</a></li>
+	<li><a href="settings#privacy" id="link-privacy">Privacy</a></li>
+	<li><a href="settings#timezone" id="link-timezone">Timezone</a></li>
+	<li><a href="settings#provider" id="link-provider">Provider</a></li>
+	<li><a href="settings#servicekey" id="link-servicekey">Service Key</a></li>
+</ul>
+</div>
+
+<div class="clear"></div>
+
+{errors}
+
+<div class="white-content-outer">
+
+<div class="box" id="tab-account">
+<h2>Account settings</h2>
+<p><label for="firstname" class="field-label">First name:</label> <input type="text" name="firstname" id="firstname" value="<%= @user.firstname %>" /></p>
+<p><label for="lastname" class="field-label">Last name:</label> <input type="text" name="lastname" id="lastname" value="<%= @user.lastname %>" /></p>
+
+<p><label for="emailaddress" class="field-label">E-mail address:</label> <input type="text" name="emailaddress" id="emailaddress" value="<%= @user.emailaddress %>" /></p>
+
+<h2>Username and password</h2>
+<p id="username-error"></p>
+<p class="username-p"><label for="username-input" class="field-label">Username</label> <input type="text" name="username" id="username-input" value="<%= @user.username %>" autocomplete="off" /> <img src="img/loading.gif" class="settings-username-icon" id="settings-username-loading" /> <img src="img/watched.png" class="settings-username-icon" id="settings-username-ok" /> <img src="img/cross.png" class="settings-username-icon" id="settings-username-error" /></p>
+<p><label for="password" class="field-label">Password:</label> <input type="password" name="password" id="password" autocomplete="off" /></p>
+<p><label for="password_confirm" class="field-label">Confirm password:</label> <input type="password" name="password_confirm" id="password_confirm" autocomplete="off" /></p>
+</div>
+
+<div class="box" id="tab-avatar">
+<h2>Avatar settings</h2>
+{socialmedia}
+<p>Upload avatar: <input type="file" name="avatar" /></p>
+</div>
+
+<div class="box" id="tab-email">
+<h2>E-mail settings</h2>
+<p>Like to stay in the loop? Enable this option and you will receive an e-mail when a new episode of shows you follow will air.</p>
+{sendemailnotice_input}
+</div>
+
+<div class="box" id="tab-privacy">
+<h2>Privacy Settings</h2>
+<p>We have two levels of privacy settings on Showdates.</p>
+<p><input type="radio" name="privacymode" id="privacy_stealth" value="stealth"{privacy_stealth} /> <label for="privacy_stealth"><strong>Stealth Mode</strong>: Nobody can see what you are following or watching.</label></p>
+<p><input type="radio" name="privacymode" id="privacy_public" value="public"{privacy_public} /> <label for="privacy_public"><strong>Public Mode</strong>: What you are following and watching is visible for everyone.</label></p>
+</div>
+
+<div class="box" id="tab-timezone">
+<h2>Timezone settings</h2>
+<p>We don't want to give false positives, so make sure your timezone is set up correctly.</p>
+<p><label for="timezone" class="field-label">Timezone:</label> <select name="timezone" id="timezone">{timezones}</select></p>
+</div>
+
+<div class="box box-hidden" id="tab-provider">
+<h2>Provider settings</h2>
+<p>Customize the link next to every episode on your couch and on a shows page. Make it an instant search on Hulu, YouTube or any service you want.</p>
+<p><label for="providerurl" class="field-label">Provider URL:</label> <input type="text" name="providerurl" id="providerurl" value="<%= @user.providerurl %>" class="extralarge" autocomplete="off" /></p>
+<p><span class="field-label">Example:</span> <input disabled="disabled" type="text" name="providerurl-example" id="providerurl-example" class="extralarge" value="http://binsearch.info/quite/a/long/url/wil/this/be/some/nice/layout/problem/or/not/?q=Prison Break+s01e03" /></p>
+<p class="hint protip-intro">Protip: use one of the tags below in your URL. We'll replace them by something useful.</p>
+<ul class="hint" id="protip-list">
+	<li><code>{show}</code> to use the name of the show e.g. "Prison Break"</li>
+	<li><code>{episodeCode}</code> to use a short episode code e.g. "s01e03"</li>
+	<li><code>{episodeCodeFull}</code> to use a long episode code e.g. "season 1 episode 3"</li>
+</ul>
+</div>
+
+<div class="box box-hidden" id="tab-servicekey">
+<h2>Service Key</h2>
+<p>Your account has been assigned a unique service key. This key is used to protect your personal iCal feed.</p>
+<p>Current Key: <strong><%= @user.servicekey %></strong> <a href="/settings/resetkey" class="btn btn-red">Reset Key</a></p>
+</div>
+
+</div>
+
+<input type="hidden" name="section" id="section" value="account" />
+<p><input type="submit" name="submit" value="Save Settings" class="btn" /></p>
+
+</form>
+
+<script type="text/javascript">
+  $(function() {
+    var obj = $(this);
+
+		$(window).hashchange(function() {
+			var until = (location.hash.indexOf('?') > -1) ? location.hash.indexOf('?') : location.hash.length;
+		    var hash = (location.hash == '') ? 'account' : location.hash.substring(1, until);
+
+			$('.box').addClass('box-hidden');
+			$('#tab-' + hash).removeClass('box-hidden');
+			obj.find('a').removeClass('active');
+			$('#link-' + hash).addClass('active');
+			$('#section').val(hash);
+
+			$('#providerurl').liveProviderPreview($('#providerurl-example'));
+		});
+
+		$(window).hashchange();
+  });
+</script>

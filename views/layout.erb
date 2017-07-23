@@ -29,6 +29,9 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/touch-icon-iphone4-precomposed.png" />
 
 	<link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+  <script src="/js/jquery.ba-hashchange.min.js"></script>
 </head>
 
 <body>
@@ -86,14 +89,45 @@
 			<a href="http://blog.showdates.me" target="blank">Blog</a> &middot; <a href="http://twitter.com/shwdts" target="blank">Twitter</a> &middot; <a href="https://www.facebook.com/pages/Showdates/310379149011574" target="blank">Facebook</a> &middot; <a href="about/terms">Terms of Service</a> &middot; <a href="about/privacy">Privacy Policy</a>
 		</div>
     </footer>
-<!--
-    <script src="js/frontend.js?r%rev%"></script>
-    <script src="js/search.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			{handlers}
-		});
-	</script>-->
+
+    <script type="text/javascript">
+      $(function() {
+            $(document).on('click', '#avatar-item', function(e) {
+    			var obj = $(this),
+    			dropdown = $('#account-menu');
+
+    			if (dropdown.is(':visible'))
+    			{
+    				dropdown.hide();
+    				obj.removeClass('menu-visible');
+    			}
+    			else
+    			{
+    				$('.avatar').addClass('menu-visible');
+
+    				var pos = $.extend({}, obj.position(), {
+    			        height: obj[0].offsetHeight,
+    			        width: obj[0].offsetWidth
+    			    });
+    				dropdown.css({
+    			        top: pos.top + pos.height + 4,
+    			        left: pos.left - dropdown.width() + pos.width
+    			    });
+    				dropdown.show();
+    			}
+
+    			e.stopPropagation();
+    		});
+
+    		$(document).click(function() {
+    			if ($('#account-menu').is(':visible'))
+    			{
+    				$('#account-menu').hide();
+    				$('.avatar').removeClass('menu-visible');
+    			}
+    		});
+      });
+    </script>
 
 	<script>
 		// var _gaq=[['_setAccount','UA-27760127-1'],['_trackPageview'],['_trackPageLoadTime']];
