@@ -1,5 +1,6 @@
 require_relative 'tvdb'
 require 'nokogiri'
+require 'httparty'
 
 class ShowUpdater
   def initialize(show)
@@ -130,6 +131,32 @@ class ShowUpdater
       ep.save
     }
 
+    puts "updating banners."
+
+    parsedBannerXml = Nokogiri::XML(TVDB.getShowBannerXML(@show.tvdbid))
+    banners = parsedBannerXml.xpath('/Banners/Banner')
+
+    bannerUrl = nil
+    posterUrl = nil
+
+    banners.each do |banner|
+      # Pick the first item as our banner
+      if !bannerUrl
+        bannerUrl = banner.at_xpath('BannerPath').content
+      end
+
+      if !posterUrl && banner.at_xpath('BannerType').content == 'poster'
+        posterUrl = banner.at_xpath('BannerPath').content
+      end
+
+      if bannerUrl && posterUrl
+        break
+      end
+    end
+
+    save_image(bannerUrl, @show.banner_path, 'banner')
+    save_image(posterUrl, @show.poster_path, 'poster')
+
     puts "...done"
   end
 
@@ -137,5 +164,9 @@ class ShowUpdater
 
   def parse_genres(genre_string)
     genre_string.split('|').reject { |c| c.empty? }
+  end
+
+  def save_image(url, path, type)
+    File.write(File.expand_path("public#{path}"), HTTParty.get("http://www.thetvdb.com/banners/#{url}").body)
   end
 end

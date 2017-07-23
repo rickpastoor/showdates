@@ -9,24 +9,33 @@ module TVDB
   end
 
   def getUpdatesXML
-    zipfile = Tempfile.new('showdates_shows')
-    zipfile.binmode
-    zipfile.write(HTTParty.get(baseUrl + '/updates/updates_week.zip').body)
-    zipfile.close
-
-    Zip::File.open(zipfile.path) do |file|
-      return file.read(file.find_entry('updates_week.xml'))
-    end
+    TBDB::getRemoteXML(
+      :temp_name => 'showdates_shows',
+      :url => baseUrl + "/updates/updates_week.zip",
+      :entry => 'updates_week.xml'
+    )
   end
 
   def getShowXML(tvdb_id)
-    zipfile = Tempfile.new('showdates_show')
+    TVDB::getRemoteXML(
+      :temp_name => 'showdates_show',
+      :url => baseUrl + "/series/#{tvdb_id}/all/en.zip",
+      :entry => 'en.xml'
+    )
+  end
+
+  def getShowBannerXML(tvdb_id)
+    HTTParty.get(baseUrl + "/series/#{tvdb_id}/banners.xml").body
+  end
+
+  def getRemoteXML(temp_name:, url:, entry:)
+    zipfile = Tempfile.new(temp_name)
     zipfile.binmode
-    zipfile.write(HTTParty.get(baseUrl + "/series/#{tvdb_id}/all/en.zip").body)
+    zipfile.write(HTTParty.get(url).body)
     zipfile.close
 
     Zip::File.open(zipfile.path) do |file|
-      return file.read(file.find_entry('en.xml'))
+      return file.read(file.find_entry(entry))
     end
   end
 end

@@ -74,4 +74,12 @@ class SDShow < Sequel::Model(:shows)
   one_to_many :seasons, { :class => :SDSeason, :key => :show_id, :order => :order }
   one_to_many :episodes, { :class => :SDEpisode, :key => :show_id }
   many_to_many :followers, { :class => :SDUser, :join_table => :user_show, :left_key => :show_id, :right_key => :user_id }
+
+  def banner_path
+    "/uploads/shows/#{self.id}-banner.jpg"
+  end
+
+  def poster_path
+    "/uploads/shows/#{self.id}-poster.jpg"
+  end
 end
