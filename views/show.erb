@@ -3,7 +3,14 @@
 		<div class="show-imageheading-text-inner">
 			<h1 class="show-heading"><%= @show.title %></h1>
 
-			{followButton}
+			<% if @user %>
+				<% if @user.is_following(@show) %>
+					<a href="/show/<%= @show.id %>/unfollow" class="button-follow button-follow-glowing button-follow-unfollow">Unfollow</a>
+				<% else %>
+					<a href="/show/<%= @show.id %>/follow" class="button-follow button-follow-glowing">Follow</a>
+				<% end %>
+			<% end %>
+
 
 			<p class="genres">{genres}</p>
 		</div>

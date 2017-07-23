@@ -23,6 +23,10 @@ class SDUser < Sequel::Model(:users)
 
     self.providerurl.gsub(/{show}|{episodeCode}|{episodeCodeFull}/) { |m| replacements.fetch(m,m)}
   end
+
+  def is_following(show)
+    self.following.include?(show)
+  end
 end
 
 class SDEpisode < Sequel::Model(:episodes)
