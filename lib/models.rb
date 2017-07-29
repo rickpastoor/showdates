@@ -97,6 +97,28 @@ class SDEpisode < Sequel::Model(:episodes)
   def episode_code_full
     sprintf('season %d episode %d', self.season.title, self.order);
   end
+
+  def firstaired_formatted(current_date: nil)
+    current_date = Date.today unless current_date
+
+    date_difference = self.firstaired.to_date - current_date
+
+    if date_difference.abs < 10
+      if date_difference == 0
+        return "Today"
+      elsif date_difference == 1
+        return "Tomorrow"
+      elsif date_difference == -1
+        return "Yesterday"
+      elsif date_difference < -1
+        return "#{date_difference.abs.to_i} days ago"
+      elsif date_difference > 1
+        return "In #{date_difference.abs.to_i} days"
+      end
+    end
+
+    self.firstaired.strftime("%d %b %Y")
+  end
 end
 
 class SDUserEpisode < Sequel::Model(:user_episode)

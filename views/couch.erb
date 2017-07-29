@@ -6,13 +6,15 @@
 
 <ul class="list-couch">
 
+<% local_time = @user.to_local_time(Time.now.getutc) %>
+
 <% if @couch[:aired].count > 0 %>
   <li>Watchlist</li>
   <ul id="section-watchlist">
 
     <% @couch[:aired].each do |show_id, ep| %>
       <li id="episode-<%= ep[:episode].id %>" class="show-<%= ep[:episode].show.id %>" data-timestamp="{timestamp}">
-      	<p><span class="date date-past"><%= ep[:episode].firstaired.strftime("%d %b %Y") %></span>
+      	<p><span class="date date-past"><%= ep[:episode].firstaired_formatted(current_date: local_time.to_date) %></span>
       	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
       	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="{episode_url}"><%= ep[:episode].title %></a></p>
       	<a href="/episode/watched/<%= ep[:episode].id %>" class="button-link link-episode episode-tick episode-shownext" data-episodeid="<%= ep[:episode].id %>"><img src="img/unwatched.png" /></a>
@@ -30,7 +32,7 @@
   <ul id="section-tba">
     <% @couch[:tobeaired].each do |show_id, ep| %>
       <li id="episode-<%= ep[:episode].id %>" class="show-<%= ep[:episode].show.id %>" data-timestamp="{timestamp}">
-      	<p><span class="date"><%= ep[:episode].firstaired.strftime("%d %b %Y") %></span>
+      	<p><span class="date"><%= ep[:episode].firstaired_formatted(current_date: local_time.to_date) %></span>
       	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
       	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="{episode_url}"><%= ep[:episode].title %></a></p>
       </li>

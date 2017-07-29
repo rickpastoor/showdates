@@ -40,7 +40,7 @@
 
   <% if @user %>
 <div class="infobox infobox-special">
-<p><a href="show/<%= @show.id %>/markall">I've watched all aired episodes</a></p>
+<p><a href="/show/<%= @show.id %>/markall">I've watched all aired episodes</a></p>
 </div>
   <% end %>
 
@@ -91,9 +91,9 @@
 
 				<% if episode.firstaired %>
 					<% if local_time > @user.to_local_time(episode.firstaired.to_time) %>
-						<span class="date date-past"><%= episode.firstaired %></span>
+						<span class="date date-past"><%= episode.firstaired_formatted(current_date: local_time.to_date) %></span>
 					<% else %>
-						<span class="date"><%= episode.firstaired %></span>
+						<span class="date"><%= episode.firstaired_formatted(current_date: local_time.to_date) %></span>
 					<% end %>
 				<% else %>
 					<span class="date date-past">Unknown</span>
