@@ -20,8 +20,10 @@
 	</div>
 </div>
 
-<div class="show-description-outer{hasNetworkIcon}">
-	{networkIcon}
+<div class="show-description-outer<% if @show.network.icon_thumb_url %> show-description-outer-withimage<% end %>">
+	<% if @show.network.icon_thumb_url %>
+	<img src="<%= @show.network.icon_thumb_url %>" class="network-image" />
+	<% end %>
 
 	<div>
 		<%= @show.description %>
