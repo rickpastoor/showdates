@@ -122,7 +122,7 @@ class SDEpisode < Sequel::Model(:episodes)
 
   def watched_by?(user:)
     userEpisode = SDUserEpisode.find(:user_id => user.id, :episode_id => self.id)
-    return userEpisode.watched
+    return userEpisode && userEpisode.watched
   end
 end
 
