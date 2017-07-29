@@ -38,11 +38,25 @@ class SDUser < Sequel::Model(:users)
   mount_uploader :avatar, AvatarUploader
 
   def check_password(password)
-    self.password == `php php/whirlpool.php #{Shellwords.escape(password + ENV['PASSWORD_SALT'])}`
+    if self.password_migrated
+      return self.password == BCrypt::Engine.hash_secret(password, self.salt)
+    end
+
+    if self.password == `php php/whirlpool.php #{Shellwords.escape(password + ENV['PASSWORD_SALT'])}`
+      # Migrate the old password safely
+      self.salt = BCrypt::Engine.generate_salt
+      self.password = BCrypt::Engine.hash_secret(password, self.salt)
+      self.password_migrated = true
+      self.save
+
+      return true
+    end
+
+    return false
   end
 
   def to_local_time(time)
-    tz = TZInfo::Timezone.get(self.timezone || 'Europe/Amsterdam')
+    tz = TZInfo::Timezone.get(self.timezone || 'Europe/London')
     tz.utc_to_local(time)
   end
 
