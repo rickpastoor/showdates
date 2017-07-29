@@ -9,7 +9,6 @@ CarrierWave.configure do |config|
   config.root = File.expand_path '../../public', __FILE__
 end
 
-# uploader
 class AvatarUploader < CarrierWave::Uploader::Base
 	include CarrierWave::MiniMagick
 	process convert: 'png'
@@ -92,8 +91,39 @@ class SDGenre < Sequel::Model(:genres)
   many_to_many :shows, { :class => :SDShow, :join_table => :show_genre, :left_key => :genre_id, :right_key => :show_id }
 end
 
+class NetworkIconUploader < CarrierWave::Uploader::Base
+	include CarrierWave::MiniMagick
+	process convert: 'png'
+	process resize_to_fill: [400, 400]
+
+	version :thumb do
+    process :resize_to_fill => [52, 52]
+  end
+
+	def extension_white_list
+    %w(jpg jpeg gif png)
+  end
+
+	def filename
+    "icon.#{model.id}.png" if original_filename
+  end
+
+  def store_dir
+    'uploads/networks'
+  end
+
+	storage :file
+end
+
 class SDNetwork < Sequel::Model(:networks)
   one_to_many :shows, { :class => :SDShow }
+  mount_uploader :icon, NetworkIconUploader
+
+  def icon_thumb_url
+    if icon.thumb.url
+      return ENV['BASE_URL'][0..-2] + icon.thumb.url
+    end
+  end
 end
 
 class SDSeason < Sequel::Model(:seasons)

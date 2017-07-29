@@ -1,0 +1,22 @@
+<h1>Networks</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Network</th>
+    <th>Shows</th>
+    <th></th>
+  </tr>
+  <% @networks.each do |network| %>
+    <tr>
+      <td>
+        <% if network.icon_thumb_url %>
+          <img src="<%= network.icon_thumb_url %>" />
+        <% end %>
+      </td>
+      <td><%= network.title %></td>
+      <td></td>
+      <td><a href="/admin/network/<%= network.id %>/edit">Edit</a></td>
+    </tr>
+  <% end %>
+</table>
