@@ -12,7 +12,9 @@
 			<% end %>
 
 
-			<p class="genres">{genres}</p>
+			<p class="genres">
+				<%== @show.genres.map { |g| "<a href=\"/shows/genre/#{g.id}\" class=\"genre\">#{g.title}</a>" }.join(" &middot; ") %>
+			</p>
 		</div>
 
 		<div class="clear"></div>
@@ -36,11 +38,8 @@
 	</div>
 
   <% if @user %>
-  <div class="infobox">
-<p>You have seen %episodeStatus%.</p>
-</div>
 <div class="infobox infobox-special">
-<p><a href="show/markall/id:%id%">I've watched all aired episodes</a></p>
+<p><a href="show/<%= @show.id %>/markall">I've watched all aired episodes</a></p>
 </div>
   <% end %>
 
