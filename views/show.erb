@@ -22,7 +22,7 @@
 
 <div class="show-description-outer<% if @show.network.icon_thumb_url %> show-description-outer-withimage<% end %>">
 	<% if @show.network.icon_thumb_url %>
-	<img src="<%= @show.network.icon_thumb_url %>" class="network-image" />
+		<img src="<%= @show.network.icon_thumb_url %>" class="network-image" alt="<%= @show.network.title %>" title="<%= @show.network.title %>" />
 	<% end %>
 
 	<div>
@@ -55,35 +55,49 @@
 
 <div class="leftcolumn">
 	<ul class="list-episodes">
-		<%= @episodes_dataset.inspect %>
-
 		<%
 			current_season = nil
-		 	@episodes_dataset.each do |episode| %>
+			local_time = @user.to_local_time(Time.now.getutc)
+		 	@show_data[:episodes].each do |episode| %>
 			<% if episode[:season_id] != current_season
 				if current_season != nil %>
 					</ul>
 				<% end
 				current_season = episode[:season_id] %>
 
-				<li class="season%specials%"><%= episode.season.formatted_title %> <a id="season-<%= episode.season.id %>" href="show/%unwatched%season/id:<%= episode.season.id %>" class="button-link button-season-tick season-%watched%" data-seasonpartialwatched="%partial%"><img src="img/%watched%.png"></a></li>
+				<li class="season<% if episode.season.specials? %> season-specials<% end %>"><%= episode.season.formatted_title %>
+					<% if @show_data[:seasons][episode.season.id][:count] > 0 && @show_data[:seasons][episode.season.id][:count] == @show_data[:seasons][episode.season.id][:seen] %>
+						<a id="season-<%= episode.season.id %>" href="/show/season_unwatched/<%= episode.season.id %>" class="button-link button-season-tick season-watched"><img src="img/watched.png"></a></li>
+					<% else %>
+						<a id="season-<%= episode.season.id %>" href="/show/season_watched/<%= episode.season.id %>" class="button-link button-season-tick season-unwatched"><img src="img/unwatched.png"></a></li>
+					<% end %>
 		    <ul>
 			<% end %>
 
 			<li>
-				<p><a href="/episode/<%= episode.id %>"><%= episode[:episode_title] %></a></p>
+				<p><a href="/episode/<%= episode.id %>"><%= episode[:order] %>. <%= episode[:episode_title] %></a></p>
 
-				<% if episode[:watched] %>
-					<a href="/episode/unwatched/<%= episode.id %>" class="button-link link-episode episode-tick episode-watched" data-episodeid="<%= episode.id %>"><img src="img/watched.png" /></a>
+				<% if !episode.firstaired || local_time > @user.to_local_time(episode.firstaired.to_time)  %>
+					<% if episode[:watched] %>
+						<a href="/episode/unwatched/<%= episode.id %>" class="button-link link-episode episode-tick episode-watched" data-episodeid="<%= episode.id %>"><img src="img/watched.png" /></a>
+					<% else %>
+						<a href="/episode/watched/<%= episode.id %>" class="button-link link-episode episode-tick episode-unwatched" data-episodeid="<%= episode.id %>"><img src="img/unwatched.png" /></a>
+					<% end %>
+
+					<% if @user.providerurl %>
+						<a href="<%= @user.providerurl_for_episode(episode) %>" class="button-link link-episode button-binsearch" target="blank"><img src="img/link.png" /></a>
+					<% end %>
+				<% end %>
+
+				<% if episode.firstaired %>
+					<% if local_time > @user.to_local_time(episode.firstaired.to_time) %>
+						<span class="date date-past"><%= episode.firstaired %></span>
+					<% else %>
+						<span class="date"><%= episode.firstaired %></span>
+					<% end %>
 				<% else %>
-					<a href="/episode/watched/<%= episode.id %>" class="button-link link-episode episode-tick episode-unwatched" data-episodeid="<%= episode.id %>"><img src="img/unwatched.png" /></a>
+					<span class="date date-past">Unknown</span>
 				<% end %>
-
-				<% if @user.providerurl %>
-					<a href="<%= @user.providerurl_for_episode(episode) %>" class="button-link link-episode button-binsearch" target="blank"><img src="img/link.png" /></a>
-				<% end %>
-
-				<span class="date{dateClass}"><%= episode.firstaired %></span>
 			</li>
 		<% end %>
 	</ul>
