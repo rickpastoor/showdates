@@ -4,6 +4,13 @@ Dotenv.load
 
 require 'nokogiri'
 require_relative '../lib/tvdb'
+require_relative '../lib/workers/update_show'
+require 'sidekiq/api'
+
+# Sidekiq::RetrySet.new.clear
+# Sidekiq::ScheduledSet.new.clear
+# Sidekiq::Queue.new.clear
+# Sidekiq::Stats.new.reset
 
 updates = Nokogiri::XML(TVDB.getUpdatesXML)
 
@@ -12,6 +19,8 @@ updates.xpath('/Data/Series').each do |serie|
   # TODO: create series update job for show with tvdbid `serie.at_xpath('id').content`
   # The update was made on `serie.at_xpath('time').content`
   num = num + 1
+
+  ShowWorker.perform_async(serie.at_xpath('id').content)
 end
 
 puts "Total: " + num.to_s + " shows scheduled for update"

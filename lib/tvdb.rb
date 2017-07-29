@@ -34,8 +34,13 @@ module TVDB
     zipfile.write(HTTParty.get(url).body)
     zipfile.close
 
-    Zip::File.open(zipfile.path) do |file|
-      return file.read(file.find_entry(entry))
+    begin
+      Zip::File.open(zipfile.path) do |file|
+        return file.read(file.find_entry(entry))
+      end
+    rescue Zip::Error
+      puts "fetched " + url
+      puts "Error reading " + zipfile.path
     end
   end
 end

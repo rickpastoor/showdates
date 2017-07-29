@@ -3,11 +3,12 @@ require 'dotenv'
 Dotenv.load
 
 require_relative '../lib/setup'
-require_relative '../lib/models'
-require_relative '../lib/showupdater'
+require_relative '../lib/workers/update_show'
 
-show = SDShow[4]
-#show = SDShow[194]
+#show = SDShow[7949205]
+#show = SDShow[8]
 
-showUpdater = ShowUpdater.new(show)
-showUpdater.update
+#showUpdater = ShowUpdater.new(show)
+#showUpdater.update
+
+ShowWorker.perform_async('73739')

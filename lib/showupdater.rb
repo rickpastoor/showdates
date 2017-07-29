@@ -14,7 +14,12 @@ class ShowUpdater
     return unless @show.tvdbid
 
     # Download content
-    parsedXml = Nokogiri::XML(TVDB.getShowXML(@show.tvdbid))
+    showXML = TVDB.getShowXML(@show.tvdbid)
+
+    # If we were not able to fetch XML, return
+    return unless showXML
+
+    parsedXml = Nokogiri::XML(showXML)
     show = parsedXml.xpath('/Data/Series')
     episodes = parsedXml.xpath('/Data/Episode')
 
@@ -71,8 +76,8 @@ class ShowUpdater
     currentSeason = nil
 
     # Unlink all episodes and seasons
-    @show.remove_all_episodes
-    @show.remove_all_seasons
+    #@show.remove_all_episodes
+    #@show.remove_all_seasons
 
     # Fix episodes/seasons
     episodes.each { |episode|
