@@ -11,13 +11,13 @@
 <p><label for="firstname" class="field-label">First name:</label> <input type="text" name="firstname" id="firstname" value="" /></p>
 <p><label for="lastname" class="field-label">Last name:</label> <input type="text" name="lastname" id="lastname" value="" /></p>
 
-<p><label for="emailaddress" class="field-label">E-mail address:</label> <input type="email" name="emailaddress" id="emailaddress" value="" /></p>
+<p><label for="emailaddress" class="field-label">E-mail address:</label> <input type="email" name="emailaddress" id="emailaddress" value="" required /></p>
 
 <h2>Username and password</h2>
 <p id="username-error"></p>
 <p><label for="username-input" class="field-label">Username:</label> <input type="text" name="username" id="username-input" autocomplete="off" /> <img src="img/loading.gif" class="settings-username-icon" id="settings-username-loading" /> <img src="img/watched.png" class="settings-username-icon" id="settings-username-ok" /> <img src="img/cross.png" class="settings-username-icon" id="settings-username-error" /></p>
-<p><label for="password" class="field-label">Password:</label> <input type="password" name="password" id="password" autocomplete="off" /></p>
-<p><label for="password_confirm" class="field-label">Confirm password:</label> <input type="password" name="password_confirm" id="password_confirm" autocomplete="off" /></p>
+<p><label for="password" class="field-label">Password:</label> <input type="password" name="password" id="password" autocomplete="off" required /></p>
+<p><label for="password_confirm" class="field-label">Confirm password:</label> <input type="password" name="password_confirm" id="password_confirm" autocomplete="off" required /></p>
 
 <h2>E-mail notifications</h2>
 <p><input type="checkbox" name="sendemailnotice" id="sendemailnotice" checked="checked" /> <label for="sendemailnotice">Send me an e-mail when new episodes air.</label></p>
