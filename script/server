@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# script/server: Run application locally
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+bundle exec rake db:migrate
+bundle exec rackup
