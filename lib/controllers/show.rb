@@ -1,6 +1,7 @@
 class ShowController < ShowdatesApp
   get '/:id' do
     @show = SDShow[params[:id]]
+    @title = @show.title
 
     # Fetch the dataset we need
     @episodes_dataset = SDEpisode.from_self(:alias => :episodes)
