@@ -3,6 +3,8 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/flash'
 require 'tzinfo'
+require 'bcrypt'
+require 'securerandom'
 
 require_relative 'lib/setup'
 require_relative 'lib/models'
