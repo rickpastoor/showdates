@@ -77,4 +77,57 @@ class LoginController < ShowdatesApp
       :permissions => 'user_likes,email'
     )
   end
+
+  get '/twitter' do
+    client = TwitterOAuth::Client.new(
+      :consumer_key => ENV['TWITTER_CONSUMER_KEY'],
+      :consumer_secret => ENV['TWITTER_CONSUMER_SECRET']
+    )
+
+    if session[:twitter_rt_token] &&
+      session[:twitter_rt_secret] &&
+      params[:oauth_verifier]
+      client.authorize(
+        session[:twitter_rt_token],
+        session[:twitter_rt_secret],
+        :oauth_verifier => params[:oauth_verifier]
+      )
+
+      session[:twitter_rt_token] = nil
+      session[:twitter_rt_secret] = nil
+
+      if client.authorized?
+        user_info = client.info
+
+        # Lets see if we have an account with this Twitter ID
+        user = SDUser.find(:twitter_user_id => user_info['id'])
+
+        if !user
+          user = SDUser.create(
+            :twitter_user_id => user_info['id']
+          )
+        end
+
+        if user
+          user.twitter_screen_name = user_info['screen_name']
+          user.save
+
+          session[:user_id] = user.id
+
+          redirect '/couch'
+        end
+
+        flash[:error] = 'Sorry, something went wrong while loggin in.'
+
+        redirect '/'
+      end
+    end
+
+    request_token = client.request_token(:oauth_callback => ENV['BASE_URL'] + 'login/twitter')
+
+    session[:twitter_rt_token] = request_token.token
+    session[:twitter_rt_secret] = request_token.secret
+
+    redirect request_token.authorize_url
+  end
 end

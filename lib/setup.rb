@@ -1,6 +1,7 @@
 require 'sequel'
 require 'bugsnag'
 require 'koala'
+require 'twitter_oauth'
 
 # Set up database connection
 socket = ENV['DATABASE_SOCKET']
