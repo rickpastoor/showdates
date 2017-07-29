@@ -7,6 +7,7 @@ require 'tzinfo'
 require_relative 'lib/setup'
 require_relative 'lib/models'
 require_relative 'lib/couchbuilder'
+require_relative 'lib/helpers/style'
 
 class ShowdatesApp < Sinatra::Base
   enable :sessions

@@ -54,7 +54,7 @@
 
         <a href="javascript:;" id="avatar-item">
             <div class="arrow-down"></div>
-            <img src="static/BUser/%user_id%/avatar?{lastAvatarUpdate}" class="avatar" alt="%name%" />
+            <img src="<%= @user.avatar_thumb_url %>" class="avatar" alt="<%= @user.firstname %> <%= @user.lastname %>" />
         </a>
 
         <div id="account-menu">
@@ -78,7 +78,7 @@
   <div class="push"></div>
   <% end %>
 
-	<!-- flash: {notice} -->
+  <%== styled_flash %>
 
 	<div id="main" role="main">
 	    <div class="container">

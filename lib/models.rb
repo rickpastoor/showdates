@@ -1,9 +1,38 @@
 require 'sequel'
+require 'carrierwave'
+require 'carrierwave/sequel'
+require 'mini_magick'
 
 Sequel::Model.plugin :timestamps, :update_on_create => true, :create => :created, :update => :edited
 
+CarrierWave.configure do |config|
+  config.root = File.expand_path '../../public', __FILE__
+end
+
+# uploader
+class AvatarUploader < CarrierWave::Uploader::Base
+	include CarrierWave::MiniMagick
+	process convert: 'png'
+	process resize_to_fill: [400, 400]
+
+	version :thumb do
+    process :resize_to_fill => [52, 52]
+  end
+
+	def extension_white_list
+    %w(jpg jpeg gif png)
+  end
+
+	def filename
+    "avatar.#{model.id}.png" if original_filename
+  end
+
+	storage :file
+end
+
 class SDUser < Sequel::Model(:users)
   many_to_many :following, { :class => :SDShow, :join_table => :user_show, :left_key => :user_id, :right_key => :show_id }
+  mount_uploader :avatar, AvatarUploader
 
   def check_password(password)
     self.password == `php php/whirlpool.php #{Shellwords.escape(password + ENV['PASSWORD_SALT'])}`
@@ -26,6 +55,14 @@ class SDUser < Sequel::Model(:users)
 
   def is_following(show)
     self.following.include?(show)
+  end
+
+  def avatar_thumb_url
+    if avatar.thumb.url
+      return ENV['BASE_URL'][0..-2] + avatar.thumb.url
+    end
+
+    ENV['BASE_URL'][0..-2] + "/img/touch-icon-iphone-precomposed.png"
   end
 end
 
