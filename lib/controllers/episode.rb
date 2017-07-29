@@ -1,18 +1,12 @@
 class EpisodeController < ShowdatesApp
   get '/watched/:episode_id' do
-    userEpisode = SDUserEpisode.find(:user_id => @user.id, :episode_id => params[:episode_id])
+    @user.update_episode(SDEpisode[params[:episode_id]], true)
 
-    if !userEpisode
-      userEpisode = SDUserEpisode.new(
-        :user_id => @user.id,
-        :episode_id => params[:episode_id],
-        :watched => DateTime.now
-      )
-    else
-      userEpisode[:watched] = DateTime.now
-    end
+    redirect request.referrer
+  end
 
-    userEpisode.save
+  get '/unwatched/:episode_id' do
+    @user.update_episode(SDEpisode[params[:episode_id]], false)
 
     redirect request.referrer
   end

@@ -30,4 +30,28 @@ class ShowController < ShowdatesApp
 
     redirect request.referrer
   end
+
+  get '/season_watched/:season_id' do
+    season = SDSeason[params[:season_id]]
+
+    local_time = @user.to_local_time(Time.now.getutc)
+
+    season.episodes.each do |episode|
+      # Only update the episode if it is in the past or if it is a special
+      if episode.season.specials? || (episode.firstaired && local_time > @user.to_local_time(episode.firstaired.to_time))
+        @user.update_episode(episode, true)
+      end
+    end
+
+    redirect request.referrer
+  end
+
+  get '/season_unwatched/:season_id' do
+    season = SDSeason[params[:season_id]]
+    season.episodes.each do |episode|
+      @user.update_episode(episode, false)
+    end
+
+    redirect request.referrer
+  end
 end

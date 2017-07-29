@@ -67,6 +67,22 @@ class SDUser < Sequel::Model(:users)
 
     ENV['BASE_URL'][0..-2] + "/img/touch-icon-iphone-precomposed.png"
   end
+
+  def update_episode(episode, watched)
+    userEpisode = SDUserEpisode.find(:user_id => self.id, :episode_id => episode.id)
+
+    if !userEpisode
+      userEpisode = SDUserEpisode.new(
+        :user_id => self.id,
+        :episode_id => episode.id,
+        :watched => watched ? DateTime.now : nil
+      )
+    else
+      userEpisode[:watched] = watched ? DateTime.now : nil
+    end
+
+    userEpisode.save
+  end
 end
 
 class SDEpisode < Sequel::Model(:episodes)
