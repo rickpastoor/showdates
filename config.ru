@@ -29,6 +29,6 @@ run Rack::URLMap.new({
   '/settings' => SettingsController,
   '/admin' => AdminController,
   #'/profile' => ProfileController,
-  #'/signup' => SignupController,
+  '/signup' => SignupController,
   '/sidekiq' => Sidekiq::Web
 })

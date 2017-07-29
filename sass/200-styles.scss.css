@@ -358,7 +358,7 @@ img.border {
 	background: -ms-linear-gradient(top,  rgb(33,155,255) 50%,rgb(20,151,252) 50%);
 	background: linear-gradient(to bottom,  rgb(33,155,255) 50%,rgb(20,151,252) 50%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#219bff', endColorstr='#1497fc',GradientType=0 );
-	
+
 	border: 0;
 	outline: 0;
 	padding: 7px 9px;
@@ -952,7 +952,7 @@ a.genre {
 	}
 }
 
-.white-content-outer input[type="text"], .white-content-outer input[type="password"] {
+.white-content-outer input[type="text"], .white-content-outer input[type="email"], .white-content-outer input[type="password"] {
 	border: 1px solid #ccc;
 	padding: 6px;
 	color: #383838;
@@ -961,7 +961,7 @@ a.genre {
 }
 
 @media all and (min-width: 550px) {
-	.white-content-outer input[type="text"], .white-content-outer input[type="password"] {
+	.white-content-outer input[type="text"], .white-content-outer input[type="email"], .white-content-outer input[type="password"] {
 		width: 230px;
 	}
 
@@ -1103,9 +1103,9 @@ h1.home {
 
 @media all and (min-width: 730px) {
 	.home-login-outer {
-		float: right; 
+		float: right;
 	}
-	
+
 	.home-login-outer p {
 		display: block;
 	}

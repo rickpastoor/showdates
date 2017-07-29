@@ -800,8 +800,8 @@ img.border {
   background-image: -webkit-linear-gradient(bottom, #18700d 0%, #1fcc0c 100%);
   background-image: linear-gradient(bottom, #18700d 0%, #1fcc0c 100%);
   border-radius: 3px;
-  -webkit-transition: box-shadow 0.4s ease, background 0.3s ease;
-  transition: box-shadow 0.4s ease, background 0.3s ease; }
+  -webkit-transition: box-shadow .4s ease, background .3s ease;
+  transition: box-shadow .4s ease, background .3s ease; }
 
 .button-follow-glowing.button-follow:hover {
   box-shadow: 0px 0px 3px 0 #18700d; }
@@ -902,7 +902,8 @@ img.border {
   background-size: 100%;
   background-repeat: no-repeat;
   margin-top: -20px;
-  padding-top: 30%; }
+  padding-top: 30%;
+  visibility: hidden; }
 
 .show-imageheading-text {
   background-color: rgba(0, 0, 0, 0.7);
@@ -1168,7 +1169,7 @@ a.genre {
   .white-content-outer .box-hidden {
     display: none; } }
 
-.white-content-outer input[type="text"], .white-content-outer input[type="password"] {
+.white-content-outer input[type="text"], .white-content-outer input[type="email"], .white-content-outer input[type="password"] {
   border: 1px solid #ccc;
   padding: 6px;
   color: #383838;
@@ -1176,7 +1177,7 @@ a.genre {
   width: 100%; }
 
 @media all and (min-width: 550px) {
-  .white-content-outer input[type="text"], .white-content-outer input[type="password"] {
+  .white-content-outer input[type="text"], .white-content-outer input[type="email"], .white-content-outer input[type="password"] {
     width: 230px; }
   .white-content-outer input[type="text"].extralarge {
     width: 370px; } }
