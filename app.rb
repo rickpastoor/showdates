@@ -54,6 +54,10 @@ class ShowdatesApp < Sinatra::Base
     def is_user?
       @user != nil
     end
+
+    def is_admin?
+      @user != nil && @user.is_admin
+    end
   end
 
   before do

@@ -61,6 +61,9 @@
           <ul>
             {profileLink}
             <li><a href="/settings">Settings</a></li>
+            <% if is_admin? %>
+            <li><a href="/admin">Admin</a></li>
+            <% end %>
             <li><a href="/account/logout">Log Out</a></li>
           </ul>
         </div>
