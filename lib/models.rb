@@ -88,7 +88,7 @@ end
 class SDEpisode < Sequel::Model(:episodes)
   many_to_one :show, { :class => :SDShow }
   many_to_one :season, { :class => :SDSeason }
-  one_to_many :watchers, { :class => :SDUserEpisode }
+  one_to_many :watchers, { :class => :SDUserEpisode, :key => :episode_id }
 
   def episode_code
     sprintf('S%02dE%02d', self.season.title, self.order);
@@ -118,6 +118,11 @@ class SDEpisode < Sequel::Model(:episodes)
     end
 
     self.firstaired.strftime("%d %b %Y")
+  end
+
+  def watched_by?(user:)
+    userEpisode = SDUserEpisode.find(:user_id => user.id, :episode_id => self.id)
+    return userEpisode.watched
   end
 end
 

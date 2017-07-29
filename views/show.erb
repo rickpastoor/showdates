@@ -58,6 +58,7 @@
 		<%
 			current_season = nil
 			local_time = @user.to_local_time(Time.now.getutc)
+
 		 	@show_data[:episodes].each do |episode| %>
 			<% if episode[:season_id] != current_season
 				if current_season != nil %>

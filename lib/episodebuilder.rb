@@ -47,7 +47,6 @@ class EpisodeBuilder
     # Fetch episode stuff
     episodes_dataset = SDEpisode.from_self(:alias => :episodes)
       .left_join(SDUserEpisode, [Sequel.qualify(:episodes, :id) => :episode_id, :user_id => @user.id])
-      .join(:user_show, [Sequel.qualify(:user_show, :show_id) => Sequel.qualify(:episodes, :show_id), Sequel.qualify(:user_show, :user_id) => @user.id])
       .join(SDSeason, {Sequel.qualify(:seasons, :id) => Sequel.qualify(:episodes, :season_id)}, :table_alias => :seasons)
       .where(:episodes__show_id => show.id)
       .order(Sequel.qualify(:episodes, :show_id), Sequel.qualify(:seasons, :order), Sequel.qualify(:episodes, :order))

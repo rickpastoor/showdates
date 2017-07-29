@@ -1,0 +1,38 @@
+<h1><a href="/show/<%= @episode.show.id %>"><%= @episode.show.title %></a> &raquo; <%= @episode.title %></h1>
+
+<div class="leftcolumn">
+<p><%= @episode.description %></p>
+</div>
+
+<div class="rightcolumn">
+
+<div class="infobox">
+<p>First Aired: <%= @episode.firstaired_formatted %></p>
+</div>
+
+<% if @user %>
+<div class="infobox">
+<p>You are <% if @user.is_following(@episode.show) %>following<% else %>not following<% end %> <a href="/show/<%= @episode.show.id %>"><%= @episode.show.title %></a> &bull;
+
+<% if @user.is_following(@episode.show) %>
+<a href="/show/<%= @episode.show.id %>/unfollow">Unfollow</a>
+<% else %>
+<a href="/show/<%= @episode.show.id %>/follow">Follow</a>
+<% end %>
+
+</p>
+<% if @episode.watched_by?(user: @user) %>
+<p>You have watched this episode &bull; <a href="/episode/unwatched/<%= @episode.id %>">Unwatched</a></p>
+<% else %>
+<p>You have not watched this episode &bull; <a href="/episode/watched/<%= @episode.id %>">Watched</a></p>
+<% end %>
+</div>
+<% end %>
+
+<div class="infobox">
+<p>This episode is seen by <%= @episode.watchers_dataset.exclude(:watched => nil).count %> users.</p>
+</div>
+
+</div>
+
+<div class="clear"></div>

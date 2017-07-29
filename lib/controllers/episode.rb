@@ -1,4 +1,9 @@
 class EpisodeController < ShowdatesApp
+  get '/:episode_id' do
+    @episode = SDEpisode[params[:episode_id]]
+    erb :'episode'
+  end
+
   get '/watched/:episode_id' do
     @user.update_episode(SDEpisode[params[:episode_id]], true)
 
