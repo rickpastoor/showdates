@@ -9,7 +9,7 @@ module TVDB
   end
 
   def getUpdatesXML
-    TBDB::getRemoteXML(
+    TVDB::getRemoteXML(
       :temp_name => 'showdates_shows',
       :url => baseUrl + "/updates/updates_week.zip",
       :entry => 'updates_week.xml'
