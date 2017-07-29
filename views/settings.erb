@@ -56,7 +56,7 @@
 <h2>E-mail settings</h2>
 <p>Like to stay in the loop? Enable this option and you will receive an e-mail when a new episode of shows you follow will air.</p>
 
-<% if @user.emailaddress.empty? %>
+<% if !@user.emailaddress || @user.emailaddress.empty? %>
   <p><label for="sendemailnotice_email">Enter your address to enable:</label> <input type="text" name="sendemailnotice_email" id="sendemailnotice_email" /></p>
 <% else %>
   <p><input type="checkbox" name="sendemailnotice" id="sendemailnotice"<% if @user.sendemailnotice == 'yes' %> checked="checked"<% end %> /> <label for="sendemailnotice">Send me an e-mail when new episodes air.</label></p>

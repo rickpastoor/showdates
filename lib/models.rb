@@ -42,7 +42,7 @@ class SDUser < Sequel::Model(:users)
   end
 
   def to_local_time(time)
-    tz = TZInfo::Timezone.get(self.timezone)
+    tz = TZInfo::Timezone.get(self.timezone || 'Europe/Amsterdam')
     tz.utc_to_local(time)
   end
 
