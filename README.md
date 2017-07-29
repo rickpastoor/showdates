@@ -1,7 +1,3 @@
-# showdates
+# Showdates
 
-`bundle exec rackup config.ru`
-
-## Migrate database
-
-`bundle exec rake db:migrate`
+Run `script/server` to launch Showdates locally.
