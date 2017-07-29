@@ -49,8 +49,8 @@ class SDUser < Sequel::Model(:users)
   def providerurl_for_episode(episode)
     replacements = {
       "{show}" => episode.show.title,
-      "{episodeCode}" => episode.episode_code,
-      "{episodeCodeFull}" => episode.episode_code_full
+      "{episodeCode}" => episode.season.specials? ? episode[:episode_title] : episode.episode_code,
+      "{episodeCodeFull}" => episode.season.specials? ? episode[:episode_title] : episode.episode_code_full
     }
 
     self.providerurl.gsub(/{show}|{episodeCode}|{episodeCodeFull}/) { |m| replacements.fetch(m,m)}
