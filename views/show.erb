@@ -11,7 +11,6 @@
 				<% end %>
 			<% end %>
 
-
 			<p class="genres">
 				<%== @show.genres.map { |g| "<a href=\"/shows/genre/#{g.id}\" class=\"genre\">#{g.title}</a>" }.join(" &middot; ") %>
 			</p>
@@ -50,19 +49,6 @@
   </ul>
 <div class="clear"></div>
 
-<!--
-<h4>Related Shows</h4>
-<div class="infobox">
-<ul class="show-suggestions">
-  <li>
-  <a href="%url%"><img src="static/BShow/%show_id%/poster/size:35x0" class="imageborder" /></a>
-  <p><a href="%url%"><strong>%title%</strong></a><br />
-  <span class="following">%followers%</span></p>
-  <div class="clear"></div>
-  </li>
-</ul>
-</div>
--->
 </div>
 
 <div class="leftcolumn">
