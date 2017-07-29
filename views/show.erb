@@ -104,3 +104,23 @@
 </div>
 
 <div class="clear"></div>
+
+<script type="text/javascript">
+  $(function() {
+		// Collapse all completed seasons
+		$('.list-episodes .season').each(function(key, value) {
+			if ($(value).find('.button-season-tick').hasClass('season-watched'))
+			{
+				$(value).next('ul').toggle();
+			}
+		});
+
+		// Enable toggling of seasons
+		$('.list-episodes .season').on('click', function() {
+			$(this).next('ul').toggle();
+		});
+
+		// Collapse specials by default
+		$('.list-episodes .season-specials').next('ul').hide();
+	});
+</script>
