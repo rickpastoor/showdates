@@ -27,6 +27,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
     "avatar.#{model.id}.png" if original_filename
   end
 
+  def store_dir
+    'uploads/users'
+  end
+
 	storage :file
 end
 

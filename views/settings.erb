@@ -36,7 +36,19 @@
 
 <div class="box" id="tab-avatar">
 <h2>Avatar settings</h2>
-{socialmedia}
+
+<% if @user.facebook_id || @user.twitter_user_id %>
+<p>It looks like we got your avatar from somewhere else. Go ahead, use our shiny button and we'll fetch it again.</p>
+<p>
+<img src="<%= @user.avatar_thumb_url %>" id="profile-avatar" style="margin-right: 8px; width: 50px; height: 50px; vertical-align: top; border: 1px solid #ccc; padding: 2px;" />
+<input type="button" name="update-avatar" id="update-avatar" value="Update from <% if @user.facebook_id %>Facebook<% else %>Twitter<% end %>" class="btn" />
+</p>
+<% else %>
+<p>
+<img src="<%= @user.avatar_thumb_url %>" id="profile-avatar" style="margin-right: 8px; width: 50px; height: 50px; vertical-align: top; border: 1px solid #ccc; padding: 2px;" />
+</p>
+<% end %>
+
 <p>Upload avatar: <input type="file" name="avatar" /></p>
 </div>
 
@@ -54,8 +66,8 @@
 <div class="box" id="tab-privacy">
 <h2>Privacy Settings</h2>
 <p>We have two levels of privacy settings on Showdates.</p>
-<p><input type="radio" name="privacymode" id="privacy_stealth" value="stealth"{privacy_stealth} /> <label for="privacy_stealth"><strong>Stealth Mode</strong>: Nobody can see what you are following or watching.</label></p>
-<p><input type="radio" name="privacymode" id="privacy_public" value="public"{privacy_public} /> <label for="privacy_public"><strong>Public Mode</strong>: What you are following and watching is visible for everyone.</label></p>
+<p><input type="radio" name="privacymode" id="privacy_stealth" value="stealth"<% if @user.privacymode == 'stealth' %> checked="checked"<% end %> /> <label for="privacy_stealth"><strong>Stealth Mode</strong>: Nobody can see what you are following or watching.</label></p>
+<p><input type="radio" name="privacymode" id="privacy_public" value="public"<% if @user.privacymode == 'public' %> checked="checked"<% end %> /> <label for="privacy_public"><strong>Public Mode</strong>: What you are following and watching is visible for everyone.</label></p>
 </div>
 
 <div class="box" id="tab-timezone">
