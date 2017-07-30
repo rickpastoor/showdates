@@ -81,7 +81,7 @@ class ShowdatesApp < Sinatra::Base
       redirect '/couch'
     end
 
-  	@title = 'Hallo!'
+  	@title = 'Welcome'
 
   	erb :'index'
   end
