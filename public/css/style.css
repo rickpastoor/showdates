@@ -902,8 +902,7 @@ img.border {
   background-size: 100%;
   background-repeat: no-repeat;
   margin-top: -20px;
-  padding-top: 30%;
-  visibility: hidden; }
+  padding-top: 30%; }
 
 .show-imageheading-text {
   background-color: rgba(0, 0, 0, 0.7);
@@ -1991,7 +1990,8 @@ a.btn-facebook-profile {
   display: inline-block;
   text-indent: 100%;
   white-space: nowrap;
-  overflow: hidden; }
+  overflow: hidden;
+  background-size: 133px auto; }
 
 /* Showlist common */
 .showList {
