@@ -1,5 +1,5 @@
 class CouchController < ShowdatesApp
-  get '/' do
+  get '/', :auth => :user do
     episodeBuilder = EpisodeBuilder.new(@user)
     @couch = episodeBuilder.build_couch
 
