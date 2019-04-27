@@ -61,7 +61,7 @@ GEM
     rake (12.1.0)
     redis (3.3.3)
     rubyzip (1.2.1)
-    sequel (5.0.0)
+    sequel (5.19.0)
     sidekiq (5.0.4)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
