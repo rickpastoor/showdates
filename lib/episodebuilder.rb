@@ -6,15 +6,23 @@ class EpisodeBuilder
   def build_couch
     # Fetch the dataset we need
     episodes_dataset = SDEpisode.from_self(:alias => :episodes)
-      .left_join(SDUserEpisode, [Sequel.qualify(:episodes, :id) => :episode_id, :user_id => @user.id])
-      .join(:user_show, [Sequel.qualify(:user_show, :show_id) => Sequel.qualify(:episodes, :show_id), Sequel.qualify(:user_show, :user_id) => @user.id])
-      .join(SDSeason, {Sequel.qualify(:seasons, :id) => Sequel.qualify(:episodes, :season_id)}, :table_alias => :seasons)
+      .left_join(:user_episode, episode_id: Sequel[:episodes][:id], user_id: @user.id)
+      .join(:user_show, show_id: Sequel[:episodes][:show_id], user_id: @user.id)
+      .join(:seasons, {Sequel.qualify(:seasons, :id) => Sequel.qualify(:episodes, :season_id)}, :table_alias => :seasons)
       .where(Sequel.qualify(:user_episode, :watched) => nil)
       .exclude(Sequel.qualify(:episodes, :firstaired) => nil)
       .exclude(Sequel.qualify(:episodes, :title) => '')
       .exclude(Sequel.qualify(:seasons, :title) => '0')
       .order(Sequel.qualify(:episodes, :show_id), Sequel.qualify(:seasons, :order), Sequel.qualify(:episodes, :order))
-      .select(:episodes__id, :episodes__title, :user_episode__watched, :episodes__firstaired, :episodes__show_id, :episodes__season_id, :episodes__order)
+      .select(
+        Sequel[:episodes][:id],
+        Sequel[:episodes][:title],
+        Sequel[:user_episode][:watched],
+        Sequel[:episodes][:firstaired],
+        Sequel[:episodes][:show_id],
+        Sequel[:episodes][:season_id],
+        Sequel[:episodes][:order]
+      )
 
     episodes = Hash.new
 
