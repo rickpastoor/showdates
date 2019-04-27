@@ -46,11 +46,20 @@ class EpisodeBuilder
   def build_show(show)
     # Fetch episode stuff
     episodes_dataset = SDEpisode.from_self(:alias => :episodes)
-      .left_join(SDUserEpisode, [Sequel.qualify(:episodes, :id) => :episode_id, :user_id => @user.id])
-      .join(SDSeason, {Sequel.qualify(:seasons, :id) => Sequel.qualify(:episodes, :season_id)}, :table_alias => :seasons)
-      .where(:episodes__show_id => show.id)
+      .left_join(:user_episode, episode_id: Sequel[:episodes][:id], :user_id => @user.id)
+      .join(:seasons, {Sequel.qualify(:seasons, :id) => Sequel.qualify(:episodes, :season_id)}, :table_alias => :seasons)
+      .where(Sequel.qualify(:episodes, :show_id) => show.id)
       .order(Sequel.qualify(:episodes, :show_id), Sequel.qualify(:seasons, :order), Sequel.qualify(:episodes, :order))
-      .select(:episodes__id, :episodes__title___episode_title, :user_episode__watched, :episodes__firstaired, :episodes__show_id, :episodes__season_id___season_id, :episodes__order, :seasons__title___season_title)
+      .select(
+        Sequel[:episodes][:id],
+        Sequel.as(Sequel[:episodes][:title], :episode_title),
+        Sequel[:user_episode][:watched],
+        Sequel[:episodes][:firstaired],
+        Sequel[:episodes][:show_id],
+        Sequel[:episodes][:season_id],
+        Sequel[:episodes][:order],
+        Sequel.as(Sequel[:seasons][:title], :season_title)
+      )
 
     seasons = Hash.new
 
