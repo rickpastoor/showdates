@@ -1,0 +1,6 @@
+#####################################################
+# This file is automatically updated on deployment.
+# Manual changes will be reverted on deploy.
+#####################################################
+
+PATH=/usr/bin:/bin:/usr/local/bin
