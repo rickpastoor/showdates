@@ -8,14 +8,26 @@ class SignupController < ShowdatesApp
   post '/' do
     # Check required fields
     if params[:emailaddress].empty? || params[:password].empty? || params[:password_confirm].empty?
-      flash[:error] = "Please fill in the required fields!"
+      flash[:error] = 'Please fill in the required fields!'
 
       redirect '/signup'
     end
 
-    # Check username format
+    if !params[:username].empty?
+      # Check username format
+      unless /^[a-z0-9_\.]{2,40}$/.match(params[:username])
+        flash[:error] = 'Your username should be without spaces and special characters and between 2 and 40 chars long.'
 
-    # Check username availability
+        redirect '/signup'
+      end
+
+      # Check username availability
+      if SDUser.find(username: params[:username])
+        flash[:error] = "Username #{params[:username]} is already taken, please change it to something else."
+
+        redirect '/signup'
+      end
+    end
 
     # Check if this emailaddress is already in use
     if SDUser.find(emailaddress: params[:emailaddress])
