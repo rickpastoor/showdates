@@ -30,8 +30,12 @@
 
 	<link rel="stylesheet" href="/css/style.css">
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.4.0.min.js"
+    integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+    crossorigin="anonymous"></script>
   <script src="/js/jquery.ba-hashchange.min.js"></script>
+  <script src="/js/jquery.livesearch.js"></script>
 </head>
 
 <body>
@@ -44,7 +48,7 @@
     </ul>
 
     <ul class="user-menu">
-      <li><input type="text" name="search" class="placeholder menu-search" autocomplete="off" data-placeholder="Search Shows" /></li>
+      <li><input type="text" name="search" class="menu-search" autocomplete="off" placeholder="Search Shows" /></li>
       <li class="search-menu-item">
         <a href="shows/search"><img src="img/icon-search.png" /></a>
       </li>
@@ -95,7 +99,7 @@
 
     <script type="text/javascript">
       $(function() {
-            $(document).on('click', '#avatar-item', function(e) {
+        $(document).on('click', '#avatar-item', function(e) {
     			var obj = $(this),
     			dropdown = $('#account-menu');
 
@@ -129,6 +133,13 @@
     				$('.avatar').removeClass('menu-visible');
     			}
     		});
+
+        $.get('/search_index.json', function(data) {
+          console.log(data);
+          $('.menu-search').showSearch({
+            source: data
+          });
+        });
       });
     </script>
 
@@ -137,25 +148,6 @@
 		// (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
 		// g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 		// s.parentNode.insertBefore(g,s)}(document,'script'));
-	</script>
-
-	<script>
-	// if (document.documentElement.clientWidth >= 550)
-	// {
-	// 	(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/i2esdiJ48OUDvdy4KGT0Q.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()
-  //
-	// 	UserVoice = window.UserVoice || [];
-	// 	UserVoice.push(['showTab', 'classic_widget', {
-	// 	  mode: 'feedback',
-	// 	  primary_color: '#cc6d00',
-	// 	  link_color: '#007dbf',
-	// 	  forum_id: 203248,
-	// 	  tab_label: 'Feedback',
-	// 	  tab_color: '#cc6d00',
-	// 	  tab_position: 'middle-left',
-	// 	  tab_inverted: false
-	// 	}]);
-	// }
 	</script>
 </body>
 </html>

@@ -558,6 +558,9 @@ header ul li {
   outline: none;
   box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.15), 0px -1px 0px 0 rgba(255, 255, 255, 0.05), 0px 1px 0px 0 rgba(0, 0, 0, 0.1); }
 
+.menu-search::placeholder {
+  color: #ffffff77; }
+
 @media all and (max-width: 550px) {
   .menu-search {
     display: none; } }
@@ -1612,18 +1615,6 @@ footer a:hover {
   text-decoration: underline; }
 
 /* @end */
-.lablabel {
-  position: fixed;
-  right: 0px;
-  top: 0px;
-  background-image: url(/img/lablabel.png);
-  width: 82px;
-  height: 111px; }
-
-@media all and (max-width: 450px) {
-  .lablabel {
-    top: -100px; } }
-
 /* Login buttons */
 .btns-outer {
   padding: 4px;

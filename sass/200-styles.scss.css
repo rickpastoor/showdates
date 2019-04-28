@@ -198,6 +198,10 @@ header ul li {
 		0px 1px 0px 0 rgba(0, 0, 0, 0.1);
 }
 
+.menu-search::placeholder {
+	color: #ffffff77;
+}
+
 @media all and (max-width: 550px) {
 	.menu-search {
 		display: none;
@@ -1506,18 +1510,3 @@ footer a:hover {
 }
 
 /* @end */
-
-.lablabel {
-	position: fixed;
-	right: 0px;
-	top: 0px;
-	background-image: url(/img/lablabel.png);
-	width: 82px;
-	height: 111px;
-}
-
-@media all and (max-width: 450px) {
-	.lablabel {
-		top: -100px;
-	}
-}
