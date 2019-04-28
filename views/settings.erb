@@ -80,7 +80,7 @@
 <h2>Provider settings</h2>
 <p>Customize the link next to every episode on your couch and on a shows page. Make it an instant search on Hulu, YouTube or any service you want.</p>
 <p><label for="providerurl" class="field-label">Provider URL:</label> <input type="text" name="providerurl" id="providerurl" value="<%= @user.providerurl %>" class="extralarge" autocomplete="off" /></p>
-<p><span class="field-label">Example:</span> <input disabled="disabled" type="text" name="providerurl-example" id="providerurl-example" class="extralarge" value="http://binsearch.info/quite/a/long/url/wil/this/be/some/nice/layout/problem/or/not/?q=Prison Break+s01e03" /></p>
+<!--<p><span class="field-label">Example:</span> <input disabled="disabled" type="text" name="providerurl-example" id="providerurl-example" class="extralarge" value="http://binsearch.info/quite/a/long/url/wil/this/be/some/nice/layout/problem/or/not/?q=Prison Break+s01e03" /></p>-->
 <p class="hint protip-intro">Protip: use one of the tags below in your URL. We'll replace them by something useful.</p>
 <ul class="hint" id="protip-list">
 	<li><code>{show}</code> to use the name of the show e.g. "Prison Break"</li>
@@ -116,7 +116,7 @@
 			$('#link-' + hash).addClass('active');
 			$('#section').val(hash);
 
-			$('#providerurl').liveProviderPreview($('#providerurl-example'));
+			//$('#providerurl').liveProviderPreview($('#providerurl-example'));
 		});
 
 		$(window).hashchange();
