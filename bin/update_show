@@ -4,6 +4,10 @@
 require 'dotenv'
 Dotenv.load
 
+show = ARGV[0]
+
+return 'update_show [tvdbid]' unless show
+
 if ENV['RACK_ENV'] != 'production'
   require 'sidekiq/testing'
   Sidekiq::Testing.inline!
@@ -15,4 +19,4 @@ require 'setup'
 require 'models'
 require 'workers/update_show'
 
-ShowWorker.perform_async('121361')
+ShowWorker.perform_async(show)

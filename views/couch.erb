@@ -4,6 +4,10 @@
 
 <p>This list shows the next episode for every show you follow and haven't watched yet.</p>
 
+<% if @couch[:aired].count.zero? && @couch[:tobeaired].count.zero? %>
+<p>Use the search feature in the top bar to find something to follow!</p>
+<% end %>
+
 <ul class="list-couch">
 
 <% local_time = @user.to_local_time(Time.now.getutc) %>

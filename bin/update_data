@@ -1,26 +1,24 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'dotenv'
 Dotenv.load
 
-require 'nokogiri'
-require_relative '../lib/tvdb'
-require_relative '../lib/workers/update_show'
-require 'sidekiq/api'
+if ENV['RACK_ENV'] != 'production'
+  require 'sidekiq/testing'
+  Sidekiq::Testing.inline!
+end
 
-# Sidekiq::RetrySet.new.clear
-# Sidekiq::ScheduledSet.new.clear
-# Sidekiq::Queue.new.clear
-# Sidekiq::Stats.new.reset
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
+
+require 'setup'
+require 'models'
+require 'nokogiri'
+require 'tvdb'
+require 'workers/update_show'
 
 updates = Nokogiri::XML(TVDB.getUpdatesXML)
 
-num = 0
 updates.xpath('/Data/Series').each do |serie|
-  # TODO: create series update job for show with tvdbid `serie.at_xpath('id').content`
-  # The update was made on `serie.at_xpath('time').content`
-  num = num + 1
-
   ShowWorker.perform_async(serie.at_xpath('id').content)
 end
-
-puts "Total: " + num.to_s + " shows scheduled for update"
