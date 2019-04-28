@@ -73,7 +73,14 @@
 <div class="box" id="tab-timezone">
 <h2>Timezone settings</h2>
 <p>We don't want to give false positives, so make sure your timezone is set up correctly.</p>
-<p><label for="timezone" class="field-label">Timezone:</label> <select name="timezone" id="timezone">{timezones}</select></p>
+<p>
+	<label for="timezone" class="field-label">Timezone:</label>
+	<select name="timezone" id="timezone">
+		<% TIMEZONES.each do |tz| %>
+      <option value="<%= tz.identifier %>" <% if @user.timezone == tz.identifier %>selected<% end %>><%= tz.to_s %></option>
+    <% end %>
+	</select>
+</p>
 </div>
 
 <div class="box box-hidden" id="tab-provider">

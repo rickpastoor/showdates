@@ -5,6 +5,7 @@ require 'bugsnag'
 require 'koala'
 require 'twitter_oauth'
 require 'aws/ses'
+require 'tzinfo'
 
 %w[
   BASE_URL
@@ -41,3 +42,5 @@ Koala.configure do |config|
   config.app_id = ENV['FACEBOOK_APP_ID']
   config.app_secret = ENV['FACEBOOK_APP_SECRET']
 end
+
+TIMEZONES = TZInfo::Timezone.all_data_zones
