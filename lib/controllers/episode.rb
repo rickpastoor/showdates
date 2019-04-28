@@ -7,13 +7,13 @@ class EpisodeController < ShowdatesApp
     erb :'episode'
   end
 
-  get '/watched/:episode_id' do
+  get '/watched/:episode_id', :auth => :user do
     @user.update_episode(SDEpisode[params[:episode_id]], true)
 
     redirect request.referrer
   end
 
-  get '/unwatched/:episode_id' do
+  get '/unwatched/:episode_id', :auth => :user do
     @user.update_episode(SDEpisode[params[:episode_id]], false)
 
     redirect request.referrer

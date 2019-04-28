@@ -1,11 +1,11 @@
 class SettingsController < ShowdatesApp
-  get '/' do
+  get '/', :auth => :user do
     @title = 'Settings'
 
     erb :'settings'
   end
 
-  post '/' do
+  post '/', :auth => :user do
     if params[:avatar]
       @user.avatar = params[:avatar]
       @user.save
