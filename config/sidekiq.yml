@@ -2,4 +2,4 @@
 :concurrency: 1
 
 production:
-  :logfile: ./log/sidekiq.log
+  :logfile: /var/www/showdates.me/log/sidekiq.log
