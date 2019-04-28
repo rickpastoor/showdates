@@ -21,13 +21,9 @@ end
 
 Dir.glob('./lib/controllers/*.rb').each { |file| require file }
 
-Sidekiq::Web.use Rack::Session::Cookie, :secret => ENV['RACK_SESSION_COOKIE']
-
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
-   [user, password] == [ENV['SIDEKICK_ADMIN'], ENV['SIDEKICK_PASSWORD']]
+  [user, password] == [ENV['SIDEKICK_ADMIN'], ENV['SIDEKICK_PASSWORD']]
 end
-
-# Sidekiq::Web.instance_eval { @middleware.reverse! } # Last added, First Run
 
 run Rack::URLMap.new({
   '/' => ShowdatesApp,
