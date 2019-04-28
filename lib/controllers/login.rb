@@ -35,9 +35,9 @@ class LoginController < ShowdatesApp
       profile = graph.get_object('me', fields: 'email,name')
 
       # Lets see if we have an account with this Facebook ID
-      user = SDUser.find(:facebook_id => profile['id'])
-      if !user
-        user = SDUser.find(:emailaddress => profile['email'])
+      user = SDUser.find(facebook_id: profile['id'])
+      if !user && profile['email']
+        user = SDUser.find(emailaddress: profile['email'])
       end
 
       # If we found someone, let's go
