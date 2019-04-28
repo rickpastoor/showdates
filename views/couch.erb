@@ -1,4 +1,4 @@
-<!--<a class="collapse right btn btn-white" href="webcal://%frontendUrl%/feed/ical/user:%user_id%/key:%key%" title="Add Showdates to your calendar">iCal Feed</a>-->
+<a class="collapse right btn btn-white" href="webcal://<%= ENV['BASE_URL'].split('//')[1] %>feed/ical/user:<%= @user.id %>/key:<%= @user.servicekey %>" title="Add Showdates to your calendar">iCal Feed</a>
 
 <h1>Couch</h1>
 
@@ -41,4 +41,4 @@
 <% end %>
 </ul>
 
-<!--<p class="couch-buttons-footer"><a class="btn btn-white" href="webcal://%frontendUrl%/feed/ical/user:%user_id%/key:%key%" title="Add Showdates to your calendar">iCal Feed</a></p>-->
+<p class="couch-buttons-footer"><a class="btn btn-white" href="webcal://<%= ENV['BASE_URL'].split('//')[1] %>feed/ical/user:<%= @user.id %>/key:<%= @user.servicekey %>" title="Add Showdates to your calendar">iCal Feed</a></p>

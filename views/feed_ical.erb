@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//rickpastoor/showdates//NONSGML v1.0//EN
+X-WR-CALNAME:Showdates
+CALSCALE:GREGORIAN
+X-WR-TIMEZONE:<%= @user.timezone %>
+METHOD:PUBLISH
+<% @episodes.each do |episode| %>
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:<%= episode.firstaired.strftime("%Y%m%d") %>
+DTEND;VALUE=DATE:<%= (episode.firstaired + 1).strftime("%Y%m%d") %>
+SUMMARY:<%= episode.show.title %> - <%= episode.title %>
+URL;VALUE=URI:<%= ENV['BASE_URL'] %>show/<%= episode.show_id %>
+DESCRIPTION:<%= episode.description.gsub('\n', '\\n') %>
+END:VEVENT
+<% end %>
+END:VCALENDAR

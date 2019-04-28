@@ -39,6 +39,7 @@ run Rack::URLMap.new({
   '/episode' => EpisodeController,
   '/settings' => SettingsController,
   '/admin' => AdminController,
+  '/feed' => FeedController,
   #'/profile' => ProfileController,
   '/signup' => SignupController,
   '/sidekiq' => Sidekiq::Web

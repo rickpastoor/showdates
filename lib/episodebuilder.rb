@@ -90,4 +90,29 @@ class EpisodeBuilder
       :seasons => seasons
     }
   end
+
+  def build_calendarfeed
+    # Fetch the dataset we need
+    episodes_dataset = SDEpisode.from_self(:alias => :episodes)
+      .left_join(:user_episode, episode_id: Sequel[:episodes][:id], user_id: @user.id)
+      .join(:user_show, show_id: Sequel[:episodes][:show_id], user_id: @user.id)
+      .join(:seasons, {Sequel.qualify(:seasons, :id) => Sequel.qualify(:episodes, :season_id)}, :table_alias => :seasons)
+      .exclude(Sequel.qualify(:episodes, :firstaired) => nil)
+      .exclude(Sequel.qualify(:episodes, :title) => '')
+      .exclude(Sequel.qualify(:seasons, :title) => '0')
+      .where(firstaired: (Date.today - 30)..(Date.today + 30))
+      .order(Sequel.qualify(:episodes, :firstaired))
+      .select(
+        Sequel[:episodes][:id],
+        Sequel[:episodes][:title],
+        Sequel[:episodes][:description],
+        Sequel[:user_episode][:watched],
+        Sequel[:episodes][:firstaired],
+        Sequel[:episodes][:show_id],
+        Sequel[:episodes][:season_id],
+        Sequel[:episodes][:order]
+      )
+
+    episodes_dataset
+  end
 end
