@@ -1,10 +1,10 @@
 <div class="homeMostPopularContainer collapse">
 <ul class="homeMostPopular">
-  <% # foreach %>
+  <% SDShow.most_popular(10).each do |show| %>
   <li>
-  	<a href="{url}" style="background-image: url(static/BShow/{id}/poster/size:80x0)" alt="%title%" title="%title%">%title%</a>
+  	<a href="/show/<%= show.id %>" style="background-image: url(<%= show.poster_path %>)" alt="<%= show.title %>" title="<%= show.title %>"><%= show.title %></a>
   </li>
-  <% # end %>
+  <% end %>
 </ul>
 </div>
 

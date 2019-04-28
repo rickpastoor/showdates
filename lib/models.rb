@@ -214,6 +214,12 @@ class SDShow < Sequel::Model(:shows)
   def poster_path
     "/uploads/shows/#{self.id}-poster.jpg"
   end
+
+  dataset_module do
+    def most_popular(count = 10)
+      order(Sequel.desc(:followers)).limit(count)
+    end
+  end
 end
 
 class SDUserShow < Sequel::Model(:user_show)

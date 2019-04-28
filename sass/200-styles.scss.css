@@ -1073,6 +1073,7 @@ a.genre {
 	text-indent: 100%;
 	white-space: nowrap;
 	overflow: hidden;
+	background-size: contain;
 }
 
 h1.home {
