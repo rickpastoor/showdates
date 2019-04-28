@@ -54,7 +54,7 @@ task :deploy do
     on :launch do
       in_path(fetch(:current_path)) do
         command %(bundle exec thin restart -C /etc/thin/showdates.me.yml)
-        #command %(sudo systemctl restart sidekiq)
+        command %(sudo systemctl restart sidekiq)
       end
     end
   end
