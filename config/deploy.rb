@@ -23,7 +23,7 @@ end
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
-  # command %{rbenv install 2.3.0 --skip-existing}
+  command %{gem install bundler -v '< 2.0'}
 end
 
 namespace :cron do
@@ -47,14 +47,14 @@ task :deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    command 'RAKE_ENV=production bundle exec rake db:migrate'
+    #command 'RAKE_ENV=production bundle exec rake db:migrate'
     invoke :'cron:install'
     invoke :'deploy:cleanup'
 
     on :launch do
       in_path(fetch(:current_path)) do
         command %(bundle exec thin restart -C /etc/thin/showdates.me.yml)
-        command %(sudo systemctl restart sidekiq)
+        #command %(sudo systemctl restart sidekiq)
       end
     end
   end
