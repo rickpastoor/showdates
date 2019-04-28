@@ -1,5 +1,5 @@
 require 'sidekiq'
-require_relative '../showupdater'
+require 'showupdater'
 
 class ShowWorker
   include Sidekiq::Worker

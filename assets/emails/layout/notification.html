@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Showdates</title>
+	<style type="text/css">
+		#outlook a {padding:0;}
+		body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
+		.ExternalClass {width:100%;}
+		.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+		#backgroundTable {margin:0; padding:0; line-height: 100% !important; font-family: Helvetica; color: #3b3b3b;  text-shadow: #fff 0px 1px 1px; font-size: 13px}
+		img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+		a img {border:none;}
+		.image_fix {display:block;}
+		p {margin: 1em 0;}
+
+		h1, h2, h3, h4, h5, h6 {color: #3b3b3b !important;}
+		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: #00528A !important;}
+		h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+			color: #00528A !important;
+		}
+		h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+			color: #00528A !important;
+		}
+
+		table td {border-collapse: collapse;}
+    	table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+
+		a:link { color: #00528A; }
+		a:visited { color: #00528A; }
+		a:hover { color: #009CFF; }
+
+    .preheader {
+      color: transparent;
+      display: none;
+      height: 0;
+      max-height: 0;
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      mso-hide: all;
+      visibility: hidden;
+      width: 0;
+    }
+	</style>
+</head>
+<body style="margin: 0 !important; padding: 0 !important; color: #3b3b3b;">
+  {% if preheader %}
+  <span class="preheader">{{preheader}}</span>
+  {% endif %}
+	<table cellpadding="0" cellspacing="0" border="0" style="width:100% !important; background: #009CFF url(%frontendBase%img/bg-header-mail.png); margin: 0 !important; padding: 0 !important; line-height: 100% !important;">
+	<tr>
+		<td height="8"></td>
+	</tr>
+	</table>
+	<table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" style="width:100% !important; background: #f4f6f6 url(%frontendBase%img/bg-body.png); border-bottom: 1px solid #e1e1e2; margin: 0 !important; padding: 0 !important; line-height: 100% !important;">
+	<tr>
+		<td style="padding: 0 8px">
+
+		<table cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td colspan="2" width="600">
+          {{content}}
+				</td>
+			</tr>
+
+		</table>
+
+		</td>
+	</tr>
+	</table>
+	<table cellpadding="0" cellspacing="0" border="0" style="margin:0; padding:0; width:100% !important; line-height: 100% !important; font-family: Helvetica; color: #3b3b3b; text-shadow: #fff 0px 1px 1px; font-size: 12px">
+		<tr>
+		<td style="padding: 0 8px">
+		<table cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td width="600" align="center" style="padding-top: 10px; line-height: 1.2;">You are receiving this e-mail because you just signed up at <a title="Showdates Homepage" href="{{base_url}}">Showdates</a>. Not ringing a bell? Just hit reply and we'll take care of it.</td>
+			</tr>
+		</table>
+		</td>
+		</tr>
+	</table>
+</body>
+</html>

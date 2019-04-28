@@ -6,10 +6,12 @@ require 'tzinfo'
 require 'bcrypt'
 require 'securerandom'
 
-require_relative 'lib/setup'
-require_relative 'lib/models'
-require_relative 'lib/episodebuilder'
-require_relative 'lib/helpers/style'
+require 'setup'
+require 'models'
+require 'mailer'
+require 'episodebuilder'
+require 'helpers/style'
+require 'helpers/markdown_template'
 
 class ShowdatesApp < Sinatra::Base
   enable :sessions
@@ -25,7 +27,7 @@ class ShowdatesApp < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
     also_reload 'lib/*.rb'
-    also_reload 'helpers/*.rb'
+    also_reload 'lib/helpers/*.rb'
   end
 
   register do
@@ -65,6 +67,8 @@ class ShowdatesApp < Sinatra::Base
 
   before do
     @user = SDUser[session[:user_id]]
+
+    @mailer = Mailer.new
   end
 
   not_found do

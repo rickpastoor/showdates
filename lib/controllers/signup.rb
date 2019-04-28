@@ -1,5 +1,7 @@
 class SignupController < ShowdatesApp
   get '/' do
+    @title = 'Signup'
+
     erb :'signup'
   end
 
@@ -16,8 +18,8 @@ class SignupController < ShowdatesApp
     # Check username availability
 
     # Check if this emailaddress is already in use
-    if SDUser.find(:emailaddress => params[:emailaddress])
-      flash[:error] = "This emailaddress is already taken. Do you want to <a href=\"/login\"><strong>login</strong></a> instead?"
+    if SDUser.find(emailaddress: params[:emailaddress])
+      flash[:error] = 'This emailaddress is already taken. Do you want to <a href="/login"><strong>login</strong></a> instead?'
 
       redirect '/signup'
     end
@@ -47,6 +49,15 @@ class SignupController < ShowdatesApp
     session[:user_id] = user.id
 
     # Send welcome email
+    email_template = MarkdownTemplate.render('emails/signup_confirm',
+      'user_firstname' => user.firstname)
+
+    @mailer.send_mail(
+      recipient_email: user.emailaddress,
+      subject: email_template[:config]['subject'],
+      html: email_template[:template],
+      async: false
+    )
 
     redirect '/couch'
   end

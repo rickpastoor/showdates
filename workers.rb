@@ -1,12 +1,16 @@
+# frozen_string_literal: true
+
 require 'dotenv'
 Dotenv.load
 
+ROOT_DIR = File.expand_path('./lib', __dir__)
+$LOAD_PATH.unshift ROOT_DIR
+
 require 'rack'
 
-require_relative 'lib/setup'
-require_relative 'lib/models'
+require 'setup'
+require 'models'
 
-require_relative 'lib/workers/update_show.rb'
-require_relative 'lib/showupdater.rb'
+Dir.glob('./lib/workers/*.rb').each { |file| require file }
 
 Encoding.default_external = Encoding::UTF_8
