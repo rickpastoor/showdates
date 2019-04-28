@@ -1,14 +1,18 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'dotenv'
 Dotenv.load
 
-require_relative '../lib/setup'
-require_relative '../lib/workers/update_show'
+if ENV['RACK_ENV'] != 'production'
+  require 'sidekiq/testing'
+  Sidekiq::Testing.inline!
+end
 
-#show = SDShow[7949205]
-#show = SDShow[8]
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
 
-#showUpdater = ShowUpdater.new(show)
-#showUpdater.update
+require 'setup'
+require 'models'
+require 'workers/update_show'
 
-ShowWorker.perform_async('73739')
+ShowWorker.perform_async('121361')

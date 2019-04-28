@@ -75,10 +75,6 @@ class ShowUpdater
     currentSeasonId = nil
     currentSeason = nil
 
-    # Unlink all episodes and seasons
-    #@show.remove_all_episodes
-    #@show.remove_all_seasons
-
     # Fix episodes/seasons
     episodes.each { |episode|
       next if episode.at_xpath('EpisodeName').content.empty?
@@ -136,7 +132,7 @@ class ShowUpdater
       ep.save
     }
 
-    puts "updating banners."
+    print "updating banners..."
 
     parsedBannerXml = Nokogiri::XML(TVDB.getShowBannerXML(@show.tvdbid))
     banners = parsedBannerXml.xpath('/Banners/Banner')
@@ -162,7 +158,7 @@ class ShowUpdater
     save_image(bannerUrl, @show.banner_path, 'banner')
     save_image(posterUrl, @show.poster_path, 'poster')
 
-    puts "...done"
+    print "done\n"
   end
 
   private
