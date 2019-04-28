@@ -7,7 +7,7 @@ class SearchIndexWorker
 
   def perform
     begin
-      file = File.new('./public/search_index.json', 'w+')
+      file = File.new('./public/uploads/search_index.json', 'w+')
 
       search_index = []
 
