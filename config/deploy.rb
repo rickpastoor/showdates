@@ -47,7 +47,7 @@ task :deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    #command 'RAKE_ENV=production bundle exec rake db:migrate'
+    command 'RAKE_ENV=production bundle exec rake db:migrate'
     invoke :'cron:install'
     invoke :'deploy:cleanup'
 
