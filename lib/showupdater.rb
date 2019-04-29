@@ -44,8 +44,8 @@ class ShowUpdater
     end
 
     imdb_id = show.at_xpath('IMDB_ID').content
-    @show.imdb_id = imdb_id unless imdb_id.empty? || imdb_id == 'https://www.imdb.com/titl'
-    
+    @show.imdb_id = imdb_id if imdb_id =~ /^tt[0-9]{7}$/
+
     @show.invisible = 0
 
     @show.edited = DateTime.now
@@ -112,7 +112,7 @@ class ShowUpdater
       ep.language = episode.at_xpath('Language').content
 
       imdb_id = episode.at_xpath('IMDB_ID').content
-      ep.imdb_id = imdb_id unless imdb_id.empty? || imdb_id == 'https://www.imdb.com/titl'
+      ep.imdb_id = imdb_id if imdb_id =~ /^tt[0-9]{7}$/
 
       ep.airsbefore_season = nil
       if episode.at_xpath('airsbefore_season')
