@@ -23,8 +23,8 @@ class AdminController < ShowdatesApp
     #   network.save
     # end
 
-    flash[:success] = 'Network changes saved.'
+    #flash[:success] = 'Network changes saved.'
 
-    redirect request.referrer
+    redirect '/admin'
   end
 end
