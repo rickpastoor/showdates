@@ -19,7 +19,7 @@ class AdminController < ShowdatesApp
     network = SDNetwork[params[:id]]
 
     if params[:icon]
-      network.icon = params[:icon]
+      #network.icon = params[:icon]
       network.save
     end
 
