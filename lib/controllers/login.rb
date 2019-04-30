@@ -66,7 +66,7 @@ class LoginController < ShowdatesApp
 
         redirect '/couch'
       else
-        flash[:error] = 'Sorry, something went wrong while loggin in.'
+        flash[:error] = 'Sorry, something went wrong while logging in.'
 
         redirect '/'
       end
