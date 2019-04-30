@@ -15,7 +15,7 @@
         <% end %>
       </td>
       <td><%= network.title %></td>
-      <td><%= network.shows.count %></td>
+      <td><%= @counts[network.id] %></td>
       <td><a href="/admin/network/<%= network.id %>/edit">Edit</a></td>
     </tr>
   <% end %>

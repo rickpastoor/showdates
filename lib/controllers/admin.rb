@@ -6,6 +6,8 @@ class AdminController < ShowdatesApp
   get '/networks', :auth => :admin do
     @networks = SDNetwork.all
 
+    @counts = SDShow.group_and_count(:network_id).as_hash(:network_id, :count)
+
     erb :'admin_networks'
   end
 
