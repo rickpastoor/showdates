@@ -36,6 +36,9 @@
 		<p><%= @show.seasons.length %> seasons with <%= @show.episodes.length %> episodes listed.</p>
 		<p>First Aired: <%= @show.firstaired %></p>
 		<p>Status: <%= @show.status %></p>
+		<% if !@show.network.icon_thumb_url %>
+			<p>Network: <%= @show.network.title %></p>
+		<% end %>
 	</div>
 
 <!--
