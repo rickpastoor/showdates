@@ -173,7 +173,7 @@ class NetworkIconUploader < CarrierWave::Uploader::Base
 end
 
 class SDNetwork < Sequel::Model(:networks)
-  one_to_many :shows, { :class => :SDShow }
+  one_to_many :shows, { :class => :SDShow, :key => :network_id }
   mount_uploader :icon, NetworkIconUploader
 
   def icon_thumb_url
