@@ -36,6 +36,17 @@
     crossorigin="anonymous"></script>
   <script src="/js/jquery.ba-hashchange.min.js"></script>
   <script src="/js/jquery.livesearch.js"></script>
+
+  <% if settings.production? %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-27760127-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-27760127-1');
+  </script>
+  <% end %>
 </head>
 
 <body>
@@ -150,12 +161,5 @@
         });
       });
     </script>
-
-	<script>
-		// var _gaq=[['_setAccount','UA-27760127-1'],['_trackPageview'],['_trackPageLoadTime']];
-		// (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-		// g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-		// s.parentNode.insertBefore(g,s)}(document,'script'));
-	</script>
-</body>
+  </body>
 </html>
