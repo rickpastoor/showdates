@@ -25,6 +25,6 @@ class AdminController < ShowdatesApp
 
     flash[:success] = 'Network changes saved.'
 
-    redirect '/admin'
+    redirect '/admin/networks'
   end
 end
