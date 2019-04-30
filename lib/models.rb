@@ -208,11 +208,11 @@ class SDShow < Sequel::Model(:shows)
   many_to_many :followers, { :class => :SDUser, :join_table => :user_show, :left_key => :show_id, :right_key => :user_id }
 
   def banner_path
-    "/uploads/shows/#{self.id}-banner.jpg"
+    "/uploads/shows/banner-#{self.id}.jpg"
   end
 
   def poster_path
-    "/uploads/shows/#{self.id}-poster.jpg"
+    "/uploads/shows/poster-#{self.id}.jpg"
   end
 
   dataset_module do
