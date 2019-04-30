@@ -263,7 +263,7 @@ td {
   font-family: 'Duru Sans';
   font-style: normal;
   font-weight: 400;
-  src: local("Duru Sans"), local("DuruSans-Regular"), url("http://themes.googleusercontent.com/static/fonts/durusans/v2/0rnIdjSQWlqFS5KpKzVfzrO3LdcAZYWl9Si6vvxL-qU.woff") format("woff"); }
+  src: local("Duru Sans"), local("DuruSans-Regular"), url("//themes.googleusercontent.com/static/fonts/durusans/v2/0rnIdjSQWlqFS5KpKzVfzrO3LdcAZYWl9Si6vvxL-qU.woff") format("woff"); }
 
 .tooltip {
   position: absolute;
