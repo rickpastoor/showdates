@@ -14,12 +14,7 @@ Dir.glob('./public/uploads/users/thumb_avatar.*.png') do |avatar|
   matches = /.\/public\/uploads\/users\/thumb_avatar.(\d*).png/im.match(avatar)
   puts matches[1]
 
-  user = SDUser[matches[1]]
-
-  if user
-    user.avatar = "avatar.#{matches[1]}.png"
-    user.save
-  end
+  DB.run "UPDATE users SET avatar = 'avatar.#{matches[1]}.png' WHERE id = #{matches[1]}"
 end
 
 # Update the avatar field
