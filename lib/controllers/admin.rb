@@ -16,14 +16,14 @@ class AdminController < ShowdatesApp
   end
 
   post '/network/:id/edit', :auth => :admin do
-    # network = SDNetwork[params[:id]]
-    #
-    # if params[:icon]
-    #   #network.icon = params[:icon]
-    #   network.save
-    # end
+    network = SDNetwork[params[:id]]
 
-    #flash[:success] = 'Network changes saved.'
+    if params[:icon]
+      network.icon = params[:icon]
+      network.save
+    end
+
+    flash[:success] = 'Network changes saved.'
 
     redirect '/admin'
   end

@@ -14,13 +14,19 @@ require 'helpers/style'
 require 'helpers/markdown_template'
 
 class ShowdatesApp < Sinatra::Base
-  enable :sessions
+  configure :production do
+    use Bugsnag::Rack
+  end
+
+  use Rack::Session::Cookie,
+    key: 'rack.session',
+    path: '/',
+    secret: ENV['SESSION_SECRET']
+
   enable :raise_errors
+  enable :logging
 
-  set :session_secret, ENV['SESSION_SECRET']
-  set :sessions, :domain => ENV['COOKIE_DOMAIN']
-
-  set :erb, :escape_html => true
+  set :erb, escape_html: true
 
   register Sinatra::Flash
 
