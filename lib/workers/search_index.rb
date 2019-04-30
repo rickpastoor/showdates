@@ -14,7 +14,8 @@ class SearchIndexWorker
       SDShow.exclude(title: '').each do |show|
         search_index << {
           id: show.id,
-          title: show.title
+          title: show.title,
+          poster: show.poster_url
         }
       end
 

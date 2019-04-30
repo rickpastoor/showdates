@@ -2,7 +2,7 @@
 <ul class="homeMostPopular">
   <% SDShow.most_popular(10).each do |show| %>
   <li>
-  	<a href="/show/<%= show.id %>" style="background-image: url(<%= show.poster_path %>)" alt="<%= show.title %>" title="<%= show.title %>"><%= show.title %></a>
+  	<a href="/show/<%= show.id %>" style="background-image: url(<%= show.poster_url %>)" alt="<%= show.title %>" title="<%= show.title %>"><%= show.title %></a>
   </li>
   <% end %>
 </ul>

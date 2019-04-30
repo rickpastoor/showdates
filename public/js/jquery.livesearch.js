@@ -88,7 +88,7 @@ function debounce(func, wait, immediate) {
         i = $(that.options.item)
         i.find('a').attr('href', '/show/' + item.id)
         i.find('.title').html(item.title)
-        i.find('img').attr('src', '/uploads/shows/poster-' + item.id + '.jpg')
+        i.find('img').attr('src', item.poster)
         return i[0]
       })
 
