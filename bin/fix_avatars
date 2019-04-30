@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'dotenv'
+Dotenv.load
+
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
+
+require 'setup'
+require 'models'
+
+# Loop through all avatar files
+Dir.glob('./public/uploads/users/thumb_avatar.*.png') do |avatar|
+  matches = /.\/public\/uploads\/users\/thumb_avatar.(\d*).png/im.match(avatar)
+  puts matches[1]
+
+  user = SDUser[matches[1]]
+  user.avatar = "avatar.#{matches[1]}.png"
+  user.save
+end
+
+# Update the avatar field
