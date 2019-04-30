@@ -15,8 +15,11 @@ Dir.glob('./public/uploads/users/thumb_avatar.*.png') do |avatar|
   puts matches[1]
 
   user = SDUser[matches[1]]
-  user.avatar = "avatar.#{matches[1]}.png"
-  user.save
+
+  if user
+    user.avatar = "avatar.#{matches[1]}.png"
+    user.save
+  end
 end
 
 # Update the avatar field
