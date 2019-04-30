@@ -10,9 +10,7 @@
   <% @networks.each do |network| %>
     <tr>
       <td>
-        <% if network.icon_thumb_url %>
-          <img src="<%= network.icon_thumb_url %>" />
-        <% end %>
+        
       </td>
       <td><%= network.title %></td>
       <td><%= network.shows.count %></td>

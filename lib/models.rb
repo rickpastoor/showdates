@@ -149,13 +149,13 @@ class SDGenre < Sequel::Model(:genres)
 end
 
 class NetworkIconUploader < CarrierWave::Uploader::Base
-	include CarrierWave::MiniMagick
-	process convert: 'png'
-	process resize_to_fill: [400, 400]
-
-	version :thumb do
-    process :resize_to_fill => [52, 52]
-  end
+	#include CarrierWave::MiniMagick
+	#process convert: 'png'
+	# process resize_to_fill: [400, 400]
+  #
+	# version :thumb do
+  #   process :resize_to_fill => [52, 52]
+  # end
 
 	def extension_white_list
     %w(jpg jpeg gif png)
