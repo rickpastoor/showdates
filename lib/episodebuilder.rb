@@ -42,7 +42,7 @@ class EpisodeBuilder
     end
 
     # Sort dataset
-    episodes.sort_by { |show, hash| hash[:firstaired] }
+    episodes = episodes.sort_by { |show, hash| hash[:firstaired] }
 
     # Split episodes
     {
