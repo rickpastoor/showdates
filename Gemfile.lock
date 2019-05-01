@@ -31,7 +31,7 @@ GEM
     css_parser (1.7.0)
       addressable
     daemons (1.2.4)
-    dotenv (2.0.2)
+    dotenv (2.7.2)
     erubis (2.7.0)
     eventmachine (1.2.5)
     faraday (0.13.1)
@@ -115,7 +115,7 @@ DEPENDENCIES
   bugsnag
   carrierwave
   carrierwave-sequel
-  dotenv (~> 2.0.2)
+  dotenv (~> 2.7.2)
   erubis
   httparty
   json
