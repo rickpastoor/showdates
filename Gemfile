@@ -26,3 +26,17 @@ gem 'koala'
 gem 'twitter_oauth'
 gem 'kramdown'
 gem 'liquid'
+
+group :development do
+  gem 'mina'
+  gem 'rubocop'
+end
+
+group :test do
+  gem 'cucumber'
+  gem 'cucumber-timecop'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'rack-test'
+  gem 'codecov'
+end
