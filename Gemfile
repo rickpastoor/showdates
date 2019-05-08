@@ -39,4 +39,5 @@ group :test do
   gem 'launchy'
   gem 'rack-test'
   gem 'codecov'
+  gem 'rspec-mocks'
 end
