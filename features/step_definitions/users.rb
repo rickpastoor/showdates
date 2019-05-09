@@ -14,3 +14,10 @@ Given /^these users:$/ do |table|
     user.save
   end
 end
+
+Given("user {string} is following show with tvdbid {string}") do |string, string2|
+  SDUserShow.create(
+    user: SDUser.find(emailaddress: string),
+    show: SDShow.find(tvdbid: string2)
+  )
+end

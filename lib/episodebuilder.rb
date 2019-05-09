@@ -123,5 +123,17 @@ class EpisodeBuilder
     episodes.select { |show, hash|
       @user.to_local_time(hash[:firstaired].to_time).to_date == @user.to_local_time(Time.now.getutc).to_date
     }
+    .map { |key, value| value[:episode] }
+    .map do |h|
+      {
+        'id' => h.id,
+        'title' => h.title,
+        'show_id' => h.show.id,
+        'show_title' => h.show.title,
+        'poster_url' => h.show.poster_url,
+        'season_no' => h.season.title,
+        'order' => h.order
+      }
+    end
   end
 end
