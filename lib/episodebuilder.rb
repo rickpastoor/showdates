@@ -46,6 +46,7 @@ class EpisodeBuilder
 
     # Split episodes
     {
+      :all => episodes,
       :aired => episodes.select { |show, hash| hash[:aired] },
       :tobeaired => episodes.select { |show, hash| !hash[:aired] }
     }
@@ -114,5 +115,13 @@ class EpisodeBuilder
       )
 
     episodes_dataset
+  end
+
+  def build_airingtoday
+    episodes = build_couch[:all]
+
+    episodes.select { |show, hash|
+      @user.to_local_time(hash[:firstaired].to_time).to_date == @user.to_local_time(Time.now.getutc).to_date
+    }
   end
 end

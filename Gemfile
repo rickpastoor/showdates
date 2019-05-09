@@ -33,11 +33,12 @@ group :development do
 end
 
 group :test do
+  gem 'codecov'
   gem 'cucumber'
   gem 'cucumber-timecop'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'minitest'
   gem 'rack-test'
-  gem 'codecov'
   gem 'rspec-mocks'
 end

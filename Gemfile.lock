@@ -191,6 +191,7 @@ DEPENDENCIES
   liquid
   mina
   mini_magick (~> 4.2.10)
+  minitest
   mysql2
   nokogiri
   rack-test

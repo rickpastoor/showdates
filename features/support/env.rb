@@ -11,6 +11,7 @@ ENV['RACK_ENV'] = 'test'
 require 'dotenv'
 Dotenv.load
 
+require 'minitest/spec'
 require 'cucumber/rspec/doubles'
 require 'sequel'
 require 'rack/test'
@@ -35,3 +36,34 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 require_relative '../../app.rb'
+
+Dir.glob('./lib/controllers/*.rb').each { |file| require file }
+
+URL_MAP = Rack::URLMap.new(
+  '/' => ShowdatesApp,
+  '/about' => AboutController,
+  '/account' => AccountController,
+  '/couch' => CouchController,
+  '/login' => LoginController,
+  '/show' => ShowController,
+  '/shows' => ShowsController,
+  '/episode' => EpisodeController,
+  '/settings' => SettingsController,
+  '/admin' => AdminController,
+  '/feed' => FeedController,
+  '/signup' => SignupController
+)
+
+module ShowdatesAppWorld
+  #include Capybara::DSL
+  include Rack::Test::Methods
+  include Minitest::Assertions
+
+  def app
+    URL_MAP
+  end
+end
+
+#Capybara.app = URL_MAP
+
+World(MiniTest::Assertions, Rack::Test::Methods, ShowdatesAppWorld)

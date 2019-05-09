@@ -25,6 +25,8 @@ And /^an empty mailbox$/ do
 end
 
 Then /^there should be (\d+) emails sent$/ do |expected_number_of_emails|
+  puts @emails.count
+
   @emails ||= []
   @emails.count.must_equal(expected_number_of_emails.to_i)
 end
