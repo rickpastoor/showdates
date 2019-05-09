@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/setup'
 require 'sinatra'
 require 'sinatra/reloader'
@@ -19,9 +21,9 @@ class ShowdatesApp < Sinatra::Base
   end
 
   use Rack::Session::Cookie,
-    key: 'rack.session',
-    path: '/',
-    secret: ENV['SESSION_SECRET']
+      key: 'rack.session',
+      path: '/',
+      secret: ENV['SESSION_SECRET']
 
   enable :raise_errors
   enable :logging
@@ -37,9 +39,9 @@ class ShowdatesApp < Sinatra::Base
   end
 
   register do
-    def auth (type)
+    def auth(type)
       condition do
-        redirect "/login" unless send("is_#{type}?")
+        redirect '/login' unless send("is_#{type}?")
       end
     end
   end
@@ -50,16 +52,12 @@ class ShowdatesApp < Sinatra::Base
       if @title
         "#{@title} / Showdates"
       else
-        "Showdates"
+        'Showdates'
       end
     end
 
     def description
-      if @description
-        @description
-      else
-        "Showdates helps you keep track of your favorite television shows. Record which episodes you have seen and always know when the next one will air."
-      end
+      @description || 'Showdates helps you keep track of your favorite television shows. Record which episodes you have seen and always know when the next one will air.'
     end
 
     def is_user?
@@ -67,7 +65,7 @@ class ShowdatesApp < Sinatra::Base
     end
 
     def is_admin?
-      @user != nil && @user.is_admin
+      !@user.nil? && @user.is_admin
     end
   end
 
@@ -78,21 +76,19 @@ class ShowdatesApp < Sinatra::Base
   end
 
   not_found do
-    erb :'notfound'
+    erb :notfound
   end
 
   error 500 do
-    Bugsnag.auto_notify($!)
-    erb :'error'
+    Bugsnag.auto_notify($ERROR_INFO)
+    erb :error
   end
 
   get '/' do
-    if is_user?
-      redirect '/couch'
-    end
+    redirect '/couch' if is_user?
 
-  	@title = 'Welcome'
+    @title = 'Welcome'
 
-  	erb :'index'
+    erb :index
   end
 end

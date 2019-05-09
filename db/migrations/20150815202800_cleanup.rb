@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Sequel.migration do
   up do
     drop_table?(:log, :role_cmspage, :cmspage, :access, :celer_migration, :user_role, :role)

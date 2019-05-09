@@ -23,7 +23,7 @@ end
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
-  command %{gem install bundler -v '< 2.0'}
+  command %(gem install bundler -v '< 2.0')
 end
 
 namespace :cron do

@@ -1,0 +1,32 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - vendor/**/*
+    - spec/**/*
+    - features/**/*
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/ConditionalAssignment:
+  EnforcedStyle: assign_inside_condition
+
+Metrics/AbcSize:
+  Max: 21
+
+Metrics/LineLength:
+  Max: 119
+
+Metrics/BlockLength:
+  Max: 28
+
+Metrics/ClassLength:
+  Max: 151
+
+Metrics/MethodLength:
+  Max: 16
+
+Metrics/ParameterLists:
+  Max: 6

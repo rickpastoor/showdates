@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 Sequel.migration do
   up do
     alter_table(:networks) do
-      add_column :icon, "varchar(255)"
+      add_column :icon, 'varchar(255)'
     end
   end
 

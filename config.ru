@@ -25,7 +25,7 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
   [user, password] == [ENV['SIDEKICK_ADMIN'], ENV['SIDEKICK_PASSWORD']]
 end
 
-run Rack::URLMap.new({
+run Rack::URLMap.new(
   '/' => ShowdatesApp,
   '/about' => AboutController,
   '/account' => AccountController,
@@ -39,4 +39,4 @@ run Rack::URLMap.new({
   '/feed' => FeedController,
   '/signup' => SignupController,
   '/sidekiq' => Sidekiq::Web
-})
+)

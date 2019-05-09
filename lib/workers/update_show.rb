@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sidekiq'
 require 'showupdater'
 
@@ -7,11 +9,9 @@ class ShowWorker
   def perform(thetvdb_id)
     show = SDShow.find(tvdbid: thetvdb_id)
 
-    if !show
-      show = SDShow.create(
-        :tvdbid => thetvdb_id
-      )
-    end
+    show ||= SDShow.create(
+      tvdbid: thetvdb_id
+    )
 
     if show
       showUpdater = ShowUpdater.new(show)

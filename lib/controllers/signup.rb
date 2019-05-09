@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class SignupController < ShowdatesApp
   get '/' do
     @title = 'Signup'
 
-    erb :'signup'
+    erb :signup
   end
 
   post '/' do
@@ -13,7 +15,7 @@ class SignupController < ShowdatesApp
       redirect '/signup'
     end
 
-    if !params[:username].empty?
+    unless params[:username].empty?
       # Check username format
       unless /^[a-z0-9_\.]{2,40}$/.match(params[:username])
         flash[:error] = 'Your username should be without spaces and special characters and between 2 and 40 chars long.'
@@ -38,7 +40,7 @@ class SignupController < ShowdatesApp
 
     # Check if the passwords match
     if params[:password] != params[:password_confirm]
-      flash[:error] = "The passwords do not match."
+      flash[:error] = 'The passwords do not match.'
 
       redirect '/signup'
     end
@@ -46,23 +48,23 @@ class SignupController < ShowdatesApp
     salt = BCrypt::Engine.generate_salt
 
     user = SDUser.create(
-      :firstname => params[:firstname],
-      :lastname => params[:lastname],
-      :emailaddress => params[:emailaddress],
-      :password => BCrypt::Engine.hash_secret(params[:password], salt),
-      :password_migrated => true,
-      :salt => salt,
-      :timezone => 'Europe/London',
-      :privacymode => 'public',
-      :username => params[:username],
-      :servicekey => SecureRandom.hex
+      firstname: params[:firstname],
+      lastname: params[:lastname],
+      emailaddress: params[:emailaddress],
+      password: BCrypt::Engine.hash_secret(params[:password], salt),
+      password_migrated: true,
+      salt: salt,
+      timezone: 'Europe/London',
+      privacymode: 'public',
+      username: params[:username],
+      servicekey: SecureRandom.hex
     )
 
     session[:user_id] = user.id
 
     # Send welcome email
     email_template = MarkdownTemplate.render('emails/signup_confirm',
-      'user_firstname' => user.firstname)
+                                             'user_firstname' => user.firstname)
 
     @mailer.send_mail(
       recipient_email: user.emailaddress,

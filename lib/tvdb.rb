@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'zip'
 
@@ -9,18 +11,18 @@ module TVDB
   end
 
   def getUpdatesXML
-    TVDB::getRemoteXML(
-      :temp_name => 'showdates_shows',
-      :url => baseUrl + "/updates/updates_day.zip",
-      :entry => 'updates_day.xml'
+    TVDB.getRemoteXML(
+      temp_name: 'showdates_shows',
+      url: baseUrl + '/updates/updates_day.zip',
+      entry: 'updates_day.xml'
     )
   end
 
   def getShowXML(tvdb_id)
-    TVDB::getRemoteXML(
-      :temp_name => 'showdates_show',
-      :url => baseUrl + "/series/#{tvdb_id}/all/en.zip",
-      :entry => 'en.xml'
+    TVDB.getRemoteXML(
+      temp_name: 'showdates_show',
+      url: baseUrl + "/series/#{tvdb_id}/all/en.zip",
+      entry: 'en.xml'
     )
   end
 
@@ -39,8 +41,8 @@ module TVDB
         return file.read(file.find_entry(entry))
       end
     rescue Zip::Error
-      puts "fetched " + url
-      puts "Error reading " + zipfile.path
+      puts 'fetched ' + url
+      puts 'Error reading ' + zipfile.path
     end
   end
 end

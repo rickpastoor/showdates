@@ -6,22 +6,20 @@ class SearchIndexWorker
   include Sidekiq::Worker
 
   def perform
-    begin
-      file = File.new('./public/uploads/search_index.json', 'w+')
+    file = File.new('./public/uploads/search_index.json', 'w+')
 
-      search_index = []
+    search_index = []
 
-      SDShow.exclude(title: '').each do |show|
-        search_index << {
-          id: show.id,
-          title: show.title,
-          poster: show.poster_url
-        }
-      end
-
-      file.write(search_index.to_json)
-    ensure
-      file.close unless file.nil?
+    SDShow.exclude(title: '').each do |show|
+      search_index << {
+        id: show.id,
+        title: show.title,
+        poster: show.poster_url
+      }
     end
+
+    file.write(search_index.to_json)
+  ensure
+    file&.close
   end
 end

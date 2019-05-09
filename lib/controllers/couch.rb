@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class CouchController < ShowdatesApp
-  get '/', :auth => :user do
+  get '/', auth: :user do
     episodeBuilder = EpisodeBuilder.new(@user)
     @couch = episodeBuilder.build_couch
 
     @title = 'Couch'
 
-    erb :'couch'
+    erb :couch
   end
 end

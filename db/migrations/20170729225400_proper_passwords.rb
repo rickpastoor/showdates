@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 Sequel.migration do
   up do
     alter_table(:users) do
-      add_column :password_migrated, :boolean, :default => false
-      add_column :salt, "varchar(255)"
+      add_column :password_migrated, :boolean, default: false
+      add_column :salt, 'varchar(255)'
     end
   end
 

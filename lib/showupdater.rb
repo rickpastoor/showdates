@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'tvdb'
 require 'nokogiri'
 require 'httparty'
@@ -25,9 +27,7 @@ class ShowUpdater
 
     # If we don't have a title and the remote XML has no title either, return
     # @TODO test on content without title
-    if @show.title && show.at_xpath('SeriesName').content.length == 0
-      return
-    end
+    return if @show.title && show.at_xpath('SeriesName').content.empty?
 
     @show.title = show.at_xpath('SeriesName').content
     @show.status = show.at_xpath('Status').content
@@ -39,7 +39,7 @@ class ShowUpdater
     @show.runtime = show.at_xpath('Runtime').content
 
     @show.firstaired = nil
-    if show.at_xpath('FirstAired').content.length > 0
+    unless show.at_xpath('FirstAired').content.empty?
       @show.firstaired = DateTime.parse(show.at_xpath('FirstAired').content)
     end
 
@@ -53,43 +53,37 @@ class ShowUpdater
     @show.save
 
     # Set network
-    network = SDNetwork.find(:title => show.at_xpath('Network').content)
-    if !network
-      network = SDNetwork.create(
-        :title => show.at_xpath('Network').content
-      ).save
-    end
+    network = SDNetwork.find(title: show.at_xpath('Network').content)
+    network ||= SDNetwork.create(
+      title: show.at_xpath('Network').content
+    ).save
     @show.network = network
 
     # Fix genres
     @show.remove_all_genres
-    parse_genres(show.at_xpath('Genre').content).each { |g|
-      genre = SDGenre.find(:title => g)
-      if !genre
-        genre = SDGenre.create(
-          :title => g
-        ).save
-      end
+    parse_genres(show.at_xpath('Genre').content).each do |g|
+      genre = SDGenre.find(title: g)
+      genre ||= SDGenre.create(
+        title: g
+      ).save
 
       @show.add_genre(genre)
-    }
+    end
 
     currentSeasonId = nil
     currentSeason = nil
 
     # Fix episodes/seasons
-    episodes.each { |episode|
+    episodes.each do |episode|
       next if episode.at_xpath('EpisodeName').content.empty?
 
       # Figure out the season
       if currentSeasonId != episode.at_xpath('seasonid').content
-        currentSeason = SDSeason.find(:tvdbid => episode.at_xpath('seasonid').content)
+        currentSeason = SDSeason.find(tvdbid: episode.at_xpath('seasonid').content)
 
-        if !currentSeason
-          currentSeason = SDSeason.create(
-            :tvdbid => episode.at_xpath('seasonid').content
-          )
-        end
+        currentSeason ||= SDSeason.create(
+          tvdbid: episode.at_xpath('seasonid').content
+        )
 
         currentSeason.title = episode.at_xpath('SeasonNumber').content
         currentSeason.order = episode.at_xpath('SeasonNumber').content
@@ -97,13 +91,11 @@ class ShowUpdater
         currentSeason.save
       end
 
-      ep = SDEpisode.find(:tvdbid => episode.at_xpath('id').content)
-      if !ep
-        ep = SDEpisode.create(
-          :tvdbid => episode.at_xpath('id').content,
-          :created => DateTime.now
-        )
-      end
+      ep = SDEpisode.find(tvdbid: episode.at_xpath('id').content)
+      ep ||= SDEpisode.create(
+        tvdbid: episode.at_xpath('id').content,
+        created: DateTime.now
+      )
 
       ep.season = currentSeason
       ep.show = @show
@@ -115,28 +107,24 @@ class ShowUpdater
       ep.imdb_id = imdb_id if imdb_id =~ /^tt[0-9]{7}$/
 
       ep.airsbefore_season = nil
-      if episode.at_xpath('airsbefore_season')
-        ep.airsbefore_season = episode.at_xpath('airsbefore_season').content
-      end
+      ep.airsbefore_season = episode.at_xpath('airsbefore_season').content if episode.at_xpath('airsbefore_season')
 
       ep.airsbefore_episode = nil
-      if episode.at_xpath('airsbefore_episode')
-        ep.airsbefore_episode = episode.at_xpath('airsbefore_episode').content
-      end
+      ep.airsbefore_episode = episode.at_xpath('airsbefore_episode').content if episode.at_xpath('airsbefore_episode')
 
       ep.order = episode.at_xpath('EpisodeNumber').content
 
       ep.firstaired = nil
-      if episode.at_xpath('FirstAired').content.length > 0
+      unless episode.at_xpath('FirstAired').content.empty?
         ep.firstaired = DateTime.parse(episode.at_xpath('FirstAired').content)
       end
 
       ep.edited = DateTime.now
 
       ep.save
-    }
+    end
 
-    print "updating banners..."
+    print 'updating banners...'
 
     parsedBannerXml = Nokogiri::XML(TVDB.getShowBannerXML(@show.tvdbid))
     banners = parsedBannerXml.xpath('/Banners/Banner')
@@ -146,17 +134,13 @@ class ShowUpdater
 
     banners.each do |banner|
       # Pick the first item as our banner
-      if !bannerUrl
-        bannerUrl = banner.at_xpath('BannerPath').content
-      end
+      bannerUrl ||= banner.at_xpath('BannerPath').content
 
       if !posterUrl && banner.at_xpath('BannerType').content == 'poster'
         posterUrl = banner.at_xpath('BannerPath').content
       end
 
-      if bannerUrl && posterUrl
-        break
-      end
+      break if bannerUrl && posterUrl
     end
 
     save_image(bannerUrl, @show.banner_path, 'banner')
@@ -168,10 +152,10 @@ class ShowUpdater
   private
 
   def parse_genres(genre_string)
-    genre_string.split('|').reject { |c| c.empty? }
+    genre_string.split('|').reject(&:empty?)
   end
 
-  def save_image(url, path, type)
+  def save_image(url, path, _type)
     File.write(File.expand_path("public#{path}"), HTTParty.get("http://www.thetvdb.com/banners/#{url}").body)
   end
 end

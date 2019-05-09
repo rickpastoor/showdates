@@ -18,7 +18,7 @@ ENV['TZ'] = 'UTC'
 
 # Set up database connection
 socket = ENV['DATABASE_SOCKET']
-DB = Sequel.connect(ENV['DATABASE_URL'], :socket => socket, :max_connections => 10)
+DB = Sequel.connect(ENV['DATABASE_URL'], socket: socket, max_connections: 10)
 
 # Get gitref
 ENV['gitref'] = begin

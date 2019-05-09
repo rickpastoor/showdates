@@ -1,29 +1,31 @@
+# frozen_string_literal: true
+
 class ShowController < ShowdatesApp
-  get '/:id', :auth => :user do
+  get '/:id', auth: :user do
     @show = SDShow[params[:id]]
     @title = @show.title
 
     episodeBuilder = EpisodeBuilder.new(@user)
     @show_data = episodeBuilder.build_show(@show)
 
-    erb :'show'
+    erb :show
   end
 
-  get '/:id/follow', :auth => :user do
+  get '/:id/follow', auth: :user do
     show = SDShow[params[:id]]
 
-    userShow = SDUserShow.find(:user => @user, :show => show)
-    if !userShow
+    userShow = SDUserShow.find(user: @user, show: show)
+    unless userShow
       SDUserShow.create(
-        :user => @user,
-        :show => show
+        user: @user,
+        show: show
       )
     end
 
     redirect request.referrer
   end
 
-  get '/:id/unfollow', :auth => :user do
+  get '/:id/unfollow', auth: :user do
     show = SDShow[params[:id]]
 
     @user.remove_following(show)
@@ -31,7 +33,7 @@ class ShowController < ShowdatesApp
     redirect request.referrer
   end
 
-  get '/season_watched/:season_id', :auth => :user do
+  get '/season_watched/:season_id', auth: :user do
     season = SDSeason[params[:season_id]]
 
     local_time = @user.to_local_time(Time.now.getutc)
@@ -46,7 +48,7 @@ class ShowController < ShowdatesApp
     redirect request.referrer
   end
 
-  get '/season_unwatched/:season_id', :auth => :user do
+  get '/season_unwatched/:season_id', auth: :user do
     season = SDSeason[params[:season_id]]
     season.episodes.each do |episode|
       @user.update_episode(episode, false)
