@@ -5,8 +5,8 @@ class ShowController < ShowdatesApp
     @show = SDShow[params[:id]]
     @title = @show.title
 
-    episodeBuilder = EpisodeBuilder.new(@user)
-    @show_data = episodeBuilder.build_show(@show)
+    episode_builder = EpisodeBuilder.new(@user)
+    @show_data = episode_builder.build_show(@show)
 
     erb :show
   end
@@ -14,8 +14,8 @@ class ShowController < ShowdatesApp
   get '/:id/follow', auth: :user do
     show = SDShow[params[:id]]
 
-    userShow = SDUserShow.find(user: @user, show: show)
-    unless userShow
+    user_show = SDUserShow.find(user: @user, show: show)
+    unless user_show
       SDUserShow.create(
         user: @user,
         show: show
