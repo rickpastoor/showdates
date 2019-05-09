@@ -11,6 +11,7 @@ CarrierWave.configure do |config|
   config.root = File.expand_path '../public', __dir__
 end
 
+# Class for user avatar
 class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   process convert: 'png'
@@ -35,6 +36,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   storage :file
 end
 
+# Describes a user
 class SDUser < Sequel::Model(:users)
   many_to_many :following, class: :SDShow, join_table: :user_show, left_key: :user_id, right_key: :show_id
   mount_uploader :avatar, AvatarUploader
@@ -102,6 +104,7 @@ class SDUser < Sequel::Model(:users)
   end
 end
 
+# Describes an episode
 class SDEpisode < Sequel::Model(:episodes)
   many_to_one :show, class: :SDShow
   many_to_one :season, class: :SDSeason
@@ -143,14 +146,17 @@ class SDEpisode < Sequel::Model(:episodes)
   end
 end
 
+# Describes the relationship between user and episode
 class SDUserEpisode < Sequel::Model(:user_episode)
   many_to_one :episode, class: :SDEpisode
 end
 
+# Describes a genre
 class SDGenre < Sequel::Model(:genres)
   many_to_many :shows, class: :SDShow, join_table: :show_genre, left_key: :genre_id, right_key: :show_id
 end
 
+# Holds the network logo
 class NetworkIconUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   process convert: 'png'
@@ -175,6 +181,7 @@ class NetworkIconUploader < CarrierWave::Uploader::Base
   storage :file
 end
 
+# Describes a network
 class SDNetwork < Sequel::Model(:networks)
   one_to_many :shows, class: :SDShow, key: :network_id
   mount_uploader :icon, NetworkIconUploader
@@ -184,6 +191,7 @@ class SDNetwork < Sequel::Model(:networks)
   end
 end
 
+# Describes a season
 class SDSeason < Sequel::Model(:seasons)
   one_to_many :episodes, class: :SDEpisode, key: :season_id, order: :order
   many_to_one :show, class: :SDShow
@@ -199,6 +207,7 @@ class SDSeason < Sequel::Model(:seasons)
   end
 end
 
+# Describes a show
 class SDShow < Sequel::Model(:shows)
   many_to_one :network, class: :SDNetwork
   many_to_many :genres, class: :SDGenre, join_table: :show_genre, left_key: :show_id, right_key: :genre_id
@@ -227,6 +236,7 @@ class SDShow < Sequel::Model(:shows)
   end
 end
 
+# Describes the relationship between a user and a show
 class SDUserShow < Sequel::Model(:user_show)
   many_to_one :user, class: :SDUser
   many_to_one :show, class: :SDShow
