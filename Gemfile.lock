@@ -108,6 +108,9 @@ GEM
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
+    rainbow (3.0.0)
     rake (12.3.2)
     redis (3.3.3)
     roadie (3.5.0)

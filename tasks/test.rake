@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rubocop/rake_task'
-#require 'rake/testtask'
+require 'rake/testtask'
 require 'cucumber'
 require 'cucumber/rake/task'
 

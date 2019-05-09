@@ -17,6 +17,8 @@ require 'sequel'
 require 'rack/test'
 require 'cucumber/timecop'
 
+MiniTest::Spec.new(nil)
+
 require 'database_cleaner'
 DatabaseCleaner.strategy = :transaction
 
