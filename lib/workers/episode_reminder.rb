@@ -12,6 +12,8 @@ class EpisodeReminderWorker
 
     return unless @user
 
+    return if @user.lastemailnotice == @user.local_current_date
+
     episodeBuilder = EpisodeBuilder.new(@user)
     episodes_airing_today = episodeBuilder.build_airingtoday
 
@@ -33,6 +35,9 @@ class EpisodeReminderWorker
           "Just a heads up: there are #{episodes_airing_today.count} new episodes for shows you follow airing today.",
         'episodes' => episodes_airing_today)
     )
+
+    @user.lastemailnotice = @user.local_current_date
+    @user.save
   end
 
   def heading(firstname)

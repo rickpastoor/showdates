@@ -60,6 +60,11 @@ class SDUser < Sequel::Model(:users)
     tz.utc_to_local(time)
   end
 
+  # Returns the current date as it is right now for this user
+  def local_current_date
+    Date.parse(to_local_time(Time.now.utc).to_s)
+  end
+
   def providerurl_for_episode(episode)
     replacements = {
       "{show}" => episode.show.title,
