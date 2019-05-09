@@ -16,14 +16,14 @@ class ShowUpdater
     return unless @show.tvdbid
 
     # Download content
-    showXML = TVDB.getShowXML(@show.tvdbid)
+    show_xml = TVDB.getShowXML(@show.tvdbid)
 
     # If we were not able to fetch XML, return
-    return unless showXML
+    return unless show_xml
 
-    parsedXml = Nokogiri::XML(showXML)
-    show = parsedXml.xpath('/Data/Series')
-    episodes = parsedXml.xpath('/Data/Episode')
+    parsed_xml = Nokogiri::XML(show_xml)
+    show = parsed_xml.xpath('/Data/Series')
+    episodes = parsed_xml.xpath('/Data/Episode')
 
     # If we don't have a title and the remote XML has no title either, return
     # @TODO test on content without title
@@ -70,25 +70,27 @@ class ShowUpdater
       @show.add_genre(genre)
     end
 
-    currentSeasonId = nil
-    currentSeason = nil
+    current_season_id = nil
+    current_season = nil
 
     # Fix episodes/seasons
     episodes.each do |episode|
       next if episode.at_xpath('EpisodeName').content.empty?
 
       # Figure out the season
-      if currentSeasonId != episode.at_xpath('seasonid').content
-        currentSeason = SDSeason.find(tvdbid: episode.at_xpath('seasonid').content)
+      if current_season_id != episode.at_xpath('seasonid').content
+        current_season_id = episode.at_xpath('seasonid').content
 
-        currentSeason ||= SDSeason.create(
+        current_season = SDSeason.find(tvdbid: episode.at_xpath('seasonid').content)
+
+        current_season ||= SDSeason.create(
           tvdbid: episode.at_xpath('seasonid').content
         )
 
-        currentSeason.title = episode.at_xpath('SeasonNumber').content
-        currentSeason.order = episode.at_xpath('SeasonNumber').content
-        currentSeason.show = @show
-        currentSeason.save
+        current_season.title = episode.at_xpath('SeasonNumber').content
+        current_season.order = episode.at_xpath('SeasonNumber').content
+        current_season.show = @show
+        current_season.save
       end
 
       ep = SDEpisode.find(tvdbid: episode.at_xpath('id').content)
@@ -97,7 +99,7 @@ class ShowUpdater
         created: DateTime.now
       )
 
-      ep.season = currentSeason
+      ep.season = current_season
       ep.show = @show
       ep.title = episode.at_xpath('EpisodeName').content
       ep.description = episode.at_xpath('Overview').content
@@ -126,25 +128,25 @@ class ShowUpdater
 
     print 'updating banners...'
 
-    parsedBannerXml = Nokogiri::XML(TVDB.getShowBannerXML(@show.tvdbid))
-    banners = parsedBannerXml.xpath('/Banners/Banner')
+    parsed_banner_xml = Nokogiri::XML(TVDB.getShowBannerXML(@show.tvdbid))
+    banners = parsed_banner_xml.xpath('/Banners/Banner')
 
-    bannerUrl = nil
-    posterUrl = nil
+    banner_url = nil
+    poster_url = nil
 
     banners.each do |banner|
       # Pick the first item as our banner
-      bannerUrl ||= banner.at_xpath('BannerPath').content
+      banner_url ||= banner.at_xpath('BannerPath').content
 
-      if !posterUrl && banner.at_xpath('BannerType').content == 'poster'
-        posterUrl = banner.at_xpath('BannerPath').content
+      if !poster_url && banner.at_xpath('BannerType').content == 'poster'
+        poster_url = banner.at_xpath('BannerPath').content
       end
 
-      break if bannerUrl && posterUrl
+      break if banner_url && poster_url
     end
 
-    save_image(bannerUrl, @show.banner_path, 'banner')
-    save_image(posterUrl, @show.poster_path, 'poster')
+    save_image(banner_url, @show.banner_path, 'banner')
+    save_image(poster_url, @show.poster_path, 'poster')
 
     print "done\n"
   end
