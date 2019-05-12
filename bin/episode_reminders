@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'dotenv'
+Dotenv.load
+
+if ENV['RACK_ENV'] != 'production'
+  require 'sidekiq/testing'
+  Sidekiq::Testing.inline!
+end
+
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
+
+require 'setup'
+require 'models'
+require 'episode_reminder_mailer'
+
+episode_reminder = EpisodeReminderMailer.new
+episode_reminder.mail_progress
