@@ -1,23 +1,25 @@
+# frozen_string_literal: true
+
 class AdminController < ShowdatesApp
-  get '/', :auth => :admin do
-    erb :'admin'
+  get '/', auth: :admin do
+    erb :admin
   end
 
-  get '/networks', :auth => :admin do
+  get '/networks', auth: :admin do
     @networks = SDNetwork.all
 
     @counts = SDShow.group_and_count(:network_id).as_hash(:network_id, :count)
 
-    erb :'admin_networks'
+    erb :admin_networks
   end
 
-  get '/network/:id/edit', :auth => :admin do
+  get '/network/:id/edit', auth: :admin do
     @network = SDNetwork[params[:id]]
 
-    erb :'admin_network_edit'
+    erb :admin_network_edit
   end
 
-  post '/network/:id/edit', :auth => :admin do
+  post '/network/:id/edit', auth: :admin do
     network = SDNetwork[params[:id]]
 
     if params[:icon]

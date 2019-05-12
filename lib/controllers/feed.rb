@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeedController < ShowdatesApp
   get '/ical/user\::user_id/key\::key' do
     @user = SDUser.find(servicekey: params[:key])
@@ -8,6 +10,6 @@ class FeedController < ShowdatesApp
     episodeBuilder = EpisodeBuilder.new(@user)
     @episodes = episodeBuilder.build_calendarfeed
 
-    erb :feed_ical, :layout => false
+    erb :feed_ical, layout: false
   end
 end

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Showdates Update - Shows Airing Today</title>
+	<style type="text/css">
+		#outlook a {padding:0;}
+		body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
+		.ExternalClass {width:100%;}
+		.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+		#backgroundTable {margin:0; padding:0; line-height: 100% !important; font-family: Helvetica; color: #3b3b3b;  text-shadow: #fff 0px 1px 1px; font-size: 13px}
+		img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+		a img {border:none;}
+		.image_fix {display:block;}
+		p {margin: 1em 0;}
+
+		h1, h2, h3, h4, h5, h6 {color: #3b3b3b !important;}
+		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: #00528A !important;}
+		h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+			color: #00528A !important;
+		}
+		h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+			color: #00528A !important;
+		}
+
+		table td {border-collapse: collapse;}
+    	table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+
+		a:link { color: #00528A; }
+		a:visited { color: #00528A; }
+		a:hover { color: #009CFF; }
+
+		span.preheader { display: none !important; }
+	</style>
+</head>
+<body style="margin: 0 !important; padding: 0 !important; color: #3b3b3b;">
+	<span class="preheader">{{preheader}}</span>
+	<table cellpadding="0" cellspacing="0" border="0" style="width:100% !important; background: #009CFF url({{base_url}}img/bg-header-mail.png); margin: 0 !important; padding: 0 !important; line-height: 100% !important;">
+	<tr>
+		<td height="8"></td>
+	</tr>
+	</table>
+	<table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" style="width:100% !important; background: #f4f6f6 url({{base_url}}img/bg-body.png); border-bottom: 1px solid #e1e1e2; margin: 0 !important; padding: 0 !important; line-height: 100% !important;">
+	<tr>
+		<td style="padding: 0 8px">
+
+		<table cellpadding="0" cellspacing="0" border="0" align="center" >
+			<tr>
+				<td colspan="3" align="center" style="padding-bottom: 10px;"><h2>{{heading}}</h2> {{subtitle}}</td>
+			</tr>
+
+			{% for episode in episodes %}
+      <tr>
+      	<td colspan="2" height="2" style="background-color: #e1e1e2;"></td>
+      </tr>
+      <tr>
+				<td width="110" valign="top" style="padding: 10px 0"><a title="%show_title%" href="{{base_url}}show/{{episode.show_id}}?utm_source=showdates&utm_medium=email&utm_content=episode_info_image&utm_campaign=episode_notification"><img src="{{base_url}}{{episode.poster_url}}" width="80" height="117" style="background-color: #fff;padding: 1px;border: 1px solid #ccc;" /></a></td>
+				<td width="490" valign="top" style="padding: 10px 0">
+					<p style="font-size: 16px; font-weight: bold"><a title="%show_title%" href="{{base_url}}show/{{episode.show_id}}?utm_source=showdates&utm_medium=email&utm_content=episode_info_show_title&utm_campaign=episode_notification">{{episode.show_title}}</a></p>
+					<p>Season {{episode.season_no}}, episode {{episode.order}}</p>
+					<p><a title="%episode_title%" href="{{base_url}}episode/{{episode.id}}?utm_source=showdates&utm_medium=email&utm_content=episode_info_episode_title&utm_campaign=episode_notification">{{episode.title}}</a></p>
+				</td>
+			</tr>
+			{% endfor %}
+
+			<tr>
+				<td colspan="2" height="2" style="background-color: #e1e1e2;"></td>
+			</tr>
+			<tr>
+				<td colspan="2" width="600" align="center" style="background-color: #fff">
+					<p><a title="Couch" href="{{base_url}}couch?utm_source=showdates&utm_medium=email&utm_content=cta_couch&utm_campaign=episode_notification" style="color: #009CFF; font-size: 16px; font-weight: bold;">Check out your couch now &raquo;</a></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2" height="2" style="background-color: #e1e1e2;"></td>
+			</tr>
+			<tr>
+				<td colspan="2" width="600">
+					<h3>Got anything to share? Hit reply!</h3>
+					<p style="line-height: 1.2">Thanks for using Showdates, we are so glad to have you on board. We want to keep improving our service. If there is anything you want to share, please hit reply on this e-mail!</p>
+				</td>
+			</tr>
+		</table>
+
+		</td>
+	</tr>
+	</table>
+	<table cellpadding="0" cellspacing="0" border="0" style="margin:0; padding:0; width:100% !important; line-height: 100% !important; font-family: Helvetica; color: #3b3b3b; text-shadow: #fff 0px 1px 1px; font-size: 12px">
+		<tr>
+		<td style="padding: 0 8px">
+		<table cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td width="600" align="center" style="padding-top: 10px; line-height: 1.2;">You are receiving this e-mail because you are a member of <a title="Showdates Homepage" href="{{base_url}}?utm_source=showdates&utm_medium=email&utm_content=footer&utm_campaign=episode_notification">Showdates</a>.</td>
+			</tr>
+			<tr>
+				<td width="600" align="center" style="padding-top: 14px; line-height: 1.2;">This e-mail was sent to {{emailaddress}}. Don't want updates on shows you are following?</td>
+			</tr>
+			<tr>
+				<td width="600" align="center" style="padding-top: 3px; padding-bottom: 10px"><a title="E-mail Preferences" href="{{base_url}}settings#email?utm_source=showdates&utm_medium=email&utm_content=footer&utm_campaign=episode_notification">Change your e-mail preferences</a> or <a title="One Click Unsubscribe" href="{{base_url}}account/unsubscribe/{{reminder_email_unsubscribe_key}}?utm_source=showdates&utm_medium=email&utm_content=unsubscribe&utm_campaign=episode_notification">unsubscribe with one click</a>.</td>
+			</tr>
+		</table>
+		</td>
+		</tr>
+	</table>
+</body>
+</html>

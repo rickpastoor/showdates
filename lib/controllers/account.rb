@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountController < ShowdatesApp
   get '/logout' do
     session[:user_id] = nil
@@ -6,15 +8,13 @@ class AccountController < ShowdatesApp
   end
 
   get '/resetpassword' do
-    erb :'account_resetpassword'
+    erb :account_resetpassword
   end
 
   post '/resetpassword' do
     user = SDUser.find(emailaddress: params[:emailaddress])
 
-    unless user
-      user = SDUser.find(username: params[:emailaddress])
-    end
+    user ||= SDUser.find(username: params[:emailaddress])
 
     unless user
       flash[:error] = 'We could not find an account associated with the given username/e-mailaddress.'
@@ -25,8 +25,8 @@ class AccountController < ShowdatesApp
     user.save
 
     email_template = MarkdownTemplate.render('emails/reset_password',
-      'user_firstname' => user.firstname,
-      'reset_key' => user.reset_key)
+                                             'user_firstname' => user.firstname,
+                                             'reset_key' => user.reset_key)
 
     @mailer.send_mail(
       recipient_email: user.emailaddress,
@@ -36,7 +36,7 @@ class AccountController < ShowdatesApp
     )
 
     flash[:error] = 'Hooray. Instructions on how to reset your password have been sent!'
-		redirect '/'
+    redirect '/'
   end
 
   get '/setpassword/:key' do
@@ -47,7 +47,7 @@ class AccountController < ShowdatesApp
       redirect '/'
     end
 
-    erb :'account_setpassword'
+    erb :account_setpassword
   end
 
   post '/setpassword/:key' do
@@ -78,5 +78,20 @@ class AccountController < ShowdatesApp
 
     flash[:error] = 'Your password was set! You can log in now.'
     redirect '/login'
+  end
+
+  get '/unsubscribe/:key' do
+    user = SDUser.find(reminder_email_unsubscribe_key: params[:key])
+
+    unless user
+      flash[:error] = 'Something went wrong updating your email settings.'
+      redirect '/'
+    end
+
+    user.sendemailnotice = 'no'
+    user.save
+
+    flash[:success] = 'Settings saved. You won\'t receive episode reminders anymore.'
+    redirect '/'
   end
 end

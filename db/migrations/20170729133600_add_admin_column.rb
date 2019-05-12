@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 Sequel.migration do
   up do
     alter_table(:users) do
-      add_column :is_admin, :boolean, :default => false
+      add_column :is_admin, :boolean, default: false
     end
   end
 
