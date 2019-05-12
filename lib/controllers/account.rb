@@ -79,4 +79,19 @@ class AccountController < ShowdatesApp
     flash[:error] = 'Your password was set! You can log in now.'
     redirect '/login'
   end
+
+  get '/unsubscribe/:key' do
+    user = SDUser.find(reminder_email_unsubscribe_key: params[:key])
+
+    unless user
+      flash[:error] = 'Something went wrong updating your email settings.'
+      redirect '/'
+    end
+
+    user.sendemailnotice = 'no'
+    user.save
+
+    flash[:success] = 'Settings saved. You won\'t receive episode reminders anymore.'
+    redirect '/'
+  end
 end

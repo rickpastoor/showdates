@@ -21,6 +21,13 @@ class EpisodeReminderWorker
 
     single_episode = (episodes_airing_today.count == 1)
 
+    reminder_email_unsubscribe_key = @user.reminder_email_unsubscribe_key
+    unless reminder_email_unsubscribe_key
+      reminder_email_unsubscribe_key = SecureRandom.hex
+      @user.reminder_email_unsubscribe_key = reminder_email_unsubscribe_key
+      @user.save
+    end
+
     mailer = Mailer.new
     mailer.send_mail(
       recipient_email: @user.emailaddress,
@@ -33,7 +40,8 @@ class EpisodeReminderWorker
                                        'heading' => heading(@user.firstname),
                                        'subtitle' => single_episode ? 'Just a heads up: there is one new episode for a show you follow airing today.' :
                                          "Just a heads up: there are #{episodes_airing_today.count} new episodes for shows you follow airing today.",
-                                       'episodes' => episodes_airing_today)
+                                       'episodes' => episodes_airing_today,
+                                       'reminder_email_unsubscribe_key' => reminder_email_unsubscribe_key)
     )
 
     @user.lastemailnotice = @user.local_current_date
