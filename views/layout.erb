@@ -9,7 +9,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<title><%= title %></title>
+
+  <% if description %>
 	<meta name="description" content="<%= description %>">
+  <% else %>
+  <meta name="description" content="Showdates helps you keep track of your favorite television shows. Record which episodes you have seen and always know when the next one will air.">
+  <% end %>
 	<meta name="keywords" content="television shows, new tv episodes, shows, episodes, favorite television series, tv show tracker">
 	<meta name="author" content="Rick Pastoor">
 	<meta name="viewport" content="width=device-width, user-scalable=no">

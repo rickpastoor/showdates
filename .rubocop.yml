@@ -6,6 +6,8 @@ AllCops:
     - vendor/**/*
     - spec/**/*
     - features/**/*
+    - sass/**/*
+    - node_modules/**/*
 
 Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation

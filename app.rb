@@ -15,6 +15,7 @@ require 'episodebuilder'
 require 'helpers/style'
 require 'helpers/markdown_template'
 
+# The Showdates App
 class ShowdatesApp < Sinatra::Base
   configure :production do
     use Bugsnag::Rack
@@ -57,7 +58,7 @@ class ShowdatesApp < Sinatra::Base
     end
 
     def description
-      @description || 'Showdates helps you keep track of your favorite television shows. Record which episodes you have seen and always know when the next one will air.'
+      @description
     end
 
     def is_user?
