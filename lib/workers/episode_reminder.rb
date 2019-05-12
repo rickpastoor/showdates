@@ -3,6 +3,7 @@
 require 'sidekiq'
 require 'mailer'
 require 'helpers/email_template'
+require 'episodebuilder'
 
 class EpisodeReminderWorker
   include Sidekiq::Worker
