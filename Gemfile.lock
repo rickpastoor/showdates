@@ -18,7 +18,8 @@ GEM
       xml-simple
     backports (3.8.0)
     bcrypt (3.1.11)
-    bugsnag (5.3.3)
+    bugsnag (6.11.1)
+      concurrent-ruby (~> 1.0)
     builder (3.2.3)
     carrierwave (1.1.0)
       activemodel (>= 4.0.0)
