@@ -12,7 +12,7 @@ class EpisodeReminderWorker
 
     return unless @user
 
-    return if @user.lastemailnotice == @user.local_current_date
+    return unless @user.should_receive_episode_reminder?
 
     episodeBuilder = EpisodeBuilder.new(@user)
     episodes_airing_today = episodeBuilder.build_airingtoday

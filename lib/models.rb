@@ -62,6 +62,11 @@ class SDUser < Sequel::Model(:users)
     tz.utc_to_local(time)
   end
 
+  def local_to_utc(time)
+    tz = TZInfo::Timezone.get(timezone || 'Europe/London')
+    tz.local_to_utc(time)
+  end
+
   # Returns the current date as it is right now for this user
   def local_current_date
     Date.parse(to_local_time(Time.now.utc).to_s)
@@ -101,6 +106,28 @@ class SDUser < Sequel::Model(:users)
     end
 
     userEpisode.save
+  end
+
+  # Returns a Time object which equals the next time this user should
+  # get a new goal reminder (UTC time)
+  def next_episode_reminder_time
+    email_time = '12:00'
+
+    user_next_email_time = Time.parse(local_current_date.to_s + ' ' + email_time)
+
+    local_to_utc(user_next_email_time)
+  end
+
+  def should_receive_episode_reminder?
+    return false unless sendemailnotice == 'yes'
+
+    return false if emailaddress.nil?
+
+    # If the user already had an email today, exit
+    return false if lastemailnotice == local_current_date
+
+    # Next email time for user?
+    Time.now.utc > next_episode_reminder_time
   end
 end
 
