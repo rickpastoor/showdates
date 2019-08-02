@@ -20,8 +20,8 @@
 	</div>
 </div>
 
-<div class="show-description-outer<% if @show.network.icon_thumb_url %> show-description-outer-withimage<% end %>">
-	<% if @show.network.icon_thumb_url %>
+<div class="show-description-outer<% if @show.network&.icon_thumb_url %> show-description-outer-withimage<% end %>">
+	<% if @show.network&.icon_thumb_url %>
 		<img src="<%= @show.network.icon_thumb_url %>" class="network-image" alt="<%= @show.network.title %>" title="<%= @show.network.title %>" />
 	<% end %>
 
@@ -36,7 +36,7 @@
 		<p><%= @show.seasons.length %> seasons with <%= @show.episodes.length %> episodes listed.</p>
 		<p>First Aired: <%= @show.firstaired %></p>
 		<p>Status: <%= @show.status %></p>
-		<% if !@show.network.icon_thumb_url %>
+		<% if @show.network && !@show.network.icon_thumb_url %>
 			<p>Network: <%= @show.network.title %></p>
 		<% end %>
 	</div>
