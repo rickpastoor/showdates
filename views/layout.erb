@@ -108,7 +108,7 @@
 
     <footer role="contentinfo">
     	<div class="container">
-			<p class="left">&copy; <%= Date.today.year %> Showdates by <a href="http://rickpastoor.nl/" target="blank">Rick Pastoor</a> &middot; Data by <a href="http://www.thetvdb.com" target="blank">TheTVDB</a> <span class="collapse">&middot; Tracking <%= SDShow.count.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %> shows and <%= SDEpisode.count.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %> episodes</span><br />
+			<p class="left">&copy; <%= Date.today.year %> Showdates by <a href="http://rickpastoor.nl/" target="blank">Rick Pastoor</a> &middot; Data by <a href="http://www.thetvdb.com" target="blank">TheTVDB</a> <!--<span class="collapse">&middot; Tracking {num} shows and {num} episodes</span>--><br />
 			<a href="http://blog.showdates.me" target="blank">Blog</a> &middot; <a href="http://twitter.com/shwdts" target="blank">Twitter</a> &middot; <a href="https://www.facebook.com/pages/Showdates/310379149011574" target="blank">Facebook</a> &middot; <a href="/about/terms">Terms of Service</a> &middot; <a href="/about/privacy">Privacy Policy</a>
 
       <div class="clear"></div>
