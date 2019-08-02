@@ -77,6 +77,8 @@ class ShowUpdater
     episodes.each do |episode|
       next if episode.at_xpath('EpisodeName').content.empty?
 
+      next if episode.at_xpath('seasonid').nil?
+
       # Figure out the season
       if current_season_id != episode.at_xpath('seasonid').content
         current_season_id = episode.at_xpath('seasonid').content
