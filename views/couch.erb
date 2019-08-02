@@ -17,7 +17,7 @@
   <ul id="section-watchlist">
 
     <% @couch[:aired].each do |show_id, ep| %>
-      <li class="show-<%= ep[:episode].show.id %>" data-episode-id="<%= ep[:episode].id %>" data-timestamp="{timestamp}">
+      <li class="show-<%= ep[:episode].show.id %>" data-episode-id="<%= ep[:episode].id %>" data-timestamp="<%= ep[:episode].firstaired.to_time.to_i %>">
       	<p><span class="date date-past"><%= ep[:episode].firstaired_formatted(current_date: local_time.to_date) %></span>
       	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
       	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="/episode/<%= ep[:episode].id %>"><%= ep[:episode].title %></a></p>
@@ -35,7 +35,7 @@
   <li>To Be Aired</li>
   <ul id="section-tba">
     <% @couch[:tobeaired].each do |show_id, ep| %>
-      <li class="show-<%= ep[:episode].show.id %>" data-episode-id="<%= ep[:episode].id %>" data-timestamp="{timestamp}">
+      <li class="show-<%= ep[:episode].show.id %>" data-episode-id="<%= ep[:episode].id %>" data-timestamp="<%= ep[:episode].firstaired.to_time.to_i %>">
       	<p><span class="date"><%= ep[:episode].firstaired_formatted(current_date: local_time.to_date) %></span>
       	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
       	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="/episode/<%= ep[:episode].id %>"><%= ep[:episode].title %></a></p>
@@ -142,7 +142,18 @@
               $('.list-couch').append(tba_section_template);
             }
 
-            $('#section-tba').append(tobeaired_template);
+            var added = false;
+            $('#section-tba li').each(function(key, val) {
+							if (data.next_episode.timestamp < $(val).data('timestamp'))
+							{
+                $(val).before(tobeaired_template);
+                added = true;
+              }
+            });
+
+            if (!added) {
+              $('#section-tba').append(tobeaired_template);
+            }
 
             if (tba_section_template) {
               tba_section_template.slideDown('fast', function() {
