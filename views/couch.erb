@@ -19,7 +19,7 @@
     <% @couch[:aired].each do |show_id, ep| %>
       <li class="show-<%= ep[:episode].show.id %>" data-episode-id="<%= ep[:episode].id %>" data-timestamp="<%= ep[:episode].firstaired.to_time.to_i %>">
       	<p><span class="date date-past"><%= ep[:episode].firstaired_formatted(current_date: local_time.to_date) %></span>
-      	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
+      	<span class="episode-code tt" title="<% if ep[:queue] == 1 %>Final episode to catch up<% else %><%= ep[:queue] %> episodes to catch up<% end %>"><%= ep[:episode].episode_code %></span>
       	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="/episode/<%= ep[:episode].id %>"><%= ep[:episode].title %></a></p>
       	<a href="/episode/watched/<%= ep[:episode].id %>" class="button-link link-episode episode-tick" data-episodeid="<%= ep[:episode].id %>"><img src="img/unwatched.png" /></a>
 
@@ -37,7 +37,7 @@
     <% @couch[:tobeaired].each do |show_id, ep| %>
       <li class="show-<%= ep[:episode].show.id %>" data-episode-id="<%= ep[:episode].id %>" data-timestamp="<%= ep[:episode].firstaired.to_time.to_i %>">
       	<p><span class="date"><%= ep[:episode].firstaired_formatted(current_date: local_time.to_date) %></span>
-      	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
+      	<span class="episode-code"><%= ep[:episode].episode_code %></span>
       	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="/episode/<%= ep[:episode].id %>"><%= ep[:episode].title %></a></p>
       </li>
     <% end %>
@@ -58,7 +58,7 @@
 <script id="episode-tobeaired-template" type="text/x-showdates-row-template">
   <li>
     <p><span class="date"></span>
-    <span class="episode-code tt" title=""></span>
+    <span class="episode-code"></span>
     <a href="" class="show-title"></a> &ndash; <a href="" class="episode-title"></a></p>
   </li>
 </script>
@@ -80,6 +80,15 @@
       template.find('.date').html(next_episode.firstaired_formatted);
 
       template.find('.episode-code').html(next_episode.episode_code);
+
+      if (next_episode.aired) {
+        queue_title = 'Final episode to catch up';
+        if (next_episode.queue != 1) {
+          queue_title = next_episode.queue + ' episodes to catch up';
+        }
+        template.find('.episode-code').attr('title', queue_title);
+        template.find('.episode-code').addClass('tt');
+      }
 
       template.find('.show-title').html(next_episode.show_title);
       template.find('.show-title').attr('href', '/show/' + next_episode.show_id);

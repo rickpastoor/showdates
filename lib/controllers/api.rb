@@ -21,6 +21,7 @@ class ApiController < ShowdatesApp
     return result.to_json unless next_episode
 
     result[:next_episode] = next_episode[:episode].to_hash
+    result[:next_episode][:queue] = next_episode[:queue]
     result[:next_episode][:aired] = next_episode[:aired]
     result[:next_episode][:show_title] = episode.show.title
     result[:next_episode][:timestamp] = next_episode[:episode].firstaired.to_time.to_i
