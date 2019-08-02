@@ -3,6 +3,9 @@
 class ShowController < ShowdatesApp
   get '/:id', auth: :user do
     @show = SDShow[params[:id]]
+
+    halt 404 unless @show
+
     @title = @show.title
 
     episode_builder = EpisodeBuilder.new(@user)
@@ -13,6 +16,8 @@ class ShowController < ShowdatesApp
 
   get '/:id/follow', auth: :user do
     show = SDShow[params[:id]]
+
+    halt 404 unless show
 
     user_show = SDUserShow.find(user: @user, show: show)
     unless user_show
@@ -28,6 +33,8 @@ class ShowController < ShowdatesApp
   get '/:id/unfollow', auth: :user do
     show = SDShow[params[:id]]
 
+    halt 404 unless show
+
     @user.remove_following(show)
 
     redirect request.referrer
@@ -35,6 +42,8 @@ class ShowController < ShowdatesApp
 
   get '/season_watched/:season_id', auth: :user do
     season = SDSeason[params[:season_id]]
+
+    halt 404 unless season
 
     local_time = @user.to_local_time(Time.now.getutc)
 
@@ -50,6 +59,9 @@ class ShowController < ShowdatesApp
 
   get '/season_unwatched/:season_id', auth: :user do
     season = SDSeason[params[:season_id]]
+
+    halt 404 unless season
+
     season.episodes.each do |episode|
       @user.update_episode(episode, false)
     end
