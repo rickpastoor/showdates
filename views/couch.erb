@@ -46,3 +46,25 @@
 </ul>
 
 <p class="couch-buttons-footer"><a class="btn btn-white" href="webcal://<%= ENV['BASE_URL'].split('//')[1] %>feed/ical/user:<%= @user.id %>/key:<%= @user.servicekey %>" title="Add Showdates to your calendar">iCal Feed</a></p>
+
+<script type="text/javascript">
+  $(function() {
+    $('.episode-tick').on('click', function(e) {
+      var self = $(this);
+
+      $.post('/api/episode/' + self.data('episodeid'), { watched: !self.data('watched') }, function(data) {
+        self.data('watched', data.watched);
+
+        if (data.watched) {
+          self.html('<img src="img/watched.png" />')
+						  .addClass('episode-watched');
+        } else {
+          self.html('<img src="img/unwatched.png" />')
+				    	.removeClass('episode-watched');
+        }
+      }, 'json');
+
+      e.preventDefault();
+    });
+  });
+</script>
