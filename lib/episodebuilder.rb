@@ -5,7 +5,7 @@ class EpisodeBuilder
     @user = user
   end
 
-  def build_couch
+  def build_couch(show_id: nil)
     # Fetch the dataset we need
     episodes_dataset = SDEpisode.from_self(alias: :episodes)
                                 .left_join(:user_episode, episode_id: Sequel[:episodes][:id], user_id: @user.id)
@@ -25,6 +25,10 @@ class EpisodeBuilder
                                   Sequel[:episodes][:season_id],
                                   Sequel[:episodes][:order]
                                 )
+
+    if show_id
+      episodes_dataset = episodes_dataset.where(Sequel.qualify(:episodes, :show_id) => show_id)
+    end
 
     episodes = {}
 
@@ -133,5 +137,13 @@ class EpisodeBuilder
         'order' => h.order
       }
     end
+  end
+
+  def build_next_episode_for_show(show_id:)
+    episodes = build_couch(show_id: show_id)
+
+    return nil if episodes[:all].count.zero?
+
+    episodes[:all].first[1]
   end
 end

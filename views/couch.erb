@@ -17,11 +17,11 @@
   <ul id="section-watchlist">
 
     <% @couch[:aired].each do |show_id, ep| %>
-      <li id="episode-<%= ep[:episode].id %>" class="show-<%= ep[:episode].show.id %>" data-timestamp="{timestamp}">
+      <li class="show-<%= ep[:episode].show.id %>" data-episode-id="<%= ep[:episode].id %>" data-timestamp="{timestamp}">
       	<p><span class="date date-past"><%= ep[:episode].firstaired_formatted(current_date: local_time.to_date) %></span>
       	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
       	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="/episode/<%= ep[:episode].id %>"><%= ep[:episode].title %></a></p>
-      	<a href="/episode/watched/<%= ep[:episode].id %>" class="button-link link-episode episode-tick episode-shownext" data-episodeid="<%= ep[:episode].id %>"><img src="img/unwatched.png" /></a>
+      	<a href="/episode/watched/<%= ep[:episode].id %>" class="button-link link-episode episode-tick" data-episodeid="<%= ep[:episode].id %>"><img src="img/unwatched.png" /></a>
 
         <% if @user.providerurl %>
           <a href="<%= @user.providerurl_for_episode(ep[:episode]) %>" class="button-link link-episode button-binsearch" target="blank"><img src="img/link.png" /></a>
@@ -35,7 +35,7 @@
   <li>To Be Aired</li>
   <ul id="section-tba">
     <% @couch[:tobeaired].each do |show_id, ep| %>
-      <li id="episode-<%= ep[:episode].id %>" class="show-<%= ep[:episode].show.id %>" data-timestamp="{timestamp}">
+      <li class="show-<%= ep[:episode].show.id %>" data-episode-id="<%= ep[:episode].id %>" data-timestamp="{timestamp}">
       	<p><span class="date"><%= ep[:episode].firstaired_formatted(current_date: local_time.to_date) %></span>
       	<span class="episode-code tt" title="<%= ep[:queue] %>"><%= ep[:episode].episode_code %></span>
       	<a href="/show/<%= ep[:episode].show.id %>"><%= ep[:episode].show.title %></a> &ndash; <a href="/episode/<%= ep[:episode].id %>"><%= ep[:episode].title %></a></p>
@@ -45,14 +45,26 @@
 <% end %>
 </ul>
 
+<script id="episode-aired-template" type="text/x-showdates-row-template">
+  <li>
+    <p><span class="date date-past"></span>
+    <span class="episode-code tt" title=""></span>
+    <a href="" class="show-title"></a> &ndash; <a href="" class="episode-title"></a></p>
+    <a href="" class="button-link link-episode episode-tick episode-shownext"><img src="img/unwatched.png" /></a>
+    <a href="" class="button-link link-episode button-binsearch button-providerurl" target="blank"><img src="img/link.png" /></a>
+  </li>
+</script>
+
 <p class="couch-buttons-footer"><a class="btn btn-white" href="webcal://<%= ENV['BASE_URL'].split('//')[1] %>feed/ical/user:<%= @user.id %>/key:<%= @user.servicekey %>" title="Add Showdates to your calendar">iCal Feed</a></p>
 
 <script type="text/javascript">
   $(function() {
-    $('.episode-tick').on('click', function(e) {
+    $(document).on('click', '.episode-tick', function(e) {
+      e.preventDefault();
+
       var self = $(this);
 
-      $.post('/api/episode/' + self.data('episodeid'), { watched: !self.data('watched') }, function(data) {
+      $.post('/api/episode/' + self.data('episodeid') + '/include_next', { watched: !self.data('watched') }, function(data) {
         self.data('watched', data.watched);
 
         if (data.watched) {
@@ -62,9 +74,40 @@
           self.html('<img src="img/unwatched.png" />')
 				    	.removeClass('episode-watched');
         }
-      }, 'json');
 
-      e.preventDefault();
+        if (data.next_episode) {
+          // If this episode is already visible, do not add it again
+          if ($('.episode-' + data.next_episode.id).length == 1) {
+            return;
+          }
+
+          var aired_template = $($('#episode-aired-template').html()).clone();
+
+          aired_template.addClass('show-' + data.next_episode.show_id);
+          aired_template.addClass('episode-' + data.next_episode.id);
+
+          aired_template.find('.date').html(data.next_episode.firstaired_formatted);
+
+          aired_template.find('.episode-code').html(data.next_episode.episode_code);
+
+          aired_template.find('.show-title').html(data.next_episode.show_title);
+          aired_template.find('.show-title').attr('href', '/show/' + data.next_episode.show_id);
+
+          aired_template.find('.episode-title').html(data.next_episode.title);
+          aired_template.find('.episode-title').attr('href', '/episode/' + data.next_episode.id);
+
+          aired_template.find('.episode-tick').attr('href', '/episode/watched/' + data.next_episode.id);
+          aired_template.find('.episode-tick').attr('data-episodeid', data.next_episode.id);
+
+          aired_template.find('.button-providerurl').attr('href', data.next_episode.providerurl);
+
+          aired_template.hide();
+
+          $('.show-' + data.next_episode.show_id).last().after(aired_template);
+
+          aired_template.slideDown('fast');
+        }
+      }, 'json');
     });
   });
 </script>
