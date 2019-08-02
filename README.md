@@ -2,6 +2,8 @@
 
 Run `script/server` to launch Showdates locally.
 
+MySQL locally: `mysql.server start`
+
 ## Running background jobs
 
 * Launch redis `redis-server`
