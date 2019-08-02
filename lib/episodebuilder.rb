@@ -35,14 +35,16 @@ class EpisodeBuilder
     local_time = @user.to_local_time(Time.now.getutc)
 
     episodes_dataset.each do |episode|
+      aired = local_time > @user.to_local_time(episode.firstaired.to_time)
+
       if !episodes[episode.show_id]
         episodes.store(episode.show_id,
-                       queue: 1,
+                       queue: aired ? 1 : 0,
                        episode: episode,
-                       aired: local_time > @user.to_local_time(episode.firstaired.to_time),
+                       aired: aired,
                        firstaired: episode.firstaired)
       else
-        episodes[episode.show_id][:queue] = episodes[episode.show_id][:queue] + 1
+        episodes[episode.show_id][:queue] = episodes[episode.show_id][:queue] + 1 if aired
       end
     end
 
