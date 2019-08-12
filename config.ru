@@ -32,6 +32,7 @@ run Rack::URLMap.new(
   '/api' => ApiController,
   '/couch' => CouchController,
   '/login' => LoginController,
+  '/profile' => ProfileController,
   '/show' => ShowController,
   '/shows' => ShowsController,
   '/episode' => EpisodeController,

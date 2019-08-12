@@ -39,6 +39,7 @@ end
 # Describes a user
 class SDUser < Sequel::Model(:users)
   many_to_many :following, class: :SDShow, join_table: :user_show, left_key: :user_id, right_key: :show_id
+  one_to_many :episodes, class: SDUserEpisode, key: :user_id
   mount_uploader :avatar, AvatarUploader
 
   def check_password(password)

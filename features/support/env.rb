@@ -50,6 +50,7 @@ URL_MAP = Rack::URLMap.new(
   '/login' => LoginController,
   '/show' => ShowController,
   '/shows' => ShowsController,
+  '/profile' => ProfileController,
   '/episode' => EpisodeController,
   '/settings' => SettingsController,
   '/admin' => AdminController,

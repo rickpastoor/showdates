@@ -1,0 +1,91 @@
+<div class="profile<% if @following_shows.count < 6 %> profile-wo-banners<% end %>">
+
+<div class="mostPopularContainer collapse<% if @following_shows.count < 6 %> hidden<% end %>">
+	<ul class="mostPopular">
+    <% @following_shows[0..5].each do |show| %>
+    <li>
+      <a href="/show/<%= show.id %>" style="background-image: url(<%= show.poster_url %>)" alt="<%= show.title %>" title="<%= show.title %>"><%= show.title %></a>
+    </li>
+    <% end %>
+	</ul>
+</div>
+
+<div class="profile-avatar" style="background-image: url(<%= @active_user.avatar_thumb_url %>)"></div>
+
+<% if @active_user.privacymode != 'public' %>
+<a href="/settings#privacy" title="Your profile is private, click to change this."><img src="img/icon-lock.png" class="profile-private" alt="Your profile is private" /></a>
+<% end %>
+
+<h1><%= @active_user.firstname %> <%= @active_user.lastname %></h1>
+
+<% if @user && @user == @active_user %>
+<span class="thisisyou">This is you!</span>
+<% end %>
+
+<p class="member-since">Member Since: <strong><%= @active_user.created.strftime('%B %d, %Y') %></strong><br />
+<!--Watched <strong>{hoursSpent}</strong> hours--></p>
+
+<div class="clear"></div>
+
+<div class="unit1of2">
+
+<div class="box">
+<h4>Latest Episodes Watched <span style="float: right"><%= @active_user.episodes_dataset.exclude(watched: nil).count %></span></h4>
+
+<ul class="boxList showList premieres" id="episodesList">
+  <% @episodes.each do |episode| %>
+    <li>
+      <span class="label date"><%= episode.watched.strftime('%B %d, %Y') %></span>
+
+      <a href="/show/<%= episode.episode.show.id %>"><img src="<%= episode.episode.show.poster_url %>" class="imageborder" /></a>
+
+      <a class="show" href="/show/<%= episode.episode.show.id %>"><%= episode.episode.show.title %></a><br />
+      <a class="episode" href="/episode/<%= episode.episode.id %>"><%= episode.episode.title %></a>
+
+      <!--{button}-->
+
+      <div class="clear-right"></div>
+    </li>
+  <% end %>
+</ul>
+
+<!--{moreEpisodes}-->
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div class="unit1of2">
+
+<div class="box last-item">
+<h4>Shows Following <span style="float: right"><%= @active_user.following.count %></span></h4>
+
+<ul class="boxList showList premieres" id="showsList">
+  <% @following_shows[0..19].each do |show| %>
+  <li>
+    <!--<span class="showProgressOuter">
+      <span class="showProgress" style="width: {percentageSeen}%;" title="{progressCaption}"></span>
+    </span>-->
+
+    <!--<span class="label date">{date}</span> <span class="label season">{percentageSeen}%</span>-->
+
+    <a href="/show/<%= show.id %>"><img src="<%= show.poster_url %>" class="imageborder" /></a>
+
+    <a href="/show/<%= show.id %>"><%= show.title %></a><br />
+
+    <!--{button}-->
+
+    <div class="clear-right"></div>
+    </li>
+	<% end %>
+</ul>
+
+<!--{moreShows}-->
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div class="clear"></div>
+
+</div>
