@@ -80,6 +80,7 @@
 
         <div id="account-menu">
           <ul>
+            <li><a href="/profile/<%= @user.id %>">Profile</a></li>
             <li><a href="/settings">Settings</a></li>
             <% if is_admin? %>
             <li><a href="/admin">Admin</a></li>
