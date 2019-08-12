@@ -48,13 +48,14 @@
 </div>
   <% end %>-->
 
-<!--
-  <ul class="followers">
-    <% @show.followers.each do |follower| %>
-      <li><a href="%profile%"><img src="<%= follower.avatar_thumb_url %>" class="tt" title="<%= follower.firstname %> <%= follower.lastname %>" /></a></li>
-    <% end %>
-  </ul>-->
-<div class="clear"></div>
+	<ul class="followers">
+	  <% @show.followers.each do |follower| %>
+			<% if follower.privacymode == 'public' %>
+	    	<li><a href="/profile/<%= follower.id %>"><img src="<%= follower.avatar_thumb_url %>" class="tt" title="<%= follower.firstname %> <%= follower.lastname %>" /></a></li>
+			<% end %>
+	  <% end %>
+	</ul>
+	<div class="clear"></div>
 
 </div>
 
