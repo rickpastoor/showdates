@@ -63,7 +63,8 @@
 	<ul class="list-episodes">
 		<%
 			current_season = nil
-			local_time = @user.to_local_time(Time.now.getutc)
+			local_time = Time.now.getutc
+			local_time = @user.to_local_time(Time.now.getutc) if @user
 
 		 	@show_data[:episodes].each do |episode| %>
 			<% if episode[:season_id] != current_season
@@ -84,20 +85,27 @@
 			<li>
 				<p><a href="/episode/<%= episode.id %>"><%= episode[:order] %>. <%= episode[:episode_title] %></a></p>
 
-				<% if !episode.firstaired || local_time > @user.to_local_time(episode.firstaired.to_time)  %>
-					<% if episode[:watched] %>
-						<a href="/episode/unwatched/<%= episode.id %>" class="button-link link-episode episode-tick episode-watched" data-episodeid="<%= episode.id %>"><img src="img/watched.png" /></a>
-					<% else %>
-						<a href="/episode/watched/<%= episode.id %>" class="button-link link-episode episode-tick episode-unwatched" data-episodeid="<%= episode.id %>"><img src="img/unwatched.png" /></a>
-					<% end %>
+				<%
+					episode_local_time = episode.firstaired.to_time
+					episode_local_time = @user.to_local_time(episode.firstaired.to_time) if @user
+				%>
 
-					<% if @user.providerurl %>
-						<a href="<%= @user.providerurl_for_episode(episode) %>" class="button-link link-episode button-binsearch" target="blank"><img src="img/link.png" /></a>
+				<% if @user %>
+					<% if !episode.firstaired || local_time > episode_local_time  %>
+						<% if episode[:watched] %>
+							<a href="/episode/unwatched/<%= episode.id %>" class="button-link link-episode episode-tick episode-watched" data-episodeid="<%= episode.id %>"><img src="img/watched.png" /></a>
+						<% else %>
+							<a href="/episode/watched/<%= episode.id %>" class="button-link link-episode episode-tick episode-unwatched" data-episodeid="<%= episode.id %>"><img src="img/unwatched.png" /></a>
+						<% end %>
+
+						<% if @user.providerurl %>
+							<a href="<%= @user.providerurl_for_episode(episode) %>" class="button-link link-episode button-binsearch" target="blank"><img src="img/link.png" /></a>
+						<% end %>
 					<% end %>
 				<% end %>
 
 				<% if episode.firstaired %>
-					<% if local_time > @user.to_local_time(episode.firstaired.to_time) %>
+					<% if local_time > episode_local_time %>
 						<span class="date date-past"><%= episode.firstaired_formatted(current_date: local_time.to_date) %></span>
 					<% else %>
 						<span class="date"><%= episode.firstaired_formatted(current_date: local_time.to_date) %></span>

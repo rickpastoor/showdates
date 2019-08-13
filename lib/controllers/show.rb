@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShowController < ShowdatesApp
-  get '/:id', auth: :user do
+  get '/:id' do
     @show = SDShow[params[:id]]
 
     halt 404 unless @show

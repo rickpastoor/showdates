@@ -62,20 +62,23 @@ class EpisodeBuilder
   def build_show(show)
     # Fetch episode stuff
     episodes_dataset = SDEpisode.from_self(alias: :episodes)
-                                .left_join(:user_episode, episode_id: Sequel[:episodes][:id], user_id: @user.id)
                                 .join(:seasons, { Sequel.qualify(:seasons, :id) => Sequel.qualify(:episodes, :season_id) }, table_alias: :seasons)
                                 .where(Sequel.qualify(:episodes, :show_id) => show.id)
                                 .order(Sequel.qualify(:episodes, :show_id), Sequel.qualify(:seasons, :order), Sequel.qualify(:episodes, :order))
                                 .select(
                                   Sequel[:episodes][:id],
                                   Sequel.as(Sequel[:episodes][:title], :episode_title),
-                                  Sequel[:user_episode][:watched],
                                   Sequel[:episodes][:firstaired],
                                   Sequel[:episodes][:show_id],
                                   Sequel[:episodes][:season_id],
                                   Sequel[:episodes][:order],
                                   Sequel.as(Sequel[:seasons][:title], :season_title)
                                 )
+
+    if @user
+      episodes_dataset = episodes_dataset.left_join(:user_episode, episode_id: Sequel[:episodes][:id], user_id: @user.id)
+                                         .select_append(Sequel[:user_episode][:watched])
+    end
 
     seasons = {}
 
