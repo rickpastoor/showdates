@@ -86,8 +86,10 @@
 				<p><a href="/episode/<%= episode.id %>"><%= episode[:order] %>. <%= episode[:episode_title] %></a></p>
 
 				<%
-					episode_local_time = episode.firstaired.to_time
-					episode_local_time = @user.to_local_time(episode.firstaired.to_time) if @user
+					if episode.firstaired
+						episode_local_time = episode.firstaired.to_time
+						episode_local_time = @user.to_local_time(episode.firstaired.to_time) if @user
+					end
 				%>
 
 				<% if @user %>
