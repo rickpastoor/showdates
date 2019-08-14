@@ -75,7 +75,7 @@ class ShowUpdater
 
     # Fix episodes/seasons
     episodes.each do |episode|
-      next if episode.at_xpath('EpisodeName').content.empty?
+      next if episode.at_xpath('EpisodeName').nil? || episode.at_xpath('EpisodeName').content.empty?
 
       next if episode.at_xpath('seasonid').nil?
 
