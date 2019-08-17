@@ -147,6 +147,8 @@ class SDEpisode < Sequel::Model(:episodes)
   end
 
   def firstaired_formatted(current_date: nil)
+    return nil if firstaired.nil?
+
     current_date ||= Date.today
 
     date_difference = firstaired.to_date - current_date

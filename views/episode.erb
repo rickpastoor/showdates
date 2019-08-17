@@ -7,7 +7,11 @@
 <div class="rightcolumn">
 
 <div class="infobox">
-<p>First Aired: <%= @episode.firstaired_formatted %></p>
+<% if @episode.firstaired %>
+  <p>First Aired: <%= @episode.firstaired_formatted %></p>
+<% else %>
+  <p>First Aired: Unknown</p>
+<% end %>
 </div>
 
 <% if @user %>
