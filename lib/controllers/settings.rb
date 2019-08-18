@@ -16,7 +16,7 @@ class SettingsController < ShowdatesApp
     @user.lastname = params[:lastname]
     @user.sendemailnotice = 'no'
     @user.sendemailnotice = 'yes' if params[:sendemailnotice] == 'on'
-    @user.privacymode = params[:privacymode]
+    @user.privacymode = params[:privacymode] == 'public' ? 'public' : 'stealth'
     @user.timezone = params[:timezone]
     @user.providerurl = params[:providerurl]
 
