@@ -4,6 +4,8 @@ class EpisodeController < ShowdatesApp
   get '/:episode_id' do
     @episode = SDEpisode[params[:episode_id]]
 
+    halt 404 unless @episode
+
     @title = @episode.title + ' - ' + @episode.show.title
 
     erb :episode
