@@ -129,7 +129,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.6)
     ruby-progressbar (1.10.0)
     rubyzip (1.2.2)
-    sequel (5.19.0)
+    sequel (5.27.0)
     sidekiq (5.0.4)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
