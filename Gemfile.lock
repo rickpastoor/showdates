@@ -70,7 +70,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.8.6)
     jaro_winkler (1.5.2)
-    json (1.8.6)
+    json (2.3.0)
     koala (3.0.0)
       addressable
       faraday
