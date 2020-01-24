@@ -19,7 +19,7 @@ if ENV['RACK_ENV'] == 'development'
   Sidekiq::Testing.inline!
 end
 
-#Dir.glob('./lib/controllers/*.rb').each { |file| require file }
+Dir.glob('./lib/controllers/*.rb').each { |file| require file }
 
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
   [user, password] == [ENV['SIDEKICK_ADMIN'], ENV['SIDEKICK_PASSWORD']]
