@@ -27,18 +27,18 @@ end
 
 run Rack::URLMap.new(
   '/' => ShowdatesApp,
-  '/about' => AboutController,
-  '/account' => AccountController,
-  '/api' => ApiController,
-  '/couch' => CouchController,
-  '/login' => LoginController,
-  '/profile' => ProfileController,
-  '/show' => ShowController,
-  '/shows' => ShowsController,
-  '/episode' => EpisodeController,
-  '/settings' => SettingsController,
-  '/admin' => AdminController,
-  '/feed' => FeedController,
-  '/signup' => SignupController,
-  '/sidekiq' => Sidekiq::Web
+  # '/about' => AboutController,
+  # '/account' => AccountController,
+  # '/api' => ApiController,
+  # '/couch' => CouchController,
+  # '/login' => LoginController,
+  # '/profile' => ProfileController,
+  # '/show' => ShowController,
+  # '/shows' => ShowsController,
+  # '/episode' => EpisodeController,
+  # '/settings' => SettingsController,
+  # '/admin' => AdminController,
+  # '/feed' => FeedController,
+  # '/signup' => SignupController,
+  # '/sidekiq' => Sidekiq::Web
 )

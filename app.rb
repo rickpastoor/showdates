@@ -78,7 +78,9 @@ class ShowdatesApp < Sinatra::Base
   end
 
   not_found do
-    erb :notfound
+    redirect 'https://twitter.com/shwdts/status/1220818169977286656'
+
+    # erb :notfound
   end
 
   error 500 do
