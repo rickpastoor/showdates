@@ -5,11 +5,11 @@
 
 PATH=/usr/bin:/bin:/usr/local/bin
 
-0 * * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_search_index > /home/rick/update_search_index.log 2>&1'
-0 0 * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_data > /home/rick/update_data.log 2>&1'
-0 6 * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_data > /home/rick/update_data.log 2>&1'
-0 12 * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_data > /home/rick/update_data.log 2>&1'
-0 18 * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_data > /home/rick/update_data.log 2>&1'
+# 0 * * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_search_index > /home/rick/update_search_index.log 2>&1'
+# 0 0 * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_data > /home/rick/update_data.log 2>&1'
+# 0 6 * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_data > /home/rick/update_data.log 2>&1'
+# 0 12 * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_data > /home/rick/update_data.log 2>&1'
+# 0 18 * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/update_data > /home/rick/update_data.log 2>&1'
 
 # Hourly episode reminder email check
-0 * * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/episode_reminders > /home/rick/episode_reminders.log 2>&1'
+# 0 * * * * /bin/bash -l -c 'cd /var/www/showdates.me/current ; RACK_ENV=production bundle exec bin/episode_reminders > /home/rick/episode_reminders.log 2>&1'

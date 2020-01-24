@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 require 'bundler/setup'
@@ -86,6 +87,8 @@ class ShowdatesApp < Sinatra::Base
   end
 
   get '/' do
+    redirect 'https://twitter.com/shwdts/status/1220818169977286656'
+
     redirect '/couch' if is_user?
 
     @title = 'Welcome'

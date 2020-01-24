@@ -211,6 +211,3 @@ DEPENDENCIES
   thin
   twitter_oauth
   tzinfo
-
-BUNDLED WITH
-   1.16.3
