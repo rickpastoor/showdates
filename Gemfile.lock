@@ -111,7 +111,7 @@ GEM
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rainbow (3.0.0)
-    rake (12.3.2)
+    rake (12.3.3)
     redis (3.3.3)
     roadie (3.5.0)
       css_parser (~> 1.4)
